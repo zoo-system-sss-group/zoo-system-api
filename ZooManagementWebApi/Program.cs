@@ -2,6 +2,7 @@ using Application;
 using Application.Commons;
 using Application.Utils;
 using DataAccess;
+using DataAccess.DAOs;
 using System.Text.Json.Serialization;
 using ZooManagementWebApi;
 using ZooManagementWebApi.Middlewares;
@@ -10,8 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddJsonOptions(opt =>
+builder.Services.AddControllers(opt=> opt.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes=true).AddJsonOptions(opt =>
 {
+    var enumConverter = new JsonStringEnumConverter();
+    opt.JsonSerializerOptions.Converters.Add(enumConverter);
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 builder.Services.AddEndpointsApiExplorer();
@@ -22,7 +25,7 @@ builder.Services.AddDbContext<AppDBContext>();  // remember to remove/comment wh
 
 // Add global exception middleware
 builder.Services.AddSingleton<GlobalExceptionMiddleware>();
-
+builder.Services.AddSingleton<SpeciesDAO>();
 // Bind AppConfiguration from configuration
 var config = new AppConfiguration();
 builder.Configuration.Bind(config);

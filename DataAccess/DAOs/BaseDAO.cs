@@ -68,7 +68,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
         using (var context = new AppDBContext())
         {
             p.IsDeleted = true;
-            p.DeletionDate = DateTime.Now;            
+            p.DeletionDate = DateTime.Now;
             context.Entry(p).State = EntityState.Modified;
             await context.SaveChangesAsync();
         }
