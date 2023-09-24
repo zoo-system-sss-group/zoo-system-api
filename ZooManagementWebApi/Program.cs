@@ -5,6 +5,7 @@ using DataAccess;
 using DataAccess.DAOs;
 using System.Text.Json.Serialization;
 using ZooManagementWebApi;
+using ZooManagementWebApi.Mapper;
 using ZooManagementWebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,7 @@ builder.Services.AddSingleton<SpeciesDAO>();
 var config = new AppConfiguration();
 builder.Configuration.Bind(config);
 builder.Services.AddSingleton(config);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
 // Add jwt configuration
 builder.Services.AddJWTConfiguration(config.JwtConfiguration.SecretKey);
