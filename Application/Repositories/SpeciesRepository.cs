@@ -18,5 +18,19 @@ namespace Application.Repositories
             => await SpeciesDAO.GetByIdAsync(id);
         public async void AddSpeciesAsync(Species species)
             => await SpeciesDAO.SaveAsync(species);
+        public async void UpdateSpeciesAsync(Species species)
+        {
+            var result = await SpeciesDAO.GetByIdAsync(species.Id);
+            if (result == null)
+                throw new Exception("Can not found!");
+            await SpeciesDAO.UpdateAsync(result);
+        }
+        public async void SoftDeleteSpeciesAsync(int id)
+        {
+            var result = await SpeciesDAO.GetByIdAsync(id);
+            if (result == null)
+                throw new Exception("Can not found!");
+            await SpeciesDAO.SoftDeleteAsync(result);
+        }
     }
 }

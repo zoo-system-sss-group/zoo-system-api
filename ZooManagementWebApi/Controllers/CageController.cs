@@ -1,8 +1,5 @@
-﻿using Application.Commons;
-using Application.IRepositories;
-using Application.IServices;
+﻿using Application.IRepositories;
 using Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZooManagementWebApi.DTOs;
@@ -11,37 +8,37 @@ namespace ZooManagementWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpeciesController : ControllerBase
+    public class CageController : ControllerBase
     {
-        private readonly ISpeciesRepository _speciesRepo;
-        public SpeciesController(ISpeciesRepository speciesRepo)
+        private readonly ICageRepository _cageRepository;
+        public CageController(ICageRepository cageRepository)
         {
-            _speciesRepo = speciesRepo;
+            _cageRepository = cageRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetSpecies()
+        public async Task<IActionResult> GetCages()
         {
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _speciesRepo.GetSpeciesAsync()
+                Value = await _cageRepository.GetCagesAsync()
             };
             return Ok(response);
         }
         [HttpGet("id")]
-        public async Task<IActionResult> GetSpeciesById(int id)
+        public async Task<IActionResult> GetCageById(int id)
         {
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _speciesRepo.GetSpeciesByIdAsync(id)
+                Value = await _cageRepository.GetCageByIdAsync(id)
             };
             return Ok(response);
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddSpecies(Species species)
+        public async Task<IActionResult> AddCage(Cage cage)
         {
-            _speciesRepo.AddSpeciesAsync(species);
+            _cageRepository.AddCageAsync(cage);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -49,9 +46,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateSpecies(Species species)
+        public async Task<IActionResult> UpdateCage(Cage cage)
         {
-            _speciesRepo.UpdateSpeciesAsync(species);
+            _cageRepository.UpdateCageAsync(cage);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -59,9 +56,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpDelete]
-        public async Task<IActionResult> SoftDeleteSpecies(int id)
+        public async Task<IActionResult> SoftDeleteCage(int id)
         {
-            _speciesRepo.SoftDeleteSpeciesAsync(id);
+            _cageRepository.SoftDeleteCageAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,

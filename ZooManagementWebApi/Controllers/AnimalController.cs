@@ -1,8 +1,5 @@
-﻿using Application.Commons;
-using Application.IRepositories;
-using Application.IServices;
+﻿using Application.IRepositories;
 using Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZooManagementWebApi.DTOs;
@@ -11,37 +8,37 @@ namespace ZooManagementWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpeciesController : ControllerBase
+    public class AnimalController : ControllerBase
     {
-        private readonly ISpeciesRepository _speciesRepo;
-        public SpeciesController(ISpeciesRepository speciesRepo)
+        private readonly IAnimalRepository _animalRepository;
+        public AnimalController(IAnimalRepository animalRepository)
         {
-            _speciesRepo = speciesRepo;
+            _animalRepository = animalRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetSpecies()
+        public async Task<IActionResult> GetAnimals()
         {
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _speciesRepo.GetSpeciesAsync()
+                Value = await _animalRepository.GetAnimalsAsync()
             };
             return Ok(response);
         }
         [HttpGet("id")]
-        public async Task<IActionResult> GetSpeciesById(int id)
+        public async Task<IActionResult> GetAnimalsById(int id)
         {
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _speciesRepo.GetSpeciesByIdAsync(id)
+                Value = await _animalRepository.GetAnimalsByIdAsync(id)
             };
             return Ok(response);
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddSpecies(Species species)
+        public async Task<IActionResult> AddAnimals(AnimalInformation animal)
         {
-            _speciesRepo.AddSpeciesAsync(species);
+            _animalRepository.AddAnimalsAsync(animal);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -49,9 +46,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateSpecies(Species species)
+        public async Task<IActionResult> UpdateAnimal(AnimalInformation animalInformation)
         {
-            _speciesRepo.UpdateSpeciesAsync(species);
+            _animalRepository.UpdateAnimalAsync(animalInformation);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -59,9 +56,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpDelete]
-        public async Task<IActionResult> SoftDeleteSpecies(int id)
+        public async Task<IActionResult> SoftDeleteAnimals(int id)
         {
-            _speciesRepo.SoftDeleteSpeciesAsync(id);
+            _animalRepository.SoftDeleteAnimalsAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,

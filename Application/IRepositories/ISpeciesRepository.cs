@@ -12,5 +12,7 @@ namespace Application.IRepositories
         Task<List<Species>> GetSpeciesAsync();
         Task<Species?> GetSpeciesByIdAsync(int id);
         void AddSpeciesAsync(Species species);
+        void UpdateSpeciesAsync(Species species);
+        void SoftDeleteSpeciesAsync(int id);
     }
 }

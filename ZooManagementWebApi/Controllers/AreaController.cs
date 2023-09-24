@@ -1,8 +1,6 @@
-﻿using Application.Commons;
-using Application.IRepositories;
-using Application.IServices;
+﻿using Application.IRepositories;
+using Application.Repositories;
 using Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZooManagementWebApi.DTOs;
@@ -11,37 +9,37 @@ namespace ZooManagementWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpeciesController : ControllerBase
+    public class AreaController : ControllerBase
     {
-        private readonly ISpeciesRepository _speciesRepo;
-        public SpeciesController(ISpeciesRepository speciesRepo)
+        private readonly IAreaRepository _areaRepository;
+        public AreaController(IAreaRepository areaRepository)
         {
-            _speciesRepo = speciesRepo;
+            _areaRepository = areaRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetSpecies()
+        public async Task<IActionResult> GetAreas()
         {
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _speciesRepo.GetSpeciesAsync()
+                Value = await _areaRepository.GetAreasAsync()
             };
             return Ok(response);
         }
         [HttpGet("id")]
-        public async Task<IActionResult> GetSpeciesById(int id)
+        public async Task<IActionResult> GetAreaById(int id)
         {
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _speciesRepo.GetSpeciesByIdAsync(id)
+                Value = await _areaRepository.GetAreaByIdAsync(id)
             };
             return Ok(response);
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddSpecies(Species species)
+        public async Task<IActionResult> AddArea(Area area)
         {
-            _speciesRepo.AddSpeciesAsync(species);
+            _areaRepository.AddAreaAsync(area);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -49,9 +47,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateSpecies(Species species)
+        public async Task<IActionResult> UpdateArea(Area area)
         {
-            _speciesRepo.UpdateSpeciesAsync(species);
+            _areaRepository.UpdateAreaAsync(area);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -59,9 +57,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpDelete]
-        public async Task<IActionResult> SoftDeleteSpecies(int id)
+        public async Task<IActionResult> SoftDeleteArea(int id)
         {
-            _speciesRepo.SoftDeleteSpeciesAsync(id);
+            _areaRepository.SoftDeleteAreaAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,

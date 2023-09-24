@@ -10,6 +10,9 @@ public static class DependencyInjections
     {
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<ISpeciesRepository, SpeciesRepository>();
+        services.AddScoped<IAnimalRepository, AnimalRepsository>();
+        services.AddScoped<IAreaRepository, AreaRepository>();
+        services.AddScoped<ICageRepository, CageRepository>();
 
         return services;
     }
