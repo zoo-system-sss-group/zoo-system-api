@@ -28,7 +28,7 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetCageById(int id)
         {
             var response = new ApiResponse()
@@ -38,7 +38,7 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<IActionResult> AddCage(CageDto cageDto)
         {
             var cage = mapper.Map<Cage>(cageDto);
@@ -49,18 +49,18 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateCage(CageDto cageDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCage(int id, CageDto cageDto)
         {
             var cage = mapper.Map<Cage>(cageDto);
-            _cageRepository.UpdateCageAsync(cage);
+            _cageRepository.UpdateCageAsync(id, cage);
             var response = new ApiResponse()
             {
                 Success = true,
             };
             return Ok(response);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> SoftDeleteCage(int id)
         {
             _cageRepository.SoftDeleteCageAsync(id);

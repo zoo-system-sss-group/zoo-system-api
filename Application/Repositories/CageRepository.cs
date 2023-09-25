@@ -29,9 +29,9 @@ namespace Application.Repositories
         }
         public async void AddCageAsync(Cage cage)
             => await CageDAO.SaveAsync(cage);
-        public async void UpdateCageAsync(Cage cage)
+        public async void UpdateCageAsync(int id, Cage cage)
         {
-            var result = await CageDAO.GetByIdAsync(cage.Id);
+            var result = await CageDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await CageDAO.UpdateAsync(cage);

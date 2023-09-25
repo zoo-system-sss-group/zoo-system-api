@@ -1,6 +1,6 @@
 ﻿namespace ZooManagementWebApi.DTOs
 {
-    public class CageDto : BaseDto
+    public class CageDto
     {
         public string Code { get; set; } = default!;
         public string Location { get; set; } = default!;

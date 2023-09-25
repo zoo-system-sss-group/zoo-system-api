@@ -13,7 +13,7 @@ namespace Application.IRepositories
         Task<AnimalInformation?> GetAnimalByIdAsync(int id);
         Task<AnimalInformation?> GetAnimalDietByIdAsync(int id);
         void AddAnimalsAsync(AnimalInformation animal);
-        void UpdateAnimalAsync(AnimalInformation animal);
+        void UpdateAnimalAsync(int id, AnimalInformation animal);
         void SoftDeleteAnimalsAsync(int id);
     }
 }

@@ -23,9 +23,9 @@ namespace Application.Repositories
         }
         public async void AddAreaAsync(Area area)
             => await AreaDAO.SaveAsync(area);
-        public async void UpdateAreaAsync(Area area)
+        public async void UpdateAreaAsync(int id, Area area)
         {
-            var result = await AreaDAO.GetByIdAsync(area.Id);
+            var result = await AreaDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await AreaDAO.UpdateAsync(area);

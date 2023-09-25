@@ -12,7 +12,7 @@ namespace Application.IRepositories
         Task<List<Diet>> GetDietsAsync();
         Task<Diet?> GetDietByIdAsync(int id);
         void AddDietAsync(Diet diet);
-        void UpdateDietAsync(Diet diet);
+        void UpdateDietAsync(int id, Diet diet);
         void SoftDeleteDietAsync(int id);
     }
 }

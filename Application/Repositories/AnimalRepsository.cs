@@ -21,13 +21,14 @@ namespace Application.Repositories
             if (result == null)
                 throw new Exception("Can not found!");
             result.DietDetails = await DietDetailDAO.GetDietDetailByAnimalId(id);
+            result.DietDetails.FirstOrDefault().Diet = await DietDAO.GetByIdAsync(result.DietDetails.FirstOrDefault().DietId);
             return result;
         }
         public async void AddAnimalsAsync(AnimalInformation animal)
             => await AnimalDAO.SaveAsync(animal);
-        public async void UpdateAnimalAsync(AnimalInformation animal)
+        public async void UpdateAnimalAsync(int id, AnimalInformation animal)
         {
-            var result = await AnimalDAO.GetByIdAsync(animal.Id);
+            var result = await AnimalDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await AnimalDAO.UpdateAsync(animal);

@@ -18,9 +18,9 @@ namespace Application.Repositories
             => await SpeciesDAO.GetByIdAsync(id);
         public async void AddSpeciesAsync(Species species)
             => await SpeciesDAO.SaveAsync(species);
-        public async void UpdateSpeciesAsync(Species species)
+        public async void UpdateSpeciesAsync(int id, Species species)
         {
-            var result = await SpeciesDAO.GetByIdAsync(species.Id);
+            var result = await SpeciesDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await SpeciesDAO.UpdateAsync(species);

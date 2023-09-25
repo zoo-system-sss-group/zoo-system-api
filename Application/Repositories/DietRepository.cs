@@ -17,9 +17,9 @@ namespace Application.Repositories
             => await DietDAO.GetByIdAsync(id);
         public async void AddDietAsync(Diet diet)
             => await DietDAO.SaveAsync(diet);
-        public async void UpdateDietAsync(Diet diet)
+        public async void UpdateDietAsync(int id, Diet diet)
         {
-            var result = await DietDAO.GetByIdAsync(diet.Id);
+            var result = await DietDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await DietDAO.UpdateAsync(diet);

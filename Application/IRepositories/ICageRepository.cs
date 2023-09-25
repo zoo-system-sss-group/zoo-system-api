@@ -12,7 +12,7 @@ namespace Application.IRepositories
         Task<List<Cage>> GetCagesAsync();
         Task<Cage?> GetCageByIdAsync(int id);
         void AddCageAsync(Cage cage);
-        void UpdateCageAsync(Cage cage);
+        void UpdateCageAsync(int id, Cage cage);
         void SoftDeleteCageAsync(int id);
     }
 }
