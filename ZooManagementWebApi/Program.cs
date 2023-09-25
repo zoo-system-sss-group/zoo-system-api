@@ -3,6 +3,7 @@ using Application.Commons;
 using Application.Utils;
 using DataAccess;
 using Domain.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.Batch;
 using Microsoft.AspNetCore.OData.Routing;
@@ -10,6 +11,7 @@ using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using System.Text.Json.Serialization;
 using ZooManagementWebApi;
+using ZooManagementWebApi.DTOs.Mapper;
 using ZooManagementWebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,10 +20,15 @@ builder.Services.AddControllers(opt => opt.SuppressImplicitRequiredAttributeForN
 {
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
-builder.Services.AddControllers().AddOData(options => options.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100).AddRouteComponents("odata", GetEdmModel()));
+builder.Services.AddControllers().AddOData(options => options.Select()
+                                                             .Filter()
+                                                             .Count()
+                                                             .OrderBy()
+                                                             .Expand()
+                                                             .SetMaxTop(100)
+                                                             .AddRouteComponents("odata", GetEdmModel()));
 builder.Services.AddEndpointsApiExplorer();
-
-
+builder.Services.AddAutoMapper(typeof(NewMapperProfile).Assembly);
 
 builder.Services.AddSwaggerGenConfiguration();
 

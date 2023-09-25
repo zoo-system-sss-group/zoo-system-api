@@ -39,6 +39,11 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
     {
         using (var context = new AppDBContext())
         {
+            DateTime now = DateTime.Now;
+            ls.ForEach(x =>
+            {
+                x.CreationDate = now;
+            });
             await context.Set<TEntity>().AddRangeAsync(ls);
             await context.SaveChangesAsync();
         }

@@ -37,4 +37,6 @@ public class ClaimService : IClaimService
                             string.Empty : userNameClaim;
         }
     }
+
+    public DateTime? GetCurrentTime => DateTime.Now;
 }

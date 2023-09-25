@@ -2,6 +2,7 @@
 using Application.IRepositories;
 using Application.IServices;
 using Application.Repositories;
+using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -16,10 +17,12 @@ public class NewController : ControllerBase
 {
     private readonly INewRepository _newRepo;
     private readonly IClaimService _claimService;
-    public NewController(INewRepository newRepo, IClaimService claimService)
+    private readonly IMapper _mapper;
+    public NewController(INewRepository newRepo, IClaimService claimService, IMapper mapper)
     {
         this._newRepo = newRepo;
         _claimService = claimService;
+        _mapper = mapper;
     }
     [EnableQuery(PageSize = 1)]
     [HttpGet()]
@@ -38,18 +41,26 @@ public class NewController : ControllerBase
 
     [HttpPost]
     [EnableQuery]
-    public async Task<IActionResult> Add(News news)
+    public async Task<IActionResult> Add(NewsDTO news)
     {
-        await _newRepo.AddNews(news);
+        var @new = _mapper.Map<News>(news);
+        @new.CreatedBy = _claimService.GetCurrentUserId;
+        @new.CreationDate = _claimService.GetCurrentTime;
+        await _newRepo.AddNews(@new);
         return Ok(news);
     }
     [EnableQuery]
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, News news)
+    public async Task<IActionResult> Update(int id, NewsDTO news)
     {
-        if (await TryFind(id)) return NotFound();
-        await _newRepo.AddNews(news);
-        return Ok(news);
+        var @new =await _newRepo.GetNews(id);
+        if (@new == null) return NotFound();
+      
+        @new = _mapper.Map(@news,@new);
+        @new.ModifiedBy = _claimService.GetCurrentUserId;
+        @new.ModificationDate = _claimService.GetCurrentTime;
+        await _newRepo.UpdateNews(@new);
+        return Ok(@new);
     }
 
    
@@ -61,9 +72,5 @@ public class NewController : ControllerBase
         var news = _newRepo.GetNews(id);
         if (news == null) return NotFound();
         return Ok(news);
-    }
-    private async Task<bool> TryFind(int id)
-    {
-        return await _newRepo.GetNews(id) == null;
     }
 }
