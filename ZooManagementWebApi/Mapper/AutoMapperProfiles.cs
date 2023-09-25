@@ -12,6 +12,7 @@ namespace ZooManagementWebApi.Mapper
             CreateMap<AreaDto, Area>().ReverseMap();
             CreateMap<CageDto, Cage>().ReverseMap();
             CreateMap<DietDto, Diet>().ReverseMap();
+            CreateMap<NewsDTO, News>().ReverseMap();
         }
     }
 }

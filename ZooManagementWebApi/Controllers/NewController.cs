@@ -4,8 +4,10 @@ using Application.IServices;
 using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using ZooManagementWebApi.DTOs;
 
@@ -13,18 +15,18 @@ namespace ZooManagementWebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class NewController : ControllerBase
+public class NewController : ODataController
 {
     private readonly INewRepository _newRepo;
     private readonly IClaimService _claimService;
     private readonly IMapper _mapper;
     public NewController(INewRepository newRepo, IClaimService claimService, IMapper mapper)
     {
-        this._newRepo = newRepo;
+        _newRepo = newRepo;
         _claimService = claimService;
         _mapper = mapper;
     }
-    [EnableQuery(PageSize = 1)]
+    [EnableQuery(PageSize =10)]
     [HttpGet()]
     public async Task<IActionResult> Get()
     {
@@ -40,6 +42,7 @@ public class NewController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles ="Staff")]
     [EnableQuery]
     public async Task<IActionResult> Add(NewsDTO news)
     {
@@ -47,10 +50,11 @@ public class NewController : ControllerBase
         @new.CreatedBy = _claimService.GetCurrentUserId;
         @new.CreationDate = _claimService.GetCurrentTime;
         await _newRepo.AddNews(@new);
-        return Ok(news);
+        return CreatedAtAction("Get",@new);
     }
     [EnableQuery]
     [HttpPut("{id}")]
+    [Authorize(Roles = "Staff")]
     public async Task<IActionResult> Update(int id, NewsDTO news)
     {
         var @new =await _newRepo.GetNews(id);
@@ -67,6 +71,7 @@ public class NewController : ControllerBase
 
     [EnableQuery]
     [HttpDelete("{id}")]
+    [Authorize(Roles ="Staff")]
     public async Task<IActionResult> Remove(int id )
     {
         var news = _newRepo.GetNews(id);
