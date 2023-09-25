@@ -23,7 +23,7 @@ namespace Application.Repositories
             var result = await SpeciesDAO.GetByIdAsync(species.Id);
             if (result == null)
                 throw new Exception("Can not found!");
-            await SpeciesDAO.UpdateAsync(result);
+            await SpeciesDAO.UpdateAsync(species);
         }
         public async void SoftDeleteSpeciesAsync(int id)
         {

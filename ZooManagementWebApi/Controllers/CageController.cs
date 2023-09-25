@@ -1,4 +1,5 @@
 ﻿using Application.IRepositories;
+using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,11 @@ namespace ZooManagementWebApi.Controllers
     public class CageController : ControllerBase
     {
         private readonly ICageRepository _cageRepository;
-        public CageController(ICageRepository cageRepository)
+        private readonly IMapper mapper;
+        public CageController(ICageRepository cageRepository, IMapper mapper)
         {
             _cageRepository = cageRepository;
+            this.mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetCages()
@@ -36,8 +39,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddCage(Cage cage)
+        public async Task<IActionResult> AddCage(CageDto cageDto)
         {
+            var cage = mapper.Map<Cage>(cageDto);
             _cageRepository.AddCageAsync(cage);
             var response = new ApiResponse()
             {
@@ -46,8 +50,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateCage(Cage cage)
+        public async Task<IActionResult> UpdateCage(CageDto cageDto)
         {
+            var cage = mapper.Map<Cage>(cageDto);
             _cageRepository.UpdateCageAsync(cage);
             var response = new ApiResponse()
             {

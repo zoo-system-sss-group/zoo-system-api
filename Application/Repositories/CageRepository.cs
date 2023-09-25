@@ -1,6 +1,8 @@
 ﻿using Application.IRepositories;
+using Azure;
 using DataAccess.DAOs;
 using Domain.Entities;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,17 @@ namespace Application.Repositories
         public async Task<List<Cage>> GetCagesAsync()
             => await CageDAO.GetAllAsync();
         public async Task<Cage?> GetCageByIdAsync(int id)
-            => await CageDAO.GetByIdAsync(id);
+        {
+            var result = await CageDAO.GetByIdAsync(id);
+            if (result == null)
+                throw new Exception("Can not found!");
+            result.CageHistories = await CageHistoriesDAO.GetListAnimalByCageId(id);
+            foreach(CageHistory ch in result.CageHistories)
+            {
+                ch.Animal = await AnimalDAO.GetByIdAsync(ch.AnimalId);
+            }
+            return result;
+        }
         public async void AddCageAsync(Cage cage)
             => await CageDAO.SaveAsync(cage);
         public async void UpdateCageAsync(Cage cage)
@@ -22,7 +34,7 @@ namespace Application.Repositories
             var result = await CageDAO.GetByIdAsync(cage.Id);
             if (result == null)
                 throw new Exception("Can not found!");
-            await CageDAO.UpdateAsync(result);
+            await CageDAO.UpdateAsync(cage);
         }
         public async void SoftDeleteCageAsync(int id)
         {

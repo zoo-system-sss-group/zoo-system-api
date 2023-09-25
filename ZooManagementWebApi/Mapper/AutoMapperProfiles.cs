@@ -7,7 +7,11 @@ namespace ZooManagementWebApi.Mapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<AnimalInformation, AnimalInformation>().ReverseMap();
+            CreateMap<AnimalInformationDto, AnimalInformation>().ReverseMap();
+            CreateMap<SpeciesDto, Species>().ReverseMap();
+            CreateMap<AreaDto, Area>().ReverseMap();
+            CreateMap<CageDto, Cage>().ReverseMap();
+            CreateMap<DietDto, Diet>().ReverseMap();
         }
     }
 }

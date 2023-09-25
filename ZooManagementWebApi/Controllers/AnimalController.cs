@@ -1,8 +1,10 @@
 ﻿using Application.IRepositories;
+using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZooManagementWebApi.DTOs;
+using ZooManagementWebApi.Mapper;
 
 namespace ZooManagementWebApi.Controllers
 {
@@ -11,9 +13,11 @@ namespace ZooManagementWebApi.Controllers
     public class AnimalController : ControllerBase
     {
         private readonly IAnimalRepository _animalRepository;
-        public AnimalController(IAnimalRepository animalRepository)
+        private readonly IMapper mapper;
+        public AnimalController(IAnimalRepository animalRepository, IMapper mapper)
         {
             _animalRepository = animalRepository;
+            this.mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetAnimals()
@@ -31,13 +35,24 @@ namespace ZooManagementWebApi.Controllers
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _animalRepository.GetAnimalsByIdAsync(id)
+                Value = await _animalRepository.GetAnimalByIdAsync(id)
+            };
+            return Ok(response);
+        }
+        [HttpGet("diet")]
+        public async Task<IActionResult> GetAnimalDietById(int id)
+        {
+            var response = new ApiResponse()
+            {
+                Success = true,
+                Value = await _animalRepository.GetAnimalDietByIdAsync(id)
             };
             return Ok(response);
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddAnimals(AnimalInformation animal)
+        public async Task<IActionResult> AddAnimals(AnimalInformationDto animalDto)
         {
+            var animal = mapper.Map<AnimalInformation>(animalDto);
             _animalRepository.AddAnimalsAsync(animal);
             var response = new ApiResponse()
             {
@@ -46,8 +61,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateAnimal(AnimalInformation animalInformation)
+        public async Task<IActionResult> UpdateAnimal(AnimalInformationDto animalDto)
         {
+            var animalInformation = mapper.Map<AnimalInformation>(animalDto);
             _animalRepository.UpdateAnimalAsync(animalInformation);
             var response = new ApiResponse()
             {

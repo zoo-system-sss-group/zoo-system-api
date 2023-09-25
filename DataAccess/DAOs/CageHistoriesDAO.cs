@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DAOs
 {
-    public class CageDAO : BaseDAO<Cage>
+    public class CageHistoriesDAO
     {
-        public static async Task<List<Cage>?> GetCageByAreaId(int id)
+        public static async Task<List<CageHistory>> GetListAnimalByCageId(int id)
         {
-            List<Cage>? cages;
+            List<CageHistory>? cageHistoties;
             using (var context = new AppDBContext())
             {
-                cages = await context.Cages.Where(c => c.AreaId == id).ToListAsync();
+                cageHistoties = await context.CageHistories.Where(ch => ch.CageId == id && ch.EndDate == null).ToListAsync();
             }
-            return cages;
+            return cageHistoties;
         }
     }
 }

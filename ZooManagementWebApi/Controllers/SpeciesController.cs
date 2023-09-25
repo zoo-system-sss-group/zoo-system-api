@@ -1,6 +1,7 @@
 ﻿using Application.Commons;
 using Application.IRepositories;
 using Application.IServices;
+using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,9 +15,11 @@ namespace ZooManagementWebApi.Controllers
     public class SpeciesController : ControllerBase
     {
         private readonly ISpeciesRepository _speciesRepo;
-        public SpeciesController(ISpeciesRepository speciesRepo)
+        private readonly IMapper mapper;
+        public SpeciesController(ISpeciesRepository speciesRepo, IMapper mapper)
         {
             _speciesRepo = speciesRepo;
+            this.mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetSpecies()
@@ -39,8 +42,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPost("add")]
-        public async Task<IActionResult> AddSpecies(Species species)
+        public async Task<IActionResult> AddSpecies(SpeciesDto speciesDto)
         {
+            var species = mapper.Map<Species>(speciesDto);
             _speciesRepo.AddSpeciesAsync(species);
             var response = new ApiResponse()
             {
@@ -49,8 +53,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateSpecies(Species species)
+        public async Task<IActionResult> UpdateSpecies(SpeciesDto speciesDto)
         {
+            var species = mapper.Map<Species>(speciesDto);
             _speciesRepo.UpdateSpeciesAsync(species);
             var response = new ApiResponse()
             {

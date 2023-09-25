@@ -26,7 +26,6 @@ builder.Services.AddDbContext<AppDBContext>();  // remember to remove/comment wh
 
 // Add global exception middleware
 builder.Services.AddSingleton<GlobalExceptionMiddleware>();
-builder.Services.AddSingleton<SpeciesDAO>();
 // Bind AppConfiguration from configuration
 var config = new AppConfiguration();
 builder.Configuration.Bind(config);

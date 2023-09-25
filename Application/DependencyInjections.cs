@@ -13,6 +13,7 @@ public static class DependencyInjections
         services.AddScoped<IAnimalRepository, AnimalRepsository>();
         services.AddScoped<IAreaRepository, AreaRepository>();
         services.AddScoped<ICageRepository, CageRepository>();
+        services.AddScoped<IDietRepository, DietRepository>();
 
         return services;
     }
