@@ -43,7 +43,7 @@ namespace ZooManagementWebApi.Controllers
         public async Task<IActionResult> AddArea(AreaDto areaDto)
         {
             var area = mapper.Map<Area>(areaDto);
-            _areaRepository.AddAreaAsync(area);
+            await _areaRepository.AddAreaAsync(area);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -54,7 +54,7 @@ namespace ZooManagementWebApi.Controllers
         public async Task<IActionResult> UpdateArea(int id, AreaDto areaDto)
         {
             var area = mapper.Map<Area>(areaDto);
-            _areaRepository.UpdateAreaAsync(id, area);
+            await _areaRepository.UpdateAreaAsync(id, area);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -64,7 +64,7 @@ namespace ZooManagementWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> SoftDeleteArea(int id)
         {
-            _areaRepository.SoftDeleteAreaAsync(id);
+            await _areaRepository.SoftDeleteAreaAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,

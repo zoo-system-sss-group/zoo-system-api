@@ -21,16 +21,16 @@ namespace Application.Repositories
             area.Cages = await CageDAO.GetCageByAreaId(id);
             return area;
         }
-        public async void AddAreaAsync(Area area)
+        public async Task AddAreaAsync(Area area)
             => await AreaDAO.SaveAsync(area);
-        public async void UpdateAreaAsync(int id, Area area)
+        public async Task UpdateAreaAsync(int id, Area area)
         {
             var result = await AreaDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await AreaDAO.UpdateAsync(area);
         }
-        public async void SoftDeleteAreaAsync(int id)
+        public async Task SoftDeleteAreaAsync(int id)
         {
             var result = await AreaDAO.GetByIdAsync(id);
             if (result == null)

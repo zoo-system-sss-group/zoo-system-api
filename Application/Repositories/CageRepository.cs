@@ -27,16 +27,17 @@ namespace Application.Repositories
             }
             return result;
         }
-        public async void AddCageAsync(Cage cage)
+
+        public async Task AddCageAsync(Cage cage)
             => await CageDAO.SaveAsync(cage);
-        public async void UpdateCageAsync(int id, Cage cage)
+        public async Task UpdateCageAsync(int id, Cage cage)
         {
             var result = await CageDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await CageDAO.UpdateAsync(cage);
         }
-        public async void SoftDeleteCageAsync(int id)
+        public async Task SoftDeleteCageAsync(int id)
         {
             var result = await CageDAO.GetByIdAsync(id);
             if (result == null)

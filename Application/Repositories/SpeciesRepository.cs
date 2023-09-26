@@ -16,16 +16,16 @@ namespace Application.Repositories
             => await SpeciesDAO.GetAllAsync();
         public async Task<Species?> GetSpeciesByIdAsync(int id)
             => await SpeciesDAO.GetByIdAsync(id);
-        public async void AddSpeciesAsync(Species species)
+        public async Task AddSpeciesAsync(Species species)
             => await SpeciesDAO.SaveAsync(species);
-        public async void UpdateSpeciesAsync(int id, Species species)
+        public async Task UpdateSpeciesAsync(int id, Species species)
         {
             var result = await SpeciesDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await SpeciesDAO.UpdateAsync(species);
         }
-        public async void SoftDeleteSpeciesAsync(int id)
+        public async Task SoftDeleteSpeciesAsync(int id)
         {
             var result = await SpeciesDAO.GetByIdAsync(id);
             if (result == null)

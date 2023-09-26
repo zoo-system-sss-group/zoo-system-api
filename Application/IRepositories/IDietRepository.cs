@@ -11,8 +11,9 @@ namespace Application.IRepositories
     {
         Task<List<Diet>> GetDietsAsync();
         Task<Diet?> GetDietByIdAsync(int id);
-        void AddDietAsync(Diet diet);
-        void UpdateDietAsync(int id, Diet diet);
-        void SoftDeleteDietAsync(int id);
+        Task<Diet?> GetCurrentDietByAnimalIdAsync(int id);
+        Task AddDietAsync(Diet diet);
+        Task UpdateDietAsync(int id, Diet diet);
+        Task SoftDeleteDietAsync(int id);
     }
 }
