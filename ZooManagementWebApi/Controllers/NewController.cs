@@ -64,7 +64,7 @@ public class NewController : ODataController
         {
             Success = true,
         };
-        return CreatedAtAction("Get", new { id = @new.Id, response);
+        return CreatedAtAction("Get", new { id = @new.Id, response });
     }
     [EnableQuery]
     [HttpPut("{id}")]
