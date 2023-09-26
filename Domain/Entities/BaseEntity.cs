@@ -7,7 +7,7 @@ public class BaseEntity
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-    [JsonPropertyOrder(999)]
+    [JsonPropertyOrder(-999)]
     public int Id { get; set; }
     [JsonPropertyOrder(999)]
     public DateTime? CreationDate { get; set; } = DateTime.Now;
