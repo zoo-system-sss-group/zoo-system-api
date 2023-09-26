@@ -53,7 +53,7 @@ namespace ZooManagementWebApi.Controllers
         public async Task<IActionResult> UpdateCage(CageDto cageDto)
         {
             var cage = mapper.Map<Cage>(cageDto);
-            _cageRepository.UpdateCageAsync(cage);
+             _cageRepository.UpdateCageAsync(cage);
             var response = new ApiResponse()
             {
                 Success = true,

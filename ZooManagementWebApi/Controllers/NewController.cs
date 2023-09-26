@@ -1,7 +1,6 @@
 ﻿using Application.Commons;
 using Application.IRepositories;
 using Application.IServices;
-using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -44,7 +43,7 @@ public class NewController : ODataController
     [HttpPost]
     [Authorize(Roles ="Staff")]
     [EnableQuery]
-    public async Task<IActionResult> Add(NewsDTO news)
+    public async Task<IActionResult> Add(TicketDTO news)
     {
         var @new = _mapper.Map<News>(news);
         @new.CreatedBy = _claimService.GetCurrentUserId;
@@ -55,7 +54,7 @@ public class NewController : ODataController
     [EnableQuery]
     [HttpPut("{id}")]
     [Authorize(Roles = "Staff")]
-    public async Task<IActionResult> Update(int id, NewsDTO news)
+    public async Task<IActionResult> Update(int id, TicketDTO news)
     {
         var @new =await _newRepo.GetNews(id);
         if (@new == null) return NotFound();

@@ -2,7 +2,7 @@
 
 namespace ZooManagementWebApi.DTOs
 {
-    public class NewsDTO
+    public class TicketDTO
     {
         [StringLength(30)]
         public string Title { get; set; } = default!;
