@@ -42,7 +42,7 @@ namespace ZooManagementWebApi.Controllers
         public async Task<IActionResult> AddCage(CageDto cageDto)
         {
             var cage = mapper.Map<Cage>(cageDto);
-            _cageRepository.AddCageAsync(cage);
+            await _cageRepository.AddCageAsync(cage);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -53,7 +53,7 @@ namespace ZooManagementWebApi.Controllers
         public async Task<IActionResult> UpdateCage(CageDto cageDto)
         {
             var cage = mapper.Map<Cage>(cageDto);
-             _cageRepository.UpdateCageAsync(cage);
+            await _cageRepository.UpdateCageAsync(cage);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -63,7 +63,7 @@ namespace ZooManagementWebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> SoftDeleteCage(int id)
         {
-            _cageRepository.SoftDeleteCageAsync(id);
+            await _cageRepository.SoftDeleteCageAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,
