@@ -1,4 +1,4 @@
-﻿using Application.IServices;
+﻿        using Application.IServices;
 using System.Security.Claims;
 
 namespace ZooManagementWebApi;
@@ -37,4 +37,6 @@ public class ClaimService : IClaimService
                             string.Empty : userNameClaim;
         }
     }
+
+    public DateTime? GetCurrentTime => DateTime.Now;
 }

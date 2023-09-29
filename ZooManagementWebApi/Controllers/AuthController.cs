@@ -2,6 +2,7 @@
 using Application.IRepositories;
 using Application.IServices;
 using Application.Utils;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZooManagementWebApi.DTOs;
@@ -73,5 +74,26 @@ public class AuthController : ControllerBase
         };
         return Ok(response);
     }
+    [HttpGet("exist")]
+    [Authorize]
+    public async Task<IActionResult> IsUsernameExist(string username)
+    {
+        var user = await _accountRepo.GetAccountByUsernameAsync(username);
+        if (user == null) return NotFound($"user :{username.Trim()} not found!");
+        var response = new ApiResponse()
+        {
+            Success = true,
+            Value = $"User {user.Username} Exist"
+        };
+        return Ok(response);
+    }
+    [HttpGet("forgotpassword")]
+    [Authorize]
+    public async Task<IActionResult> Forgotpassword(string username,string phone)
+    {
+        var user = await _accountRepo.GetAccountByUsernameAsync(username);
+        if (user == null) return NotFound($"user :{username.Trim()} not found!");
 
+        return Ok();
+    }
 }

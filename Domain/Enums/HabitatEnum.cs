@@ -2,6 +2,8 @@
 
 public enum HabitatEnum
 {
-    // write some values
-    //...
+    AFRICAN,
+    ASIAN,
+    OCEANS,
+    EUROPE
 }

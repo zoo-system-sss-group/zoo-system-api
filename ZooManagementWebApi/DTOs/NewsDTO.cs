@@ -2,12 +2,11 @@
 
 namespace ZooManagementWebApi.DTOs
 {
-    public class NewsDTO
+    public class TicketDTO
     {
         [StringLength(30)]
         public string Title { get; set; } = default!;
-        public byte[]? Thumbnail { get; set; }
+        public byte[]? Thumbnail { get; set; } 
         public string Content { get; set; } = default!;
-        public int CreatedAccountId { get; set; } = default!;
     }
 }
