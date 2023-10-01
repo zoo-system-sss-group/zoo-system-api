@@ -48,7 +48,6 @@ public class AppDBContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        base.OnModelCreating(modelBuilder);
     }
 
 }

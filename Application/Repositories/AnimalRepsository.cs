@@ -20,6 +20,7 @@ namespace Application.Repositories
             var result = await AnimalDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
+            result.DietDetails = await DietDetailDAO.GetDietDetailByAnimalId(id);
             return result;
         }
         public async Task AddAnimalsAsync(AnimalInformation animal)

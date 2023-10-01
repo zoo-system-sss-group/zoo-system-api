@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{747D0B40-3798-40DB-BBB0-FC6611F906CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooManagementWebApi", "ZooManagementWebApi\ZooManagementWebApi.csproj", "{75435378-5682-42D9-9093-2B380502CD0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZooManagementWebApi", "ZooManagementWebApi\ZooManagementWebApi.csproj", "{75435378-5682-42D9-9093-2B380502CD0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

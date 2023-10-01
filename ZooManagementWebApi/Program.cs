@@ -2,6 +2,11 @@ using Application;
 using Application.Commons;
 using Application.Utils;
 using DataAccess;
+using Domain.Entities;
+using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 using DataAccess.DAOs;
 using System.Text.Json.Serialization;
 using ZooManagementWebApi;
@@ -9,16 +14,23 @@ using ZooManagementWebApi.Mapper;
 using ZooManagementWebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
-builder.Services.AddControllers(opt=> opt.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes=true).AddJsonOptions(opt =>
+builder.Services.AddControllers(opt => opt.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddJsonOptions(opt =>
 {
     var enumConverter = new JsonStringEnumConverter();
     opt.JsonSerializerOptions.Converters.Add(enumConverter);
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers().AddOData(options => options.Select()
+                                                             .Filter()
+                                                             .Count()
+                                                             .OrderBy()
+                                                             .Expand()
+                                                             .SetMaxTop(100)
+                                                             .AddRouteComponents("odata",GetEdmModel()));
+builder.Services.AddEndpointsApiExplorer().AddRouting(op => op.LowercaseQueryStrings = true); ;
+
 builder.Services.AddSwaggerGenConfiguration();
 
 // Add DB Context for seeding Database
@@ -66,6 +78,8 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
+// Use Odata
+app.UseODataBatching();
 // Use routing
 app.UseRouting();
 
@@ -73,6 +87,24 @@ app.UseRouting();
 SeedDatabase();
 
 app.UseCors();
+// test middleware ( i will add middleware later)
+//app.Use(next => context =>
+//{
+//    var endpoint = context.GetEndpoint();
+//    if (endpoint == null)
+//    {
+//        return next(context);
+//    }
+
+//    IEnumerable<string> temps;
+//    IODataRoutingMetadata? metadata = endpoint.Metadata.GetMetadata<IODataRoutingMetadata>();
+
+//    if(metadata != null)
+//    {
+//        temps = metadata.Template.GetTemplates();
+//    }
+//    return next(context);
+//});
 
 app.UseAuthorization();
 
@@ -97,4 +129,10 @@ void SeedDatabase()
             app.Logger.LogError(ex, "An error occurred when seeding the DB.");
         }
     }
+}
+IEdmModel GetEdmModel()
+{
+    var builder = new ODataConventionModelBuilder();
+    builder.EntitySet<News>("News");
+    return builder.GetEdmModel();
 }
