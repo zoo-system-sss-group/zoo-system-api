@@ -20,19 +20,18 @@ namespace Application.Repositories
             var result = await AnimalDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
-            result.DietDetails = await DietDetailDAO.GetDietDetailByAnimalId(id);
             return result;
         }
-        public async void AddAnimalsAsync(AnimalInformation animal)
+        public async Task AddAnimalsAsync(AnimalInformation animal)
             => await AnimalDAO.SaveAsync(animal);
-        public async void UpdateAnimalAsync(AnimalInformation animal)
+        public async Task UpdateAnimalAsync(int id, AnimalInformation animal)
         {
-            var result = await AnimalDAO.GetByIdAsync(animal.Id);
+            var result = await AnimalDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await AnimalDAO.UpdateAsync(animal);
         }
-        public async void SoftDeleteAnimalsAsync(int id)
+        public async Task SoftDeleteAnimalsAsync(int id)
         {
             var result = await AnimalDAO.GetByIdAsync(id);
             if (result == null)

@@ -2,7 +2,7 @@
 
 namespace ZooManagementWebApi.DTOs
 {
-    public class SpeciesDto : BaseDto
+    public class SpeciesDto
     {
         public string Name { get; set; } = default!;
         public string ScientificName { get; set; } = default!;

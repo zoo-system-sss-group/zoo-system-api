@@ -21,17 +21,18 @@ namespace Application.Repositories
             if (result == null)
                 throw new Exception("Can not found!");
             result.CageHistories = await CageHistoriesDAO.GetListAnimalByCageId(id);
-            foreach (CageHistory ch in result.CageHistories)
+            foreach(CageHistory ch in result.CageHistories)
             {
                 ch.Animal = await AnimalDAO.GetByIdAsync(ch.AnimalId);
             }
             return result;
         }
+
         public async Task AddCageAsync(Cage cage)
             => await CageDAO.SaveAsync(cage);
-        public async Task UpdateCageAsync(Cage cage)
+        public async Task UpdateCageAsync(int id, Cage cage)
         {
-            var result = await CageDAO.GetByIdAsync(cage.Id);
+            var result = await CageDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await CageDAO.UpdateAsync(cage);

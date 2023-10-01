@@ -19,7 +19,7 @@ namespace ZooManagementWebApi.Controllers
             _animalRepository = animalRepository;
             this.mapper = mapper;
         }
-        [HttpGet]
+        [HttpGet()]
         public async Task<IActionResult> GetAnimals()
         {
             var response = new ApiResponse()
@@ -29,7 +29,7 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetAnimalsById(int id)
         {
             var response = new ApiResponse()
@@ -49,32 +49,32 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<IActionResult> AddAnimals(AnimalInformationDto animalDto)
         {
             var animal = mapper.Map<AnimalInformation>(animalDto);
-            _animalRepository.AddAnimalsAsync(animal);
+            await _animalRepository.AddAnimalsAsync(animal);
             var response = new ApiResponse()
             {
                 Success = true,
             };
             return Ok(response);
         }
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateAnimal(AnimalInformationDto animalDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAnimal(int id, AnimalInformationDto animalDto)
         {
             var animalInformation = mapper.Map<AnimalInformation>(animalDto);
-            _animalRepository.UpdateAnimalAsync(animalInformation);
+            await _animalRepository.UpdateAnimalAsync(id, animalInformation);
             var response = new ApiResponse()
             {
                 Success = true,
             };
             return Ok(response);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> SoftDeleteAnimals(int id)
         {
-            _animalRepository.SoftDeleteAnimalsAsync(id);
+            await _animalRepository.SoftDeleteAnimalsAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,

@@ -15,16 +15,22 @@ namespace Application.Repositories
             => await DietDAO.GetAllAsync();
         public async Task<Diet?> GetDietByIdAsync(int id)
             => await DietDAO.GetByIdAsync(id);
-        public async void AddDietAsync(Diet diet)
+        public async Task AddDietAsync(Diet diet)
             => await DietDAO.SaveAsync(diet);
-        public async void UpdateDietAsync(Diet diet)
+        public async Task<Diet?> GetCurrentDietByAnimalIdAsync(int id)
         {
-            var result = await DietDAO.GetByIdAsync(diet.Id);
+            var dietDetail = await DietDetailDAO.GetDietDetailByAnimalId(id);
+            return await DietDAO.GetByIdAsync(dietDetail.DietId);
+        } 
+        
+        public async Task UpdateDietAsync(int id, Diet diet)
+        {
+            var result = await DietDAO.GetByIdAsync(id);
             if (result == null)
                 throw new Exception("Can not found!");
             await DietDAO.UpdateAsync(diet);
         }
-        public async void SoftDeleteDietAsync(int id)
+        public async Task SoftDeleteDietAsync(int id)
         {
             var result = await DietDAO.GetByIdAsync(id);
             if (result == null)

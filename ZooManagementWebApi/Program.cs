@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
+using DataAccess.DAOs;
 using System.Text.Json.Serialization;
 using ZooManagementWebApi;
 using ZooManagementWebApi.Mapper;

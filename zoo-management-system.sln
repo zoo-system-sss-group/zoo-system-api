@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{747D0B40-3798-40DB-BBB0-FC6611F906CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZooManagementWebApi", "ZooManagementWebApi\ZooManagementWebApi.csproj", "{75435378-5682-42D9-9093-2B380502CD0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZooManagementWebApi", "ZooManagementWebApi\ZooManagementWebApi.csproj", "{EFA9F3D1-298D-429D-B35D-48687983E0CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{747D0B40-3798-40DB-BBB0-FC6611F906CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{747D0B40-3798-40DB-BBB0-FC6611F906CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{747D0B40-3798-40DB-BBB0-FC6611F906CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75435378-5682-42D9-9093-2B380502CD0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75435378-5682-42D9-9093-2B380502CD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75435378-5682-42D9-9093-2B380502CD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75435378-5682-42D9-9093-2B380502CD0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFA9F3D1-298D-429D-B35D-48687983E0CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFA9F3D1-298D-429D-B35D-48687983E0CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA9F3D1-298D-429D-B35D-48687983E0CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFA9F3D1-298D-429D-B35D-48687983E0CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

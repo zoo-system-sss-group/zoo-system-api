@@ -28,7 +28,7 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetDietById(int id)
         {
             var response = new ApiResponse()
@@ -38,32 +38,32 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<IActionResult> AddDiet(DietDto dietDto)
         {
             var diet = mapper.Map<Diet>(dietDto);
-            _dietRepository.AddDietAsync(diet);
+            await _dietRepository.AddDietAsync(diet);
             var response = new ApiResponse()
             {
                 Success = true,
             };
             return Ok(response);
         }
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateDiet(DietDto dietDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDiet(int id, DietDto dietDto)
         {
             var diet = mapper.Map<Diet>(dietDto);
-            _dietRepository.UpdateDietAsync(diet);
+            await _dietRepository.UpdateDietAsync(id, diet);
             var response = new ApiResponse()
             {
                 Success = true,
             };
             return Ok(response);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> SoftDeleteDiet(int id)
         {
-            _dietRepository.SoftDeleteDietAsync(id);
+            await _dietRepository.SoftDeleteDietAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,

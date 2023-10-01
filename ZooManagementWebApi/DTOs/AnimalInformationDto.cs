@@ -1,6 +1,6 @@
 ﻿namespace ZooManagementWebApi.DTOs
 {
-    public class AnimalInformationDto : BaseDto
+    public class AnimalInformationDto
     {
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;

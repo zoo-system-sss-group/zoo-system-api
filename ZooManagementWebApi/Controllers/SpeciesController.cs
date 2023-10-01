@@ -31,7 +31,7 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetSpeciesById(int id)
         {
             var response = new ApiResponse()
@@ -41,32 +41,32 @@ namespace ZooManagementWebApi.Controllers
             };
             return Ok(response);
         }
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<IActionResult> AddSpecies(SpeciesDto speciesDto)
         {
             var species = mapper.Map<Species>(speciesDto);
-            _speciesRepo.AddSpeciesAsync(species);
+            await _speciesRepo.AddSpeciesAsync(species);
             var response = new ApiResponse()
             {
                 Success = true,
             };
             return Ok(response);
         }
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateSpecies(SpeciesDto speciesDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSpecies(int id, SpeciesDto speciesDto)
         {
             var species = mapper.Map<Species>(speciesDto);
-            _speciesRepo.UpdateSpeciesAsync(species);
+            await _speciesRepo.UpdateSpeciesAsync(id, species);
             var response = new ApiResponse()
             {
                 Success = true,
             };
             return Ok(response);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> SoftDeleteSpecies(int id)
         {
-            _speciesRepo.SoftDeleteSpeciesAsync(id);
+            await _speciesRepo.SoftDeleteSpeciesAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,

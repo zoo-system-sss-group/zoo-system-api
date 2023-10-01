@@ -1,6 +1,6 @@
 ﻿namespace ZooManagementWebApi.DTOs
 {
-    public class DietDto : BaseDto
+    public class DietDto
     {
         public string DietName { get; set; } = default!;
         public string FoodName { get; set; } = default!;
