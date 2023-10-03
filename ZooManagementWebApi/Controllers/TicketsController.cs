@@ -28,16 +28,36 @@ namespace ZooManagementWebApi.Controllers
                 return Ok(new ApiResponse
                 {
                     Success = true,
-                    Value = await _ticketRepo.GetAllTicketsAsync()
+                    Value = _mapper.Map<List<TicketDTO>>(await _ticketRepo.GetAllTicketsAsync())
                 });
             } catch (Exception ex)
             {
                 return BadRequest(new ApiResponse
                 {
                     Success = false,
-                    ErrorMessage = $"{ex.Message} . Details:  {ex}"
+                    ErrorMessage = $"{ex.Message}"
                 });
             }
+        }
+
+        // GET: api/Tickets/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetTicket(int id)
+        {
+            var ticket = await _ticketRepo.GetTicketByIdAsync(id);
+            if (ticket == null)
+            {
+                return NotFound(new ApiResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Ticket Id does not exist."
+                });
+            }
+            return Ok(new ApiResponse
+            {
+                Success = true,
+                Value = _mapper.Map<TicketDTO>(ticket)
+            });
         }
 
         // GET: api/Tickets/types
@@ -57,7 +77,7 @@ namespace ZooManagementWebApi.Controllers
                 return BadRequest(new ApiResponse
                 {
                     Success = false,
-                    ErrorMessage = $"{ex.Message} . Details:  {ex}"
+                    ErrorMessage = $"{ex.Message}"
                 });
             }
         }
@@ -66,6 +86,15 @@ namespace ZooManagementWebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTicket(int id, TicketUpdateDTO dto)
         {
+            var tmp = await _ticketRepo.GetTicketByIdAsync(id);
+            if (tmp == null)
+            {
+                return NotFound(new ApiResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Ticket Id does not exist"
+                });
+            }
             try
             {
                 var ticket = _mapper.Map<Ticket>(dto);
@@ -77,7 +106,7 @@ namespace ZooManagementWebApi.Controllers
                 return BadRequest(new ApiResponse
                 {
                     Success = false,
-                    ErrorMessage = $"{ex.Message}. Details: {ex}"
+                    ErrorMessage = $"{ex.Message}"
                 });
             }
 
@@ -88,12 +117,20 @@ namespace ZooManagementWebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTicket(int id)
         {
+            var ticket = await _ticketRepo.GetTicketByIdAsync(id);
+            if (ticket == null)
+            {
+                return NotFound(new ApiResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Ticket Id does not exist"
+                });
+            }
             try
             {
-                var ticket = await _ticketRepo.GetTicketByIdAsync(id);
-                if (ticket == null)
+                if (ticket.IsDeleted)
                 {
-                    throw new Exception("Ticket Id does not exist.");
+                    throw new Exception("This ticket has been deleted");
                 }
                 await _ticketRepo.SoftDeleteTicketAsync(ticket);
             }
@@ -102,7 +139,7 @@ namespace ZooManagementWebApi.Controllers
                 return BadRequest(new ApiResponse
                 {
                     Success = false,
-                    ErrorMessage = $"{ex.Message} . Details:  {ex}"
+                    ErrorMessage = $"{ex.Message}"
                 });
             }
 

@@ -40,7 +40,7 @@ public class TicketOrdersController : ControllerBase
             return BadRequest(new ApiResponse
             {
                 Success = false,
-                ErrorMessage = $"{ex.Message}. Details: {ex}"
+                ErrorMessage = $"{ex.Message}"
             });
         }
     }
@@ -52,7 +52,11 @@ public class TicketOrdersController : ControllerBase
         var ticketOrder = await _orderRepo.GetTicketOrderByIdAsync(id);
         if (ticketOrder == null)
         {
-            return NotFound();
+            return NotFound(new ApiResponse
+            {
+                Success = false,
+                ErrorMessage = "TicketOrder Id does not exist."
+            });
         }
         return Ok(new ApiResponse
         {
@@ -63,8 +67,17 @@ public class TicketOrdersController : ControllerBase
 
     // PUT: api/TicketOrders/5        
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutTicketOrder(int id, TicketOrderDTO dto)
+    public async Task<IActionResult> PutTicketOrder(int id, TicketOrderUpdateDTO dto)
     {
+        var tmp = await _orderRepo.GetTicketOrderByIdAsync(id);
+        if (tmp == null)
+        {
+            return NotFound(new ApiResponse
+            {
+                Success = false,
+                ErrorMessage = "TicketOrder Id does not exist."
+            });
+        }
         try
         {
             var ticketOrder = _mapper.Map<TicketOrder>(dto);
@@ -76,7 +89,7 @@ public class TicketOrdersController : ControllerBase
             return BadRequest(new ApiResponse
             {
                 Success = false,
-                ErrorMessage = $"{ex.Message}. Details: {ex}"
+                ErrorMessage = $"{ex.Message}"
             });
         }
 
@@ -85,15 +98,14 @@ public class TicketOrdersController : ControllerBase
 
     // POST: api/TicketOrders/
     [HttpPost()]
-    public async Task<ActionResult<Ticket>> PurchaseTicket(TicketOrderDTO dto)
+    public async Task<ActionResult<Ticket>> PurchaseTicket(TicketOrderCreateDTO dto)
     {
-        var viewDto = new TicketOrderViewDTO();
+        // Create ticket order
+        var lastestOrder = (await _orderRepo.GetAllTicketOrdersAsync()).OrderBy(x => x.Id).LastOrDefault();
+        var order = _mapper.Map<TicketOrder>(dto);
+        order.Id = lastestOrder == null ? 1 : lastestOrder.Id + 1;
         try
-        {
-            // Create ticket order
-            var lastestOrder = (await _orderRepo.GetAllTicketOrdersAsync()).OrderBy(x => x.Id).LastOrDefault();
-            var order = _mapper.Map<TicketOrder>(dto);
-            order.Id = lastestOrder == null ? 1 : lastestOrder.Id + 1;
+        {            
             // Create ticket
             var tickets = new List<Ticket>();
             foreach (var item in dto.Tickets)
@@ -110,39 +122,49 @@ public class TicketOrdersController : ControllerBase
                         TypeCode = item.TypeCode,
                         EffectiveDate = item.EffectiveDate,
                         Price = ticketType.Price,
-                        //OrderId = order!.Id
+                        OrderId = order!.Id
                     };
                     tickets.Add(ticket);
+                    order.Total += ticket.Price;
                 }
             }
             // Save in database
+            order.Tickets = tickets;
             await _orderRepo.AddTicketOrderAsync(order);
-            await _ticketRepo.AddTicketAsync(tickets);
-            // map data
-            //order.Tickets = tickets;
-            viewDto = _mapper.Map<TicketOrderViewDTO>(order);
         }
         catch (Exception ex)
         {
             return BadRequest(new ApiResponse
             {
                 Success = false,
-                ErrorMessage = $"{ex.Message}. Details: {ex}"
+                ErrorMessage = $"{ex.Message} Details: {ex}"
             });
         }
-        return CreatedAtAction("GetTicketOrder", new { id = viewDto.Id }, viewDto);
+        return Ok(new ApiResponse
+        {
+            Success = true,
+            Value = new { id = order.Id }
+        });
     }
 
     // DELETE: api/TicketOrders/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTicketOrder(int id)
     {
+        var order = await _orderRepo.GetTicketOrderByIdAsync(id);
+        if (order == null)
+        {
+            return NotFound(new ApiResponse
+            {
+                Success= false,
+                ErrorMessage = "TicketOrder Id does not exist."
+            });
+        }
         try
         {
-            var order = await _orderRepo.GetTicketOrderByIdAsync(id);
-            if (order == null)
+            if (order.IsDeleted)
             {
-                throw new Exception("TicketOrder Id does not exist.");
+                throw new Exception("This order has been deleted");
             }
             await _orderRepo.SoftDeleteTicketOrderAsync(order);
         }
@@ -151,7 +173,7 @@ public class TicketOrdersController : ControllerBase
             return BadRequest(new ApiResponse
             {
                 Success = false,
-                ErrorMessage = $"{ex.Message}. Details: {ex}"
+                ErrorMessage = $"{ex.Message}"
             });
         }
 

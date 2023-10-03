@@ -2,7 +2,7 @@
 
 namespace ZooManagementWebApi.DTOs;
 
-public class TicketOrderDTO
+public class TicketOrderCreateDTO
 {
     public string CustomerName { get; set; } = default!;
     public string Email { get; set; } = default!;

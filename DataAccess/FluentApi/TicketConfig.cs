@@ -11,6 +11,6 @@ public class TicketConfig : IEntityTypeConfiguration<Ticket>
         builder.HasIndex(x => x.Code).IsUnique();
 
         builder.Property(x => x.Code).HasDefaultValueSql("newid()");
-        builder.Property(x => x.CreationDate).HasDefaultValueSql("getutcdate()");        
+        builder.Property(x => x.CreationDate).HasDefaultValueSql("getutcdate()");
     }
 }

@@ -77,7 +77,7 @@ namespace DataAccess.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("Domain.Entities.AnimalInformation", b =>
@@ -139,7 +139,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("SpeciesId");
 
-                    b.ToTable("AnimalInformations", (string)null);
+                    b.ToTable("AnimalInformations");
                 });
 
             modelBuilder.Entity("Domain.Entities.Area", b =>
@@ -184,7 +184,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Areas", (string)null);
+                    b.ToTable("Areas");
                 });
 
             modelBuilder.Entity("Domain.Entities.Cage", b =>
@@ -237,7 +237,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.ToTable("Cages", (string)null);
+                    b.ToTable("Cages");
                 });
 
             modelBuilder.Entity("Domain.Entities.CageHistory", b =>
@@ -286,7 +286,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CageId");
 
-                    b.ToTable("CageHistories", (string)null);
+                    b.ToTable("CageHistories");
                 });
 
             modelBuilder.Entity("Domain.Entities.Diet", b =>
@@ -335,7 +335,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Diets", (string)null);
+                    b.ToTable("Diets");
                 });
 
             modelBuilder.Entity("Domain.Entities.DietDetail", b =>
@@ -382,7 +382,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("DietId");
 
-                    b.ToTable("DietDetails", (string)null);
+                    b.ToTable("DietDetails");
                 });
 
             modelBuilder.Entity("Domain.Entities.FeedHistory", b =>
@@ -428,7 +428,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.ToTable("FeedHistories", (string)null);
+                    b.ToTable("FeedHistories");
                 });
 
             modelBuilder.Entity("Domain.Entities.News", b =>
@@ -474,7 +474,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.ToTable("News", (string)null);
+                    b.ToTable("News");
                 });
 
             modelBuilder.Entity("Domain.Entities.Species", b =>
@@ -525,7 +525,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Species", (string)null);
+                    b.ToTable("Species");
                 });
 
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
@@ -567,10 +567,10 @@ namespace DataAccess.Migrations
                     b.Property<int?>("ModifiedBy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderInformationCode")
+                    b.Property<int>("OrderInformationId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
@@ -585,20 +585,22 @@ namespace DataAccess.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.HasIndex("OrderInformationCode");
+                    b.HasIndex("OrderInformationId");
 
                     b.HasIndex("TypeCode");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Domain.Entities.TicketOrder", b =>
                 {
-                    b.Property<int>("Code")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Code"));
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreationDate")
                         .ValueGeneratedOnAdd()
@@ -609,9 +611,21 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ModifiedBy")
+                        .HasColumnType("int");
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
@@ -626,9 +640,9 @@ namespace DataAccess.Migrations
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
-                    b.HasKey("Code");
+                    b.HasKey("Id");
 
-                    b.ToTable("TicketOrders", (string)null);
+                    b.ToTable("TicketOrders");
                 });
 
             modelBuilder.Entity("Domain.Entities.TicketType", b =>
@@ -645,7 +659,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("TicketTypes", (string)null);
+                    b.ToTable("TicketTypes");
 
                     b.HasData(
                         new
@@ -720,7 +734,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.ToTable("TrainingDetails", (string)null);
+                    b.ToTable("TrainingDetails");
                 });
 
             modelBuilder.Entity("Domain.Entities.AnimalInformation", b =>
@@ -822,7 +836,9 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Entities.TicketOrder", "OrderInformation")
                         .WithMany("Tickets")
-                        .HasForeignKey("OrderInformationCode");
+                        .HasForeignKey("OrderInformationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.TicketType", "Type")
                         .WithMany()

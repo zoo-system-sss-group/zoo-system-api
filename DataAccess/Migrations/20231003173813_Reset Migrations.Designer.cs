@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231003151702_Edit Ticket And TicketOrder Schema")]
-    partial class EditTicketAndTicketOrderSchema
+    [Migration("20231003173813_Reset Migrations")]
+    partial class ResetMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -570,10 +570,10 @@ namespace DataAccess.Migrations
                     b.Property<int?>("ModifiedBy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderInformationId")
+                    b.Property<int>("OrderInformationId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
@@ -599,9 +599,8 @@ namespace DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
@@ -840,7 +839,9 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Entities.TicketOrder", "OrderInformation")
                         .WithMany("Tickets")
-                        .HasForeignKey("OrderInformationId");
+                        .HasForeignKey("OrderInformationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.TicketType", "Type")
                         .WithMany()

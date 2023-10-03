@@ -10,7 +10,10 @@ public class TicketOrderDAO
         var list = new List<TicketOrder>();
         using (var context = new AppDBContext())
         {
-            list = await context.TicketOrders.Include(x => x.Tickets).ToListAsync();
+            list = await context.TicketOrders
+                    .Include(x => x.Tickets)
+                    .ThenInclude(t => t.Type)
+                    .ToListAsync();
         }
         return list;
     }
@@ -20,7 +23,9 @@ public class TicketOrderDAO
         TicketOrder? entity;
         using (var context = new AppDBContext())
         {
-            entity = await context.TicketOrders.Include(x => x.Tickets)
+            entity = await context.TicketOrders
+                                    .Include(x => x.Tickets)
+                                    .ThenInclude(t => t.Type)
                                     .FirstOrDefaultAsync(x => x.Id == id);
         }
         return entity;

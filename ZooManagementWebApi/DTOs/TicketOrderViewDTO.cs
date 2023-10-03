@@ -6,7 +6,7 @@ public class TicketOrderViewDTO
     public string CustomerName { get; set; } = default!;
     public string Email { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
-    public DateTime PurchaseDate { get; set; }
+    public DateTime CreatedDate { get; set; }
     public string PaymentMethod { get; set; } = default!;
     public double Total { get; set; }
     public byte Status { get; set; }

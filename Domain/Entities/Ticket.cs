@@ -7,8 +7,8 @@ public class Ticket : BaseEntity
     public bool IsActive { get; set; } = true;
     public DateTime EffectiveDate { get; set; }
     public string TypeCode { get; set; } = default!;
-    public int? OrderId { get; set; }
+    public int OrderId { get; set; }
 
     public TicketType Type { get; set; } = default!;
-    public TicketOrder? OrderInformation { get; set; }
+    public TicketOrder OrderInformation { get; set; } = default!;
 }
