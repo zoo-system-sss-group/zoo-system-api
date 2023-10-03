@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231003153217_Transition Migrations")]
+    partial class TransitionMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,7 +80,7 @@ namespace DataAccess.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("Domain.Entities.AnimalInformation", b =>
@@ -139,7 +142,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("SpeciesId");
 
-                    b.ToTable("AnimalInformations", (string)null);
+                    b.ToTable("AnimalInformations");
                 });
 
             modelBuilder.Entity("Domain.Entities.Area", b =>
@@ -184,7 +187,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Areas", (string)null);
+                    b.ToTable("Areas");
                 });
 
             modelBuilder.Entity("Domain.Entities.Cage", b =>
@@ -237,7 +240,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.ToTable("Cages", (string)null);
+                    b.ToTable("Cages");
                 });
 
             modelBuilder.Entity("Domain.Entities.CageHistory", b =>
@@ -286,7 +289,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CageId");
 
-                    b.ToTable("CageHistories", (string)null);
+                    b.ToTable("CageHistories");
                 });
 
             modelBuilder.Entity("Domain.Entities.Diet", b =>
@@ -335,7 +338,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Diets", (string)null);
+                    b.ToTable("Diets");
                 });
 
             modelBuilder.Entity("Domain.Entities.DietDetail", b =>
@@ -382,7 +385,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("DietId");
 
-                    b.ToTable("DietDetails", (string)null);
+                    b.ToTable("DietDetails");
                 });
 
             modelBuilder.Entity("Domain.Entities.FeedHistory", b =>
@@ -428,7 +431,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.ToTable("FeedHistories", (string)null);
+                    b.ToTable("FeedHistories");
                 });
 
             modelBuilder.Entity("Domain.Entities.News", b =>
@@ -474,7 +477,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.ToTable("News", (string)null);
+                    b.ToTable("News");
                 });
 
             modelBuilder.Entity("Domain.Entities.Species", b =>
@@ -525,7 +528,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Species", (string)null);
+                    b.ToTable("Species");
                 });
 
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
@@ -589,7 +592,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("TypeCode");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Domain.Entities.TicketOrder", b =>
@@ -628,7 +631,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("TicketOrders", (string)null);
+                    b.ToTable("TicketOrders");
                 });
 
             modelBuilder.Entity("Domain.Entities.TicketType", b =>
@@ -645,7 +648,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("TicketTypes", (string)null);
+                    b.ToTable("TicketTypes");
 
                     b.HasData(
                         new
@@ -720,7 +723,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("TrainerId");
 
-                    b.ToTable("TrainingDetails", (string)null);
+                    b.ToTable("TrainingDetails");
                 });
 
             modelBuilder.Entity("Domain.Entities.AnimalInformation", b =>

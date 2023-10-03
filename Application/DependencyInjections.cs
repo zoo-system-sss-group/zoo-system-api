@@ -15,6 +15,8 @@ public static class DependencyInjections
         services.AddScoped<IAreaRepository, AreaRepository>();
         services.AddScoped<ICageRepository, CageRepository>();
         services.AddScoped<IDietRepository, DietRepository>();
+        services.AddScoped<ITicketRepository, TicketRepository>();
+        services.AddScoped<ITicketOrderRepository, TicketOrderRepository>();
 
         return services;
     }

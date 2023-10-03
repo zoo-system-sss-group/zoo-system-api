@@ -54,7 +54,7 @@ public class NewController : ODataController
     [HttpPost]
     [Authorize(Roles = "Staff")]
     [EnableQuery]
-    public async Task<IActionResult> Add(TicketDTO news)
+    public async Task<IActionResult> Add(NewsDTO news)
     {
         var @new = _mapper.Map<News>(news);
         @new.CreatedBy = _claimService.GetCurrentUserId;
@@ -69,7 +69,7 @@ public class NewController : ODataController
     [EnableQuery]
     [HttpPut("{id}")]
     [Authorize(Roles = "Staff")]
-    public async Task<IActionResult> Update(int id, TicketDTO news)
+    public async Task<IActionResult> Update(int id, NewsDTO news)
     {
         var @new = await _newRepo.GetNews(id);
         if (@new == null) return NotFound();
