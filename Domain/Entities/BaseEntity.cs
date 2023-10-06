@@ -5,9 +5,7 @@ using System.Text.Json.Serialization;
 namespace Domain.Entities;
 public class BaseEntity
 {
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
-    [JsonPropertyOrder(-999)]
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]    
     public int Id { get; set; }
     [JsonPropertyOrder(999)]
     public DateTime? CreationDate { get; set; } = DateTime.Now;

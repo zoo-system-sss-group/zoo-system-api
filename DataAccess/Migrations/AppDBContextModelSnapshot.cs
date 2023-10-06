@@ -552,6 +552,9 @@ namespace DataAccess.Migrations
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -573,14 +576,18 @@ namespace DataAccess.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.HasIndex("OrderInformationId");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("TypeCode");
 
                     b.ToTable("Tickets");
                 });
@@ -589,15 +596,16 @@ namespace DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
@@ -626,8 +634,8 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PurchaseDate")
-                        .HasColumnType("datetime2");
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint");
 
                     b.Property<double>("Total")
                         .HasColumnType("float");
@@ -639,29 +647,8 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Entities.TicketType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModificationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -670,9 +657,35 @@ namespace DataAccess.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("Code");
 
                     b.ToTable("TicketTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Code = "A01",
+                            Name = "Adult",
+                            Price = 100000.0
+                        },
+                        new
+                        {
+                            Code = "C01",
+                            Name = "Child",
+                            Price = 60000.0
+                        },
+                        new
+                        {
+                            Code = "A02",
+                            Name = "VIP Adult",
+                            Price = 200000.0
+                        },
+                        new
+                        {
+                            Code = "C02",
+                            Name = "VIP Child",
+                            Price = 150000.0
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainingDetail", b =>
@@ -829,7 +842,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Domain.Entities.TicketType", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId")
+                        .HasForeignKey("TypeCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

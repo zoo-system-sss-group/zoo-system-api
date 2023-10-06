@@ -2,7 +2,8 @@
 
 public enum PaymentEnum
 {
-    Credit = 0,
+    Momo = 0,
+    Card = 1,
     // write some more values
     //...
 }
