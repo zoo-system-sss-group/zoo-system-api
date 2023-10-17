@@ -1,13 +1,9 @@
 using Application;
 using Application.Commons;
-using Application.Utils;
-using DataAccess;
 using Domain.Entities;
 using Microsoft.AspNetCore.OData;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
-using DataAccess.DAOs;
 using System.Text.Json.Serialization;
 using ZooManagementWebApi;
 using ZooManagementWebApi.Mapper;
@@ -38,10 +34,13 @@ builder.Services.AddSwaggerGenConfiguration();
 
 // Add global exception middleware
 builder.Services.AddSingleton<GlobalExceptionMiddleware>();
+
 // Bind AppConfiguration from configuration
-var config = new AppConfiguration();
+var config = builder.Configuration.Get<AppConfiguration>();
 builder.Configuration.Bind(config);
-builder.Services.AddSingleton(config);
+builder.Services.AddSingleton(config!);
+
+// Add auto mapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
 // Add jwt configuration

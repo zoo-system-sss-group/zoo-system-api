@@ -5,17 +5,15 @@ using System.Text.Json.Serialization;
 namespace Domain.Entities;
 public class BaseEntity
 {
-    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]    
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [JsonPropertyOrder(-1)]
     public int Id { get; set; }
-    [JsonPropertyOrder(999)]
+    
     public DateTime? CreationDate { get; set; } = DateTime.Now;
-    public int? CreatedBy { get; set; }
-    [JsonPropertyOrder(999)]
+    
     public DateTime? ModificationDate { get; set; } = DateTime.Now;
-    [JsonPropertyOrder(999)]
-    public int? ModifiedBy { get; set; }
-    [JsonPropertyOrder(999)]
+   
     public DateTime? DeletionDate { get; set; }
-    [JsonPropertyOrder(999)]
+   
     public bool IsDeleted { get; set; } = false;
 }

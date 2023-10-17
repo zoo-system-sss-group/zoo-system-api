@@ -106,31 +106,31 @@ public class TicketOrdersController : ControllerBase
         order.Id = lastestOrder == null ? 1 : lastestOrder.Id + 1;
         try
         {            
-            // Create ticket
-            var tickets = new List<Ticket>();
-            foreach (var item in dto.Tickets)
-            {
-                var ticketType = await _ticketRepo.GetTicketTypeByCodeAsync(item.TypeCode);
-                if (ticketType == null)
-                {
-                    throw new Exception("Invalid ticket type");
-                }
-                for (var i = 0; i < item.Quantity; i++)
-                {
-                    var ticket = new Ticket
-                    {
-                        TypeCode = item.TypeCode,
-                        EffectiveDate = item.EffectiveDate,
-                        Price = ticketType.Price,
-                        OrderId = order!.Id
-                    };
-                    tickets.Add(ticket);
-                    order.Total += ticket.Price;
-                }
-            }
-            // Save in database
-            order.Tickets = tickets;
-            await _orderRepo.AddTicketOrderAsync(order);
+            //// Create ticket
+            //var tickets = new List<Ticket>();
+            //foreach (var item in dto.Tickets)
+            //{
+            //    var ticketType = await _ticketRepo.GetTicketTypeByCodeAsync(item.TypeCode);
+            //    if (ticketType == null)
+            //    {
+            //        throw new Exception("Invalid ticket type");
+            //    }
+            //    for (var i = 0; i < item.Quantity; i++)
+            //    {
+            //        var ticket = new Ticket
+            //        {
+            //            TypeCode = item.TypeCode,
+            //            EffectiveDate = item.EffectiveDate,
+            //            Price = ticketType.Price,
+            //            OrderId = order!.Id
+            //        };
+            //        tickets.Add(ticket);
+            //        order.Total += ticket.Price;
+            //    }
+            //}
+            //// Save in database
+            //order.Tickets = tickets;
+            //await _orderRepo.AddTicketOrderAsync(order);
         }
         catch (Exception ex)
         {

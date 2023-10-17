@@ -12,7 +12,6 @@ public class TicketDAO : BaseDAO<Ticket>
         {
             tickets = await context.Tickets
                             .Include(x => x.OrderInformation)
-                            .Include(x => x.Type)
                             .ToListAsync();
         }
         return tickets;

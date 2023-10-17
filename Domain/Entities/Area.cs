@@ -2,6 +2,7 @@
 
 public class Area : BaseEntity
 {
+    public string Code { get; set; } = default!; // A,B,C
     public string Name { get; set; } = default!;
     public string Location { get; set; } = default!;
     public string? Description { get; set; }

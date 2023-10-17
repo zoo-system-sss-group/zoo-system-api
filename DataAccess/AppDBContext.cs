@@ -23,7 +23,6 @@ public class AppDBContext : DbContext
     public DbSet<Species> Species { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<TicketOrder> TicketOrders { get; set; }
-    public DbSet<TicketType> TicketTypes { get; set; }
     public DbSet<TrainingDetail> TrainingDetails { get; set; }
     #endregion
 

@@ -64,11 +64,5 @@ public class TicketRepository : ITicketRepository
     }    
 
     public async Task AddTicketAsync(List<Ticket> tickets)
-        => await TicketDAO.SaveRangeAsync(tickets);
-
-    public async Task<List<TicketType>> GetAllTicketTypesAsync()
-        => await TicketTypeDAO.GetAllTicketTypesAsync();
-
-    public async Task<TicketType?> GetTicketTypeByCodeAsync(string code)
-        => await TicketTypeDAO.GetTicketTypeByCodeAsync(code);
+        => await TicketDAO.SaveRangeAsync(tickets);    
 }

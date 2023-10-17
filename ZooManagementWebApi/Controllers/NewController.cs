@@ -1,5 +1,4 @@
-﻿using Application.Commons;
-using Application.IRepositories;
+﻿using Application.IRepositories;
 using Application.IServices;
 using AutoMapper;
 using Domain.Entities;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers;
@@ -57,7 +55,6 @@ public class NewController : ODataController
     public async Task<IActionResult> Add(NewsDTO news)
     {
         var @new = _mapper.Map<News>(news);
-        @new.CreatedBy = _claimService.GetCurrentUserId;
         @new.CreationDate = _claimService.GetCurrentTime;
         await _newRepo.AddNews(@new);
         var response = new ApiResponse()
@@ -75,7 +72,6 @@ public class NewController : ODataController
         if (@new == null) return NotFound();
 
         @new = _mapper.Map(@news, @new);
-        @new.ModifiedBy = _claimService.GetCurrentUserId;
         @new.ModificationDate = _claimService.GetCurrentTime;
         await _newRepo.UpdateNews(@new);
          var response = new ApiResponse()
