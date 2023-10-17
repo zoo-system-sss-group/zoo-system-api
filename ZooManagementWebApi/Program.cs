@@ -34,7 +34,7 @@ builder.Services.AddEndpointsApiExplorer().AddRouting(op => op.LowercaseQueryStr
 builder.Services.AddSwaggerGenConfiguration();
 
 // Add DB Context for seeding Database
-builder.Services.AddDbContext<AppDBContext>();  // remember to remove/comment when seeding DB complete
+//builder.Services.AddDbContext<AppDBContext>();  // remember to remove/comment when seeding DB complete
 
 // Add global exception middleware
 builder.Services.AddSingleton<GlobalExceptionMiddleware>();
@@ -83,28 +83,7 @@ app.UseODataBatching();
 // Use routing
 app.UseRouting();
 
-// Initialize data for DB
-SeedDatabase();
-
 app.UseCors();
-// test middleware ( i will add middleware later)
-//app.Use(next => context =>
-//{
-//    var endpoint = context.GetEndpoint();
-//    if (endpoint == null)
-//    {
-//        return next(context);
-//    }
-
-//    IEnumerable<string> temps;
-//    IODataRoutingMetadata? metadata = endpoint.Metadata.GetMetadata<IODataRoutingMetadata>();
-
-//    if(metadata != null)
-//    {
-//        temps = metadata.Template.GetTemplates();
-//    }
-//    return next(context);
-//});
 
 app.UseAuthorization();
 
@@ -112,24 +91,6 @@ app.MapControllers();
 
 app.Run();
 
-
-void SeedDatabase()
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var context = services.GetRequiredService<AppDBContext>();
-            //context.Database.EnsureCreated(); // create database if not exist, add table if not has any
-            DBInitializer.InitializeData(context);
-        }
-        catch (Exception ex)
-        {
-            app.Logger.LogError(ex, "An error occurred when seeding the DB.");
-        }
-    }
-}
 IEdmModel GetEdmModel()
 {
     var builder = new ODataConventionModelBuilder();
