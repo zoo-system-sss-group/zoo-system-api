@@ -1,7 +1,10 @@
 ﻿using Application.IServices;
 using Application.Services;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
@@ -9,6 +12,19 @@ namespace ZooManagementWebApi;
 
 public static class ServiceCollectionExtensions
 {
+    public static IServiceCollection AddODataConfiguraion(this IServiceCollection services)
+    {
+        var modelBuilder = new ODataConventionModelBuilder();
+        // Add entity set / entity type
+        modelBuilder.EntitySet<Account>("Accounts");
+
+        // Add OData
+        services.AddControllers().AddOData(options 
+            => options.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100)
+                      .AddRouteComponents("odata", modelBuilder.GetEdmModel()));
+
+        return services;
+    }
     public static IServiceCollection AddJWTConfiguration(this IServiceCollection services,
         string secretKey)
     {

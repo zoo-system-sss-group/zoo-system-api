@@ -40,15 +40,15 @@ public class AuthController : ControllerBase
                 var token = account.GenerateJsonWebToken(_config.JwtConfiguration.SecretKey, DateTime.Now);
                 response.Success = true;
                 response.Value = token;
+                return Ok(response);
             }
         }
         catch (Exception ex)
         {
             response.Success = false;
-            response.ErrorMessage = ex.Message;
-            return BadRequest(response);
+            response.ErrorMessage = ex.Message;            
         }
-        return Ok(response);
+        return BadRequest(response);
     }
 
     [HttpGet("current-id")]

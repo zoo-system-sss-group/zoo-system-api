@@ -6,7 +6,7 @@ namespace Domain.Entities;
 public class BaseEntity
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [JsonPropertyOrder(-1)]
+    [JsonPropertyOrder(order: -1)] // not working :(
     public int Id { get; set; }
     
     public DateTime? CreationDate { get; set; } = DateTime.Now;

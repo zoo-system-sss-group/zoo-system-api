@@ -2,8 +2,6 @@ using Application;
 using DataAccess;
 using DataAccess.Commons;
 using Microsoft.AspNetCore.OData;
-using Microsoft.OData.Edm;
-using Microsoft.OData.ModelBuilder;
 using System.Text.Json.Serialization;
 using ZooManagementWebApi;
 using ZooManagementWebApi.Mapper;
@@ -17,13 +15,10 @@ builder.Services.AddControllers(opt => opt.SuppressImplicitRequiredAttributeForN
     opt.JsonSerializerOptions.Converters.Add(enumConverter);
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
-builder.Services.AddControllers().AddOData(options => options.Select()
-                                                             .Filter()
-                                                             .Count()
-                                                             .OrderBy()
-                                                             .Expand()
-                                                             .SetMaxTop(100)
-                                                             .AddRouteComponents("odata",GetEdmModel()));
+
+// Add OData Configuraion
+builder.Services.AddODataConfiguraion();
+
 // Add Swagger configs
 builder.Services.AddSwaggerGenConfiguration();
 builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
@@ -87,10 +82,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-IEdmModel GetEdmModel()
-{
-    var builder = new ODataConventionModelBuilder();
-    //builder.EntitySet<News>("News");
-    return builder.GetEdmModel();
-}

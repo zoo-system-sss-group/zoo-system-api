@@ -5,14 +5,13 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Controllers;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class NewsController : ODataController
+public class NewsController : ControllerBase
 {
     private readonly INewsRepository _newRepo;
     private readonly IClaimService _claimService;
