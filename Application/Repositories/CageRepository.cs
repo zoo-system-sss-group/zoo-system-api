@@ -9,11 +9,14 @@ public class CageRepository : ICageRepository
 {
     private readonly CageDAO _cageDAO;
     private readonly AnimalDAO _animalDao;
+    private readonly CageHistoriesDAO _cageHistoriesDao;
 
-    public CageRepository(CageDAO cageDAO, AnimalDAO animalDao)
+    public CageRepository(CageDAO cageDAO, AnimalDAO animalDao, 
+                            CageHistoriesDAO cageHistoriesDao)
     {
         _cageDAO = cageDAO;
         _animalDao = animalDao;
+        _cageHistoriesDao = cageHistoriesDao;
     }
 
     public async Task<List<Cage>> GetCagesAsync()
@@ -24,7 +27,7 @@ public class CageRepository : ICageRepository
         var result = await _cageDAO.GetByIdAsync(id);
         if (result == null)
             throw new Exception("Can not found!");
-        result.CageHistories = await CageHistoriesDAO.GetListAnimalByCageId(id);
+        result.CageHistories = await _cageHistoriesDao.GetListAnimalByCageId(id);
         foreach(CageHistory ch in result.CageHistories)
         {
             ch.Animal = await _animalDao.GetByIdAsync(ch.AnimalId);

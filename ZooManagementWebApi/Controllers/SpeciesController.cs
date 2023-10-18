@@ -1,10 +1,6 @@
-﻿using Application.Commons;
-using Application.IRepositories;
-using Application.IServices;
+﻿using Application.IRepositories;
 using AutoMapper;
 using Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZooManagementWebApi.DTOs;
 

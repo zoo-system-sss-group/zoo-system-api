@@ -1,7 +1,6 @@
 using Application;
-using Application.Commons;
 using DataAccess;
-using Domain.Entities;
+using DataAccess.Commons;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
@@ -92,6 +91,6 @@ app.Run();
 IEdmModel GetEdmModel()
 {
     var builder = new ODataConventionModelBuilder();
-    builder.EntitySet<News>("News");
+    //builder.EntitySet<News>("News");
     return builder.GetEdmModel();
 }

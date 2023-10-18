@@ -1,14 +1,21 @@
-﻿using Domain.Entities;
+﻿using DataAccess.Commons;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace DataAccess;
 
 public class AppDBContext : DbContext
 {    
-    public AppDBContext() { }
-    public AppDBContext(DbContextOptions options) : base(options) { }
+    private readonly AppConfiguration _appConfiguration;
+    public AppDBContext(AppConfiguration appConfiguration)
+    {
+        _appConfiguration = appConfiguration;
+    }
+    public AppDBContext(DbContextOptions options, AppConfiguration appConfiguration) : base(options)
+    {
+        _appConfiguration = appConfiguration;
+    }
 
     #region DB sets
     public DbSet<Account> Accounts { get; set; }
@@ -31,16 +38,8 @@ public class AppDBContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(GetConnectionStrings());
+            optionsBuilder.UseSqlServer(_appConfiguration.ConnectionStrings.DefaultDB);
         }
-    }
-    private string GetConnectionStrings()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-         .SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", true, true)
-        .Build();
-        return config["ConnectionStrings:DefaultDB"]!;
     }
 
     // Get configurations from fluent api

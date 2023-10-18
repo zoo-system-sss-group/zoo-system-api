@@ -7,10 +7,12 @@ namespace Application.Repositories;
 public class DietRepository : IDietRepository
 {
     private readonly DietDAO _dietDAO;
+    private readonly DietDetailDAO _dietDetailDao;
 
-    public DietRepository(DietDAO dietDAO)
+    public DietRepository(DietDAO dietDAO, DietDetailDAO dietDetailDao)
     {
         _dietDAO = dietDAO;
+        _dietDetailDao = dietDetailDao;
     }
 
     public async Task<List<Diet>> GetDietsAsync()
@@ -24,7 +26,7 @@ public class DietRepository : IDietRepository
 
     public async Task<Diet?> GetCurrentDietByAnimalIdAsync(int id)
     {
-        var dietDetail = await DietDetailDAO.GetDietDetailByAnimalId(id);
+        var dietDetail = await _dietDetailDao.GetDietDetailByAnimalId(id);
         return await _dietDAO.GetByIdAsync(dietDetail.DietId);
     } 
     

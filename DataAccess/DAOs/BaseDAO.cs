@@ -1,14 +1,22 @@
-﻿using Domain.Entities;
+﻿using DataAccess.Commons;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.DAOs;
 
 public class BaseDAO<TEntity> where TEntity : BaseEntity
 {
+    private AppConfiguration _configuration;
+
+    public BaseDAO(AppConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public async Task<List<TEntity>> GetAllAsync()
     {
         var list = new List<TEntity>();
-        using (var context = new AppDBContext())
+        using (var context = new AppDBContext(_configuration))
         {
             list = await context.Set<TEntity>().ToListAsync();
         }
@@ -18,7 +26,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
     public async Task<TEntity?> GetByIdAsync(int id)
     {
         TEntity? entity;
-        using (var context = new AppDBContext())
+        using (var context = new AppDBContext(_configuration))
         {
             entity = await context.Set<TEntity>().FindAsync(id);
         }
@@ -27,7 +35,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
 
     public async Task SaveAsync(TEntity p)
     {
-        using (var context = new AppDBContext())
+        using (var context = new AppDBContext(_configuration))
         {
             p.CreationDate = DateTime.Now;
             context.Set<TEntity>().Add(p);
@@ -37,7 +45,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
 
     public async Task SaveRangeAsync(List<TEntity> ls)
     {
-        using (var context = new AppDBContext())
+        using (var context = new AppDBContext(_configuration))
         {
             DateTime now = DateTime.Now;
             ls.ForEach(x =>
@@ -51,7 +59,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
 
     public async Task UpdateAsync(TEntity p)
     {
-        using (var context = new AppDBContext())
+        using (var context = new AppDBContext(_configuration))
         {
             p.ModificationDate = DateTime.Now;
             context.Entry(p).State = EntityState.Modified;
@@ -61,7 +69,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
 
     public async Task DeleteAsync(TEntity p)
     {
-        using (var context = new AppDBContext())
+        using (var context = new AppDBContext(_configuration))
         {
             context.Set<TEntity>().Remove(p);
             await context.SaveChangesAsync();
@@ -70,7 +78,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
 
     public async Task SoftDeleteAsync(TEntity p)
     {
-        using (var context = new AppDBContext())
+        using (var context = new AppDBContext(_configuration))
         {
             p.IsDeleted = true;
             p.DeletionDate = DateTime.Now;
