@@ -2,47 +2,55 @@
 using Azure;
 using DataAccess.DAOs;
 using Domain.Entities;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Repositories
+namespace Application.Repositories;
+
+public class CageRepository : ICageRepository
 {
-    public class CageRepository : ICageRepository
-    {
-        public async Task<List<Cage>> GetCagesAsync()
-            => await CageDAO.GetAllAsync();
-        public async Task<Cage?> GetCageByIdAsync(int id)
-        {
-            var result = await CageDAO.GetByIdAsync(id);
-            if (result == null)
-                throw new Exception("Can not found!");
-            result.CageHistories = await CageHistoriesDAO.GetListAnimalByCageId(id);
-            foreach(CageHistory ch in result.CageHistories)
-            {
-                ch.Animal = await AnimalDAO.GetByIdAsync(ch.AnimalId);
-            }
-            return result;
-        }
+    private readonly CageDAO _cageDAO;
+    private readonly AnimalDAO _animalDao;
+    private readonly CageHistoriesDAO _cageHistoriesDao;
 
-        public async Task AddCageAsync(Cage cage)
-            => await CageDAO.SaveAsync(cage);
-        public async Task UpdateCageAsync(int id, Cage cage)
+    public CageRepository(CageDAO cageDAO, AnimalDAO animalDao, 
+                            CageHistoriesDAO cageHistoriesDao)
+    {
+        _cageDAO = cageDAO;
+        _animalDao = animalDao;
+        _cageHistoriesDao = cageHistoriesDao;
+    }
+
+    public async Task<List<Cage>> GetCagesAsync()
+        => await _cageDAO.GetAllAsync();
+
+    public async Task<Cage?> GetCageByIdAsync(int id)
+    {
+        var result = await _cageDAO.GetByIdAsync(id);
+        if (result == null)
+            throw new Exception("Can not found!");
+        result.CageHistories = await _cageHistoriesDao.GetListAnimalByCageId(id);
+        foreach(CageHistory ch in result.CageHistories)
         {
-            var result = await CageDAO.GetByIdAsync(id);
-            if (result == null)
-                throw new Exception("Can not found!");
-            await CageDAO.UpdateAsync(cage);
+            ch.Animal = await _animalDao.GetByIdAsync(ch.AnimalId);
         }
-        public async Task SoftDeleteCageAsync(int id)
-        {
-            var result = await CageDAO.GetByIdAsync(id);
-            if (result == null)
-                throw new Exception("Can not found!");
-            await CageDAO.SoftDeleteAsync(result);
-        }
+        return result;
+    }
+
+    public async Task AddCageAsync(Cage cage)
+        => await _cageDAO.SaveAsync(cage);
+
+    public async Task UpdateCageAsync(int id, Cage cage)
+    {
+        var result = await _cageDAO.GetByIdAsync(id);
+        if (result == null)
+            throw new Exception("Can not found!");
+        await _cageDAO.UpdateAsync(cage);
+    }
+
+    public async Task SoftDeleteCageAsync(int id)
+    {
+        var result = await _cageDAO.GetByIdAsync(id);
+        if (result == null)
+            throw new Exception("Can not found!");
+        await _cageDAO.SoftDeleteAsync(result);
     }
 }

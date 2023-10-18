@@ -9,6 +9,7 @@ public class NewsConfig : IEntityTypeConfiguration<News>
     public void Configure(EntityTypeBuilder<News> builder)
     {
         builder.Property(x => x.CreationDate).HasDefaultValueSql("getutcdate()");
-        builder.HasOne(x => x.CreatedAccount).WithMany(x => x.NewsList).HasForeignKey(x => x.CreatedBy);
+        builder.Property(x => x.ModificationDate).HasDefaultValueSql("getutcdate()");
+        builder.Property(x => x.IsDeleted).HasDefaultValue(false);
     }
 }

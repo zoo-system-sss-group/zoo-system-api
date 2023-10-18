@@ -4,7 +4,5 @@ public class News : BaseEntity
 {
     public string Title { get; set; } = default!;
     public byte[]? Thumbnail { get; set; }
-    public string Content { get; set; } = default!;
-
-    public Account CreatedAccount { get; set; } = default!;
+    public string Content { get; set; } = default!;    
 }

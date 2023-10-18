@@ -1,13 +1,7 @@
 using Application;
-using Application.Commons;
-using Application.Utils;
 using DataAccess;
-using Domain.Entities;
+using DataAccess.Commons;
 using Microsoft.AspNetCore.OData;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OData.Edm;
-using Microsoft.OData.ModelBuilder;
-using DataAccess.DAOs;
 using System.Text.Json.Serialization;
 using ZooManagementWebApi;
 using ZooManagementWebApi.Mapper;
@@ -15,39 +9,36 @@ using ZooManagementWebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-
 builder.Services.AddControllers(opt => opt.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddJsonOptions(opt =>
 {
     var enumConverter = new JsonStringEnumConverter();
     opt.JsonSerializerOptions.Converters.Add(enumConverter);
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
-builder.Services.AddControllers().AddOData(options => options.Select()
-                                                             .Filter()
-                                                             .Count()
-                                                             .OrderBy()
-                                                             .Expand()
-                                                             .SetMaxTop(100)
-                                                             .AddRouteComponents("odata",GetEdmModel()));
-builder.Services.AddEndpointsApiExplorer().AddRouting(op => op.LowercaseQueryStrings = true); ;
 
+// Add OData Configuraion
+builder.Services.AddODataConfiguraion();
+
+// Add Swagger configs
 builder.Services.AddSwaggerGenConfiguration();
-
-// Add DB Context for seeding Database
-builder.Services.AddDbContext<AppDBContext>();  // remember to remove/comment when seeding DB complete
+builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
 
 // Add global exception middleware
 builder.Services.AddSingleton<GlobalExceptionMiddleware>();
+
 // Bind AppConfiguration from configuration
-var config = new AppConfiguration();
+var config = builder.Configuration.Get<AppConfiguration>();
 builder.Configuration.Bind(config);
-builder.Services.AddSingleton(config);
+builder.Services.AddSingleton(config!);
+
+// Add auto mapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
 // Add jwt configuration
-builder.Services.AddJWTConfiguration(config.JwtConfiguration.SecretKey);
+builder.Services.AddJWTConfiguration(config!.JwtConfiguration.SecretKey);
 
 // Add DIs
+builder.Services.AddDaoDIs();
 builder.Services.AddRepositoryDIs();
 builder.Services.AddServicesDIs();
 
@@ -80,59 +71,14 @@ app.UseHttpsRedirection();
 
 // Use Odata
 app.UseODataBatching();
+
 // Use routing
 app.UseRouting();
 
-// Initialize data for DB
-SeedDatabase();
-
 app.UseCors();
-// test middleware ( i will add middleware later)
-//app.Use(next => context =>
-//{
-//    var endpoint = context.GetEndpoint();
-//    if (endpoint == null)
-//    {
-//        return next(context);
-//    }
-
-//    IEnumerable<string> temps;
-//    IODataRoutingMetadata? metadata = endpoint.Metadata.GetMetadata<IODataRoutingMetadata>();
-
-//    if(metadata != null)
-//    {
-//        temps = metadata.Template.GetTemplates();
-//    }
-//    return next(context);
-//});
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
-
-
-void SeedDatabase()
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var context = services.GetRequiredService<AppDBContext>();
-            //context.Database.EnsureCreated(); // create database if not exist, add table if not has any
-            DBInitializer.InitializeData(context);
-        }
-        catch (Exception ex)
-        {
-            app.Logger.LogError(ex, "An error occurred when seeding the DB.");
-        }
-    }
-}
-IEdmModel GetEdmModel()
-{
-    var builder = new ODataConventionModelBuilder();
-    builder.EntitySet<News>("News");
-    return builder.GetEdmModel();
-}

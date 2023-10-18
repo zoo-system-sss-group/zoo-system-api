@@ -5,5 +5,8 @@ public enum HabitatEnum
     AFRICAN,
     ASIAN,
     OCEANS,
-    EUROPE
+    EUROPE,
+    ANTARCTIC,
+    AUSTRALIAN,
+    NORTH_AMERICA
 }

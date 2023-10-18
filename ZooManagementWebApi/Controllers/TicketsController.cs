@@ -64,22 +64,7 @@ namespace ZooManagementWebApi.Controllers
         [HttpGet("types")]
         public async Task<IActionResult> GetTicketTypes()
         {
-            try
-            {
-                return Ok(new ApiResponse
-                {
-                    Success = true,
-                    Value = await _ticketRepo.GetAllTicketTypesAsync()
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ApiResponse
-                {
-                    Success = false,
-                    ErrorMessage = $"{ex.Message}"
-                });
-            }
+            return Ok();
         }
 
         // PUT: api/Tickets/5        

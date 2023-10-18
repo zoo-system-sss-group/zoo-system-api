@@ -1,24 +1,25 @@
-﻿using Domain.Entities;
+﻿using DataAccess.Commons;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataAccess.DAOs
+namespace DataAccess.DAOs;
+
+public class DietDetailDAO : BaseDAO<DietDetail>
 {
-    public class DietDetailDAO
+    private readonly AppConfiguration _configuration;
+    public DietDetailDAO(AppConfiguration configuration) : base(configuration)
     {
-        public static async Task<DietDetail?> GetDietDetailByAnimalId(int id)
-        {
-            List<DietDetail>? dietDetails;
-            using (var context = new AppDBContext())
-            {
-                dietDetails = await context.DietDetails.Where(ch => ch.AnimalId == id && ch.EndDate == null).ToListAsync();
-            }
-            return dietDetails[0];
-        }
-
+        _configuration = configuration;
     }
+
+    public async Task<DietDetail?> GetDietDetailByAnimalId(int id)
+    {
+        List<DietDetail>? dietDetails;
+        using (var context = new AppDBContext(_configuration))
+        {
+            dietDetails = await context.DietDetails.Where(ch => ch.AnimalId == id && ch.EndDate == null).ToListAsync();
+        }
+        return dietDetails[0];
+    }
+
 }

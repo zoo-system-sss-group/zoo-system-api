@@ -1,5 +1,4 @@
 ﻿using Application.IRepositories;
-using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
@@ -10,40 +9,40 @@ namespace ZooManagementWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AreaController : ControllerBase
+    public class DietsController : ControllerBase
     {
-        private readonly IAreaRepository _areaRepository;
+        private readonly IDietRepository _dietRepository;
         private readonly IMapper mapper;
-        public AreaController(IAreaRepository areaRepository, IMapper mapper)
+        public DietsController(IDietRepository dietRepository, IMapper mapper)
         {
-            _areaRepository = areaRepository;
+            _dietRepository = dietRepository;
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAreas()
+        public async Task<IActionResult> GetDiets()
         {
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _areaRepository.GetAreasAsync()
+                Value = await _dietRepository.GetDietsAsync()
             };
             return Ok(response);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAreaById(int id)
+        public async Task<IActionResult> GetDietById(int id)
         {
             var response = new ApiResponse()
             {
                 Success = true,
-                Value = await _areaRepository.GetAreaByIdAsync(id)
+                Value = await _dietRepository.GetDietByIdAsync(id)
             };
             return Ok(response);
         }
         [HttpPost]
-        public async Task<IActionResult> AddArea(AreaDto areaDto)
+        public async Task<IActionResult> AddDiet(DietDto dietDto)
         {
-            var area = mapper.Map<Area>(areaDto);
-            await _areaRepository.AddAreaAsync(area);
+            var diet = mapper.Map<Diet>(dietDto);
+            await _dietRepository.AddDietAsync(diet);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -51,10 +50,10 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateArea(int id, AreaDto areaDto)
+        public async Task<IActionResult> UpdateDiet(int id, DietDto dietDto)
         {
-            var area = mapper.Map<Area>(areaDto);
-            await _areaRepository.UpdateAreaAsync(id, area);
+            var diet = mapper.Map<Diet>(dietDto);
+            await _dietRepository.UpdateDietAsync(id, diet);
             var response = new ApiResponse()
             {
                 Success = true,
@@ -62,9 +61,9 @@ namespace ZooManagementWebApi.Controllers
             return Ok(response);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeleteArea(int id)
+        public async Task<IActionResult> SoftDeleteDiet(int id)
         {
-            await _areaRepository.SoftDeleteAreaAsync(id);
+            await _dietRepository.SoftDeleteDietAsync(id);
             var response = new ApiResponse()
             {
                 Success = true,

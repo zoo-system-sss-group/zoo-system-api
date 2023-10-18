@@ -6,69 +6,70 @@ namespace Application.Repositories;
 
 public class TicketRepository : ITicketRepository
 {
+    private readonly TicketDAO _ticketDAO;
+
+    public TicketRepository(TicketDAO ticketDAO)
+    {
+        _ticketDAO = ticketDAO;
+    }
+
     public async Task AddTicketAsync(Ticket ticket)
     {
-        var tmpTicket = await TicketDAO.GetByIdAsync(ticket.Id);
+        var tmpTicket = await _ticketDAO.GetByIdAsync(ticket.Id);
         if (tmpTicket != null)
         {
             throw new Exception("Duplicate ticket Id.");
         } else
         {
-            await TicketDAO.SaveAsync(ticket);
+            await _ticketDAO.SaveAsync(ticket);
         }        
     }        
 
     public async Task DeleteTicketAsync(Ticket ticket)
     {
-        var tmpTicket = await TicketDAO.GetByIdAsync(ticket.Id);
+        var tmpTicket = await _ticketDAO.GetByIdAsync(ticket.Id);
         if (tmpTicket == null)
         {
             throw new Exception("Ticket Id does not exist.");
         }
         else
         {
-            await TicketDAO.DeleteAsync(ticket);
+            await _ticketDAO.DeleteAsync(ticket);
         }
     }
 
     public async Task<List<Ticket>> GetAllTicketsAsync()
-        => await TicketDAO.GetAllTicketDetailsAsync();    
+        => await _ticketDAO.GetAllTicketDetailsAsync();    
 
     public async Task<Ticket?> GetTicketByIdAsync(int id)
-        => await TicketDAO.GetByIdAsync(id);    
+        => await _ticketDAO.GetByIdAsync(id);    
 
     public async Task SoftDeleteTicketAsync(Ticket ticket)
     {
-        var tmpTicket = await TicketDAO.GetByIdAsync(ticket.Id);
+        var tmpTicket = await _ticketDAO.GetByIdAsync(ticket.Id);
         if (tmpTicket == null)
         {
             throw new Exception("Ticket Id does not exist.");
         }
         else
         {
-            await TicketDAO.SoftDeleteAsync(ticket);
+            await _ticketDAO.SoftDeleteAsync(ticket);
         }
     }
 
     public async Task UpdateTicketAsync(Ticket ticket)
     {
-        var tmpTicket = await TicketDAO.GetByIdAsync(ticket.Id);
+        var tmpTicket = await _ticketDAO.GetByIdAsync(ticket.Id);
         if (tmpTicket == null)
         {
             throw new Exception("Ticket Id does not exist.");
         }
         else
         {
-            await TicketDAO.UpdateAsync(ticket);
+            await _ticketDAO.UpdateAsync(ticket);
         }
     }    
 
     public async Task AddTicketAsync(List<Ticket> tickets)
-        => await TicketDAO.SaveRangeAsync(tickets);
-
-    public async Task<List<TicketType>> GetAllTicketTypesAsync()
-        => await TicketTypeDAO.GetAllTicketTypesAsync();
-
-    public async Task<TicketType?> GetTicketTypeByCodeAsync(string code)
-        => await TicketTypeDAO.GetTicketTypeByCodeAsync(code);
+        => await _ticketDAO.SaveRangeAsync(tickets);    
 }

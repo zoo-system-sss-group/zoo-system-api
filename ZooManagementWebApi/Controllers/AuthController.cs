@@ -1,8 +1,7 @@
-﻿using Application.Commons;
+﻿using DataAccess.Commons;
 using Application.IRepositories;
 using Application.IServices;
 using Application.Utils;
-using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZooManagementWebApi.DTOs;
@@ -41,14 +40,15 @@ public class AuthController : ControllerBase
                 var token = account.GenerateJsonWebToken(_config.JwtConfiguration.SecretKey, DateTime.Now);
                 response.Success = true;
                 response.Value = token;
+                return Ok(response);
             }
         }
         catch (Exception ex)
         {
             response.Success = false;
-            response.ErrorMessage = ex.Message;
+            response.ErrorMessage = ex.Message;            
         }
-        return Ok(response);
+        return BadRequest(response);
     }
 
     [HttpGet("current-id")]

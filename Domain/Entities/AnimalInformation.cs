@@ -9,8 +9,7 @@ public class AnimalInformation : BaseEntity
     public byte[]? Image { get; set; }
     public DateTime BirthDate { get; set; }
     public int SpeciesId { get; set; }
-
-    public Account? CreatedAccount { get; set; }
+    
     public Species Species { get; set; } = default!;
     public  ICollection<TrainingDetail> TrainingDetails { get; set; } = new List<TrainingDetail>();
     public ICollection<FeedHistory> FeedHistories { get; set; } = new List<FeedHistory>();

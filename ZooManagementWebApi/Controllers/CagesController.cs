@@ -9,12 +9,12 @@ namespace ZooManagementWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CageController : ControllerBase
+    public class CagesController : ControllerBase
     {
         private readonly ICageRepository _cageRepository;
         private readonly IDietRepository _dietRepository;
         private readonly IMapper mapper;
-        public CageController(ICageRepository cageRepository, IDietRepository dietRepository, IMapper mapper)
+        public CagesController(ICageRepository cageRepository, IDietRepository dietRepository, IMapper mapper)
         {
             _cageRepository = cageRepository;
             _dietRepository = dietRepository;

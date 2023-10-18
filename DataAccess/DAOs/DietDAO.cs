@@ -1,13 +1,11 @@
-﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccess.Commons;
+using Domain.Entities;
 
-namespace DataAccess.DAOs
+namespace DataAccess.DAOs;
+
+public class DietDAO : BaseDAO<Diet>
 {
-    public class DietDAO : BaseDAO<Diet>
+    public DietDAO(AppConfiguration configuration) : base(configuration)
     {
     }
 }

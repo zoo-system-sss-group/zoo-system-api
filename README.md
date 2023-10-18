@@ -1,10 +1,13 @@
 # Zoo Management Project
 PLEASE READ THIS FILE CAREFULLY!
 ## EF migration code first
-To apply the latest migrations to your physical database, run this command(run the command from DataAccess folder)
+To apply the latest migrations to your physical database, run this command(run the command from <strong>zoo-management-system solution folder</strong>)
 ```
-dotnet ef database update
+dotnet ef database update - s ZooManagementWebApi -p DataAccess
 ```
+Example:
+![](./Screenshot%202023-10-18%20154556.png)
+
 ## Branch convention
 - For every new function, you must create a new branch, then invite other members to review your code in Git Hub, when that branch merged successfully, you can delete it and continue to create a new branch based on main for other functions.
 - When you create a new branch, it must be based on the **main branch** and follow this naming convention:

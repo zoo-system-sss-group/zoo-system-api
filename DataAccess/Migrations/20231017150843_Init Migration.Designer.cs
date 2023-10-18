@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231003173813_Reset Migrations")]
-    partial class ResetMigrations
+    [Migration("20231017150843_Init Migration")]
+    partial class InitMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,9 +36,6 @@ namespace DataAccess.Migrations
                     b.Property<byte[]>("Avatar")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -54,15 +51,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("ModificationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -94,9 +90,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -116,15 +109,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("ModificationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -137,8 +129,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
 
                     b.HasIndex("SpeciesId");
 
@@ -154,9 +144,6 @@ namespace DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreationDate")
@@ -177,9 +164,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime?>("ModificationDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -208,9 +192,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -233,9 +214,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime?>("ModificationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AreaId");
@@ -257,11 +235,10 @@ namespace DataAccess.Migrations
                     b.Property<int>("CageId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
@@ -270,13 +247,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("ModificationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
@@ -300,9 +278,6 @@ namespace DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -322,9 +297,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime?>("ModificationDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
 
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
@@ -352,9 +324,6 @@ namespace DataAccess.Migrations
                     b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -372,9 +341,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime?>("ModificationDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -399,11 +365,10 @@ namespace DataAccess.Migrations
                     b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
@@ -414,13 +379,14 @@ namespace DataAccess.Migrations
                         .HasDefaultValueSql("getutcdate()");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("ModificationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<int>("TrainerId")
                         .HasColumnType("int");
@@ -446,9 +412,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -458,13 +421,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("ModificationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<byte[]>("Thumbnail")
                         .HasColumnType("varbinary(max)");
@@ -474,8 +438,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
 
                     b.ToTable("News");
                 });
@@ -487,9 +449,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreationDate")
                         .HasColumnType("datetime2");
@@ -511,9 +470,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime?>("ModificationDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -544,9 +500,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("newid()");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -562,13 +515,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("ModificationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -579,9 +533,8 @@ namespace DataAccess.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<string>("TypeCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -589,8 +542,6 @@ namespace DataAccess.Migrations
                         .IsUnique();
 
                     b.HasIndex("OrderInformationId");
-
-                    b.HasIndex("TypeCode");
 
                     b.ToTable("Tickets");
                 });
@@ -602,8 +553,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Code")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newid()");
 
                     b.Property<DateTime?>("CreationDate")
                         .ValueGeneratedOnAdd()
@@ -617,18 +570,22 @@ namespace DataAccess.Migrations
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("ModificationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
@@ -637,58 +594,21 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("Status")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Total")
+                    b.Property<double>("TotalMoney")
                         .HasColumnType("float");
+
+                    b.Property<int>("TotalTicket")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.ToTable("TicketOrders");
-                });
-
-            modelBuilder.Entity("Domain.Entities.TicketType", b =>
-                {
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.HasKey("Code");
-
-                    b.ToTable("TicketTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Code = "A01",
-                            Name = "Adult",
-                            Price = 100000.0
-                        },
-                        new
-                        {
-                            Code = "C01",
-                            Name = "Child",
-                            Price = 60000.0
-                        },
-                        new
-                        {
-                            Code = "A02",
-                            Name = "VIP Adult",
-                            Price = 200000.0
-                        },
-                        new
-                        {
-                            Code = "C02",
-                            Name = "VIP Child",
-                            Price = 150000.0
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainingDetail", b =>
@@ -702,11 +622,10 @@ namespace DataAccess.Migrations
                     b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("CreationDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
@@ -715,13 +634,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("ModificationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ModifiedBy")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getutcdate()");
 
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
@@ -742,18 +662,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Entities.AnimalInformation", b =>
                 {
-                    b.HasOne("Domain.Entities.Account", "CreatedAccount")
-                        .WithMany("AnimalInformations")
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Domain.Entities.Species", "Species")
                         .WithMany("Animals")
                         .HasForeignKey("SpeciesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CreatedAccount");
 
                     b.Navigation("Species");
                 });
@@ -826,15 +739,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Trainer");
                 });
 
-            modelBuilder.Entity("Domain.Entities.News", b =>
-                {
-                    b.HasOne("Domain.Entities.Account", "CreatedAccount")
-                        .WithMany("NewsList")
-                        .HasForeignKey("CreatedBy");
-
-                    b.Navigation("CreatedAccount");
-                });
-
             modelBuilder.Entity("Domain.Entities.Ticket", b =>
                 {
                     b.HasOne("Domain.Entities.TicketOrder", "OrderInformation")
@@ -843,15 +747,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.TicketType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("OrderInformation");
-
-                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Domain.Entities.TrainingDetail", b =>
@@ -875,11 +771,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Entities.Account", b =>
                 {
-                    b.Navigation("AnimalInformations");
-
                     b.Navigation("FeedHistories");
-
-                    b.Navigation("NewsList");
 
                     b.Navigation("TrainingDetails");
                 });

@@ -10,11 +10,11 @@ namespace ZooManagementWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AnimalController : ControllerBase
+    public class AnimalsController : ControllerBase
     {
         private readonly IAnimalRepository _animalRepository;
         private readonly IMapper mapper;
-        public AnimalController(IAnimalRepository animalRepository, IMapper mapper)
+        public AnimalsController(IAnimalRepository animalRepository, IMapper mapper)
         {
             _animalRepository = animalRepository;
             this.mapper = mapper;
