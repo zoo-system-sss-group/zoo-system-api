@@ -2,7 +2,6 @@
 using Application.IRepositories;
 using Application.IServices;
 using Application.Utils;
-using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZooManagementWebApi.DTOs;
@@ -47,6 +46,7 @@ public class AuthController : ControllerBase
         {
             response.Success = false;
             response.ErrorMessage = ex.Message;
+            return BadRequest(response);
         }
         return Ok(response);
     }

@@ -6,7 +6,7 @@ using System.Reflection;
 namespace DataAccess;
 
 public class AppDBContext : DbContext
-{
+{    
     public AppDBContext() { }
     public AppDBContext(DbContextOptions options) : base(options) { }
 

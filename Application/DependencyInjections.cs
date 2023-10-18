@@ -9,7 +9,7 @@ public static class DependencyInjections
     public static IServiceCollection AddRepositoryDIs(this IServiceCollection services)
     {
         services.AddScoped<IAccountRepository, AccountRepository>();
-        services.AddScoped<INewRepository, NewRepository>();
+        services.AddScoped<INewsRepository, NewsRepository>();
         services.AddScoped<ISpeciesRepository, SpeciesRepository>();
         services.AddScoped<IAnimalRepository, AnimalRepsository>();
         services.AddScoped<IAreaRepository, AreaRepository>();

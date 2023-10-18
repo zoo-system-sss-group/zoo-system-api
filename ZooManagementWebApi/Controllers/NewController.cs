@@ -14,10 +14,10 @@ namespace ZooManagementWebApi.Controllers;
 [ApiController]
 public class NewController : ODataController
 {
-    private readonly INewRepository _newRepo;
+    private readonly INewsRepository _newRepo;
     private readonly IClaimService _claimService;
     private readonly IMapper _mapper;
-    public NewController(INewRepository newRepo, IClaimService claimService, IMapper mapper)
+    public NewController(INewsRepository newRepo, IClaimService claimService, IMapper mapper)
     {
         _newRepo = newRepo;
         _claimService = claimService;

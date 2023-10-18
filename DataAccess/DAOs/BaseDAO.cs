@@ -5,7 +5,7 @@ namespace DataAccess.DAOs;
 
 public class BaseDAO<TEntity> where TEntity : BaseEntity
 {
-    public static async Task<List<TEntity>> GetAllAsync()
+    public async Task<List<TEntity>> GetAllAsync()
     {
         var list = new List<TEntity>();
         using (var context = new AppDBContext())
@@ -15,7 +15,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
         return list;
     }
 
-    public static async Task<TEntity?> GetByIdAsync(int id)
+    public async Task<TEntity?> GetByIdAsync(int id)
     {
         TEntity? entity;
         using (var context = new AppDBContext())
@@ -25,7 +25,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
         return entity;
     }
 
-    public static async Task SaveAsync(TEntity p)
+    public async Task SaveAsync(TEntity p)
     {
         using (var context = new AppDBContext())
         {
@@ -35,7 +35,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
         }
     }
 
-    public static async Task SaveRangeAsync(List<TEntity> ls)
+    public async Task SaveRangeAsync(List<TEntity> ls)
     {
         using (var context = new AppDBContext())
         {
@@ -49,7 +49,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
         }
     }
 
-    public static async Task UpdateAsync(TEntity p)
+    public async Task UpdateAsync(TEntity p)
     {
         using (var context = new AppDBContext())
         {
@@ -59,7 +59,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
         }
     }
 
-    public static async Task DeleteAsync(TEntity p)
+    public async Task DeleteAsync(TEntity p)
     {
         using (var context = new AppDBContext())
         {
@@ -68,7 +68,7 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
         }
     }
 
-    public static async Task SoftDeleteAsync(TEntity p)
+    public async Task SoftDeleteAsync(TEntity p)
     {
         using (var context = new AppDBContext())
         {

@@ -6,61 +6,68 @@ namespace Application.Repositories;
 
 public class TicketOrderRepository : ITicketOrderRepository
 {
+    private readonly TicketOrderDAO _ticketOrderDAO;
+
+    public TicketOrderRepository(TicketOrderDAO ticketOrderDAO)
+    {
+        _ticketOrderDAO = ticketOrderDAO;
+    }
+
     public async Task AddTicketOrderAsync(TicketOrder order)
     {
-        var tmpTicketOrder = await TicketOrderDAO.GetTicketOrderByIdAsync(order.Id);
+        var tmpTicketOrder = await _ticketOrderDAO.GetTicketOrderByIdAsync(order.Id);
         if (tmpTicketOrder != null)
         {
             throw new Exception("Duplicate TicketOrder Id.");
         }
         else
         {
-            await TicketOrderDAO.SaveAsync(order);
+            await _ticketOrderDAO.SaveAsync(order);
         }
     }
 
     public async Task DeleteTicketOrderAsync(TicketOrder order)
     {
-        var tmpTicketOrder = await TicketOrderDAO.GetTicketOrderByIdAsync(order.Id);
+        var tmpTicketOrder = await _ticketOrderDAO.GetTicketOrderByIdAsync(order.Id);
         if (tmpTicketOrder == null)
         {
             throw new Exception("TicketOrder Id does not exist.");
         }
         else
         {
-            await TicketOrderDAO.DeleteAsync(order);
+            await _ticketOrderDAO.DeleteAsync(order);
         }
     }
 
     public async Task<List<TicketOrder>> GetAllTicketOrdersAsync()
-        => await TicketOrderDAO.GetAllTicketOrdersAsync();
+        => await _ticketOrderDAO.GetAllTicketOrdersAsync();
 
     public async Task<TicketOrder?> GetTicketOrderByIdAsync(int id)
-        => await TicketOrderDAO.GetTicketOrderByIdAsync(id);
+        => await _ticketOrderDAO.GetTicketOrderByIdAsync(id);
 
     public async Task SoftDeleteTicketOrderAsync(TicketOrder order)
     {
-        var tmpTicketOrder = await TicketOrderDAO.GetTicketOrderByIdAsync(order.Id);
+        var tmpTicketOrder = await _ticketOrderDAO.GetTicketOrderByIdAsync(order.Id);
         if (tmpTicketOrder == null)
         {
             throw new Exception("TicketOrder Id does not exist.");
         }
         else
         {
-            await TicketOrderDAO.SoftDeleteAsync(order);
+            await _ticketOrderDAO.SoftDeleteAsync(order);
         }
     }
 
     public async Task UpdateTicketOrderAsync(TicketOrder order)
     {
-        var tmpTicketOrder = await TicketOrderDAO.GetTicketOrderByIdAsync(order.Id);
+        var tmpTicketOrder = await _ticketOrderDAO.GetTicketOrderByIdAsync(order.Id);
         if (tmpTicketOrder == null)
         {
             throw new Exception("TicketOrder Id does not exist.");
         }
         else
         {
-            await TicketOrderDAO.UpdateAsync(order);
+            await _ticketOrderDAO.UpdateAsync(order);
         }
     }
 }

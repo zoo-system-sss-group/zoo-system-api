@@ -5,7 +5,7 @@ using System;
 
 namespace DataAccess.DAOs;
 
-public class NewDAO : BaseDAO<News>
+public class NewsDAO : BaseDAO<News>
 {
     
 }

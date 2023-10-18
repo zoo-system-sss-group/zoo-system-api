@@ -5,7 +5,7 @@ namespace DataAccess.DAOs;
 
 public class TicketDAO : BaseDAO<Ticket>
 {
-    public static async Task<List<Ticket>> GetAllTicketDetailsAsync()
+    public async Task<List<Ticket>> GetAllTicketDetailsAsync()
     {
         var tickets = new List<Ticket>();
         using (var context = new AppDBContext())

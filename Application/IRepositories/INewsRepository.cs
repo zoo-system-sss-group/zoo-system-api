@@ -2,7 +2,7 @@
 
 namespace Application.IRepositories
 {
-    public interface INewRepository
+    public interface INewsRepository
     {
         Task AddNews(News p);
         Task DeleteNews(News p);

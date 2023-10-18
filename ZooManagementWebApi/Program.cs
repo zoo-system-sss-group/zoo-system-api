@@ -1,5 +1,6 @@
 using Application;
 using Application.Commons;
+using DataAccess;
 using Domain.Entities;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
@@ -11,7 +12,6 @@ using ZooManagementWebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-
 builder.Services.AddControllers(opt => opt.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true).AddJsonOptions(opt =>
 {
     var enumConverter = new JsonStringEnumConverter();
@@ -25,12 +25,9 @@ builder.Services.AddControllers().AddOData(options => options.Select()
                                                              .Expand()
                                                              .SetMaxTop(100)
                                                              .AddRouteComponents("odata",GetEdmModel()));
-builder.Services.AddEndpointsApiExplorer().AddRouting(op => op.LowercaseQueryStrings = true); ;
-
+// Add Swagger configs
 builder.Services.AddSwaggerGenConfiguration();
-
-// Add DB Context for seeding Database
-//builder.Services.AddDbContext<AppDBContext>();  // remember to remove/comment when seeding DB complete
+builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
 
 // Add global exception middleware
 builder.Services.AddSingleton<GlobalExceptionMiddleware>();
@@ -44,9 +41,10 @@ builder.Services.AddSingleton(config!);
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
 // Add jwt configuration
-builder.Services.AddJWTConfiguration(config.JwtConfiguration.SecretKey);
+builder.Services.AddJWTConfiguration(config!.JwtConfiguration.SecretKey);
 
 // Add DIs
+builder.Services.AddDaoDIs();
 builder.Services.AddRepositoryDIs();
 builder.Services.AddServicesDIs();
 
@@ -79,6 +77,7 @@ app.UseHttpsRedirection();
 
 // Use Odata
 app.UseODataBatching();
+
 // Use routing
 app.UseRouting();
 

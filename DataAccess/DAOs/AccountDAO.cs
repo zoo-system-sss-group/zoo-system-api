@@ -5,7 +5,7 @@ namespace DataAccess.DAOs;
 
 public class AccountDAO : BaseDAO<Account>
 {
-    public static async Task<Account?> GetAccountByUsernameAsync(string username)
+    public async Task<Account?> GetAccountByUsernameAsync(string username)
     {
         Account? account;
         using (var context = new AppDBContext())
