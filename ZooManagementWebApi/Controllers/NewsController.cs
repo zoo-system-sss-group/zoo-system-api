@@ -12,12 +12,12 @@ namespace ZooManagementWebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class NewController : ODataController
+public class NewsController : ODataController
 {
     private readonly INewsRepository _newRepo;
     private readonly IClaimService _claimService;
     private readonly IMapper _mapper;
-    public NewController(INewsRepository newRepo, IClaimService claimService, IMapper mapper)
+    public NewsController(INewsRepository newRepo, IClaimService claimService, IMapper mapper)
     {
         _newRepo = newRepo;
         _claimService = claimService;
