@@ -12,7 +12,7 @@ namespace Application.IRepositories
         Task<List<Area>> GetAreasAsync();
         Task<Area?> GetAreaByIdAsync(int id);
         Task AddAreaAsync(Area area);
-        Task UpdateAreaAsync(int id, Area area);
+        Task UpdateAreaAsync(Area area);
         Task SoftDeleteAreaAsync(int id);
     }
 }

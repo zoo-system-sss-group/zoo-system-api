@@ -1,14 +1,16 @@
 ﻿using Application.IRepositories;
+using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [EnableQuery]
     public class CagesController : ControllerBase
     {
         private readonly ICageRepository _cageRepository;
@@ -21,105 +23,86 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetCages()
+        public async Task<ActionResult<IEnumerable<Cage>>> Get()
         {
-            var response = new ApiResponse()
+            List<Cage> cages;
+            try
             {
-                Success = true,
-                Value = await _cageRepository.GetCagesAsync()
-            };
-            return Ok(response);
-        }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCageById(int id)
-        {
-            var cage = await _cageRepository.GetCageByIdAsync(id);
-            var response = new ApiResponse()
-            {
-                Success = true,
-                Value = cage
-            };
-            return Ok(response);
-        }
-        [HttpGet("{id}/diet")]
-        public async Task<IActionResult> GetCageDietById(int id)
-        {
-            var cage = await _cageRepository.GetCageByIdAsync(id);
-            var cageDto = mapper.Map<CageDto>(cage);
-            foreach(CageHistory c in cage.CageHistories)
-            {
-                cageDto.Diets.Add(await _dietRepository.GetCurrentDietByAnimalIdAsync(c.AnimalId));
+                cages = await _cageRepository.GetCagesAsync();
             }
-            cageDto.OveralDiet = GetDiet(cageDto.Diets.ToList());
-            cageDto.CageHistories.Clear();
-            var response = new ApiResponse()
+            catch (Exception ex)
             {
-                Success = true,
-                Value = cageDto
-            };
-            return Ok(response);
+                return BadRequest(ex.Message);
+            }
+            return Ok(cages);
         }
-        private string GetDiet(List<Diet> diets)
+        [HttpGet]
+        public async Task<ActionResult<Cage>> Get([FromRoute] int key)
         {
-            List<double> listQuantity = new List<double>();
-            List<string> listUnit = new List<string>();
-            foreach(Diet diet in diets)
+            var cage = await _cageRepository.GetCageByIdAsync(key);
+
+            if (cage == null)
             {
-                if (listUnit.Contains(diet.Unit + " " + diet.FoodName))
-                {
-                    int index = listUnit.IndexOf(diet.Unit);
-                    listQuantity[index] += diet.Quantity;
-                }
-                else
-                {
-                    listUnit.Add(diet.Unit + " " + diet.FoodName);
-                    listQuantity.Add(diet.Quantity);
-                }
+                return NotFound();
             }
-            string result = "";
-            if (listUnit != null)
-            {
-                for (int i = 0; i < listUnit.Count - 1; i++)
-                {
-                    result += listQuantity[i] + listUnit[i] + ", ";
-                }
-                result += listQuantity[listQuantity.Count-1] + listUnit[listUnit.Count-1] + ".";
-                return result;
-            }
-            else
-                return null;
+            return Ok(cage);
         }
         [HttpPost]
-        public async Task<IActionResult> AddCage(CageDto cageDto)
+        [Authorize(Roles = "Staff")]
+        public async Task<ActionResult<Cage>> Post([FromBody] CageDto dto)
         {
-            var cage = mapper.Map<Cage>(cageDto);
-            await _cageRepository.AddCageAsync(cage);
-            var response = new ApiResponse()
+            Cage cage;
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                cage = mapper.Map<Cage>(dto);
+                await _cageRepository.AddCageAsync(cage);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return CreatedAtAction("Get", new { key = cage.Id }, cage);
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCage(int id, CageDto cageDto)
+        [HttpPut]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> Put([FromRoute] int key, [FromBody] CageDto dto)
         {
-            var cage = mapper.Map<Cage>(cageDto);
-            await _cageRepository.UpdateCageAsync(id, cage);
-            var response = new ApiResponse()
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                var cage = mapper.Map<Cage>(dto);
+                cage.Id = key;
+                await _cageRepository.UpdateCageAsync(cage);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NoContent();
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeleteCage(int id)
+
+        [HttpDelete]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> Delete([FromRoute] int key)
         {
-            await _cageRepository.SoftDeleteCageAsync(id);
-            var response = new ApiResponse()
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                await _cageRepository.SoftDeleteCageAsync(key);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return NoContent();
         }
     }
 }

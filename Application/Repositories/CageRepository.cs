@@ -27,20 +27,15 @@ public class CageRepository : ICageRepository
         var result = await _cageDAO.GetByIdAsync(id);
         if (result == null)
             throw new Exception("Can not found!");
-        result.CageHistories = await _cageHistoriesDao.GetListAnimalByCageId(id);
-        foreach(CageHistory ch in result.CageHistories)
-        {
-            ch.Animal = await _animalDao.GetByIdAsync(ch.AnimalId);
-        }
         return result;
     }
 
     public async Task AddCageAsync(Cage cage)
         => await _cageDAO.SaveAsync(cage);
 
-    public async Task UpdateCageAsync(int id, Cage cage)
+    public async Task UpdateCageAsync(Cage cage)
     {
-        var result = await _cageDAO.GetByIdAsync(id);
+        var result = await _cageDAO.GetByIdAsync(cage.Id);
         if (result == null)
             throw new Exception("Can not found!");
         await _cageDAO.UpdateAsync(cage);

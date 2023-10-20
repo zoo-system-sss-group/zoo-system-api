@@ -11,9 +11,8 @@ namespace Application.IRepositories
     {
         Task<List<AnimalInformation>> GetAnimalsAsync();
         Task<AnimalInformation?> GetAnimalByIdAsync(int id);
-        Task<AnimalInformation?> GetAnimalDietByIdAsync(int id);
         Task AddAnimalsAsync(AnimalInformation animal);
-        Task UpdateAnimalAsync(int id, AnimalInformation animal);
+        Task UpdateAnimalAsync(AnimalInformation animal);
         Task SoftDeleteAnimalsAsync(int id);
     }
 }

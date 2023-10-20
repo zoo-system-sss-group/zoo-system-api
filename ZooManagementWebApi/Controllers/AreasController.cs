@@ -2,14 +2,16 @@
 using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [EnableQuery]
+    [Authorize]
     public class AreasController : ControllerBase
     {
         private readonly IAreaRepository _areaRepository;
@@ -20,56 +22,87 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAreas()
+        public async Task<ActionResult<IEnumerable<Area>>> Get()
         {
-            var response = new ApiResponse()
+            List<Area> areas;
+            try
             {
-                Success = true,
-                Value = await _areaRepository.GetAreasAsync()
-            };
-            return Ok(response);
+                areas = await _areaRepository.GetAreasAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(areas);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAreaById(int id)
+        [HttpGet]
+        public async Task<ActionResult<Area>> Get([FromRoute] int key)
         {
-            var response = new ApiResponse()
+            var area = await _areaRepository.GetAreaByIdAsync(key);
+
+            if (area == null)
             {
-                Success = true,
-                Value = await _areaRepository.GetAreaByIdAsync(id)
-            };
-            return Ok(response);
+                return NotFound();
+            }
+
+            return Ok(area);
         }
         [HttpPost]
-        public async Task<IActionResult> AddArea(AreaDto areaDto)
+        [Authorize(Roles = "Staff")]
+        public async Task<ActionResult<Area>> Post([FromBody] AreaDto dto)
         {
-            var area = mapper.Map<Area>(areaDto);
-            await _areaRepository.AddAreaAsync(area);
-            var response = new ApiResponse()
+            Area area;
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                area = mapper.Map<Area>(dto);
+                await _areaRepository.AddAreaAsync(area);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return CreatedAtAction("Get", new { key = area.Id }, area);
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateArea(int id, AreaDto areaDto)
+        [HttpPut]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AreaDto dto)
         {
-            var area = mapper.Map<Area>(areaDto);
-            await _areaRepository.UpdateAreaAsync(id, area);
-            var response = new ApiResponse()
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                var area = mapper.Map<Area>(dto);
+                area.Id = key;
+                await _areaRepository.UpdateAreaAsync(area);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NoContent();
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeleteArea(int id)
+
+        [HttpDelete]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> Delete([FromRoute] int key)
         {
-            await _areaRepository.SoftDeleteAreaAsync(id);
-            var response = new ApiResponse()
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                await _areaRepository.SoftDeleteAreaAsync(key);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return NoContent();
         }
     }
 }

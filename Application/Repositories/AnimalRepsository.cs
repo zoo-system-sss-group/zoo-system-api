@@ -19,20 +19,12 @@ public class AnimalRepsository : IAnimalRepository
     public async Task<AnimalInformation?> GetAnimalByIdAsync(int id)
         => await _animalDao.GetByIdAsync(id);
 
-    public async Task<AnimalInformation?> GetAnimalDietByIdAsync(int id)
-    {
-        var result = await _animalDao.GetByIdAsync(id);
-        if (result == null)
-            throw new Exception("Can not found!");
-        return result;
-    }
-
     public async Task AddAnimalsAsync(AnimalInformation animal)
         => await _animalDao.SaveAsync(animal);
 
-    public async Task UpdateAnimalAsync(int id, AnimalInformation animal)
+    public async Task UpdateAnimalAsync(AnimalInformation animal)
     {
-        var result = await _animalDao.GetByIdAsync(id);
+        var result = await _animalDao.GetByIdAsync(animal.Id);
         if (result == null)
             throw new Exception("Can not found!");
         await _animalDao.UpdateAsync(animal);

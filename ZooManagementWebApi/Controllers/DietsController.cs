@@ -1,14 +1,16 @@
 ﻿using Application.IRepositories;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [EnableQuery]
+    [Authorize]
     public class DietsController : ControllerBase
     {
         private readonly IDietRepository _dietRepository;
@@ -19,56 +21,87 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetDiets()
+        public async Task<ActionResult<IEnumerable<Diet>>> Get()
         {
-            var response = new ApiResponse()
+            List<Diet> diets;
+            try
             {
-                Success = true,
-                Value = await _dietRepository.GetDietsAsync()
-            };
-            return Ok(response);
+                diets = await _dietRepository.GetDietsAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(diets);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDietById(int id)
+        [HttpGet]
+        public async Task<ActionResult<Diet>> Get([FromRoute] int key)
         {
-            var response = new ApiResponse()
+            var diet = await _dietRepository.GetDietByIdAsync(key);
+
+            if (diet == null)
             {
-                Success = true,
-                Value = await _dietRepository.GetDietByIdAsync(id)
-            };
-            return Ok(response);
+                return NotFound();
+            }
+
+            return Ok(diet);
         }
         [HttpPost]
-        public async Task<IActionResult> AddDiet(DietDto dietDto)
+        [Authorize(Roles = "Staff")]
+        public async Task<ActionResult<Diet>> Post([FromBody] DietDto dto)
         {
-            var diet = mapper.Map<Diet>(dietDto);
-            await _dietRepository.AddDietAsync(diet);
-            var response = new ApiResponse()
+            Diet diet;
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                diet = mapper.Map<Diet>(dto);
+                await _dietRepository.AddDietAsync(diet);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return CreatedAtAction("Get", new { key = diet.Id }, diet);
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateDiet(int id, DietDto dietDto)
+        [HttpPut]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> Put([FromRoute] int key, [FromBody] DietDto dto)
         {
-            var diet = mapper.Map<Diet>(dietDto);
-            await _dietRepository.UpdateDietAsync(id, diet);
-            var response = new ApiResponse()
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                var diet = mapper.Map<Diet>(dto);
+                diet.Id = key;
+                await _dietRepository.UpdateDietAsync(diet);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NoContent();
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeleteDiet(int id)
+
+        [HttpDelete]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> Delete([FromRoute] int key)
         {
-            await _dietRepository.SoftDeleteDietAsync(id);
-            var response = new ApiResponse()
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                await _dietRepository.SoftDeleteDietAsync(key);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return NoContent();
         }
     }
 }

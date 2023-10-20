@@ -30,9 +30,9 @@ public class DietRepository : IDietRepository
         return await _dietDAO.GetByIdAsync(dietDetail.DietId);
     } 
     
-    public async Task UpdateDietAsync(int id, Diet diet)
+    public async Task UpdateDietAsync(Diet diet)
     {
-        var result = await _dietDAO.GetByIdAsync(id);
+        var result = await _dietDAO.GetByIdAsync(diet.Id);
         if (result == null)
             throw new Exception("Can not found!");
         await _dietDAO.UpdateAsync(diet);

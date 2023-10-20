@@ -30,9 +30,9 @@ public class AreaRepository : IAreaRepository
     public async Task AddAreaAsync(Area area)
         => await _areaDAO.SaveAsync(area);
 
-    public async Task UpdateAreaAsync(int id, Area area)
+    public async Task UpdateAreaAsync(Area area)
     {
-        var result = await _areaDAO.GetByIdAsync(id);
+        var result = await _areaDAO.GetByIdAsync(area.Id);
         if (result == null)
             throw new Exception("Can not found!");
         await _areaDAO.UpdateAsync(area);
