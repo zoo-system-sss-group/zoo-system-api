@@ -5,6 +5,7 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
@@ -21,12 +22,12 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Species>>> Get()
+        public ActionResult<IQueryable<Species>> Get()
         {
-            List<Species> species;
+            IQueryable<Species> species;
             try
             {
-                species = await _speciesRepo.GetSpeciesAsync();
+                species = _speciesRepo.GetSpeciesAsync();
             }
             catch (Exception ex)
             {
@@ -35,16 +36,16 @@ namespace ZooManagementWebApi.Controllers
             return Ok(species);
         }
         [HttpGet]
-        public async Task<ActionResult<Species>> Get([FromRoute] int key)
+        public ActionResult<SingleResult> Get([FromRoute] int key)
         {
-            var specie = await _speciesRepo.GetSpeciesByIdAsync(key);
+            var specie = _speciesRepo.GetSpeciesByIdAsync(key);
 
             if (specie == null)
             {
                 return NotFound();
             }
 
-            return Ok(specie);
+            return Ok(new SingleResult<Species>(specie));
         }
         [HttpPost]
         [Authorize(Roles = "Staff")]

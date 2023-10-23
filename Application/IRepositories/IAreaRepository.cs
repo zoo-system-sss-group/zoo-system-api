@@ -9,8 +9,8 @@ namespace Application.IRepositories
 {
     public interface IAreaRepository
     {
-        Task<List<Area>> GetAreasAsync();
-        Task<Area?> GetAreaByIdAsync(int id);
+        IQueryable<Area> GetAreasAsync();
+        IQueryable<Area> GetAreaByIdAsync(int id);
         Task AddAreaAsync(Area area);
         Task UpdateAreaAsync(Area area);
         Task SoftDeleteAreaAsync(int id);

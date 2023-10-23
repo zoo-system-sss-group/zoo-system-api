@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
 using ZooManagementWebApi.DTOs;
 using ZooManagementWebApi.Mapper;
 
@@ -23,12 +24,12 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AnimalInformation>>> Get()
+        public ActionResult<IQueryable<AnimalInformation>> Get()
         {
-            List<AnimalInformation> animals;
+            IQueryable<AnimalInformation> animals;
             try
             {
-                animals = await _animalRepository.GetAnimalsAsync();
+                animals = _animalRepository.GetAnimalsAsync();
             }
             catch (Exception ex)
             {
@@ -38,16 +39,16 @@ namespace ZooManagementWebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<AnimalInformation>> Get([FromRoute] int key)
+        public ActionResult<SingleResult> Get([FromRoute] int key)
         {
-            var animal = await _animalRepository.GetAnimalByIdAsync(key);
+            var animal = _animalRepository.GetAnimalByIdAsync(key);
 
             if (animal == null)
             {
                 return NotFound();
             }
 
-            return Ok(animal);
+            return Ok(new SingleResult<AnimalInformation>(animal));
         }
 
         [HttpPost]

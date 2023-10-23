@@ -2,6 +2,7 @@
 using Azure;
 using DataAccess.DAOs;
 using Domain.Entities;
+using System.Collections;
 
 namespace Application.Repositories;
 
@@ -9,24 +10,19 @@ public class CageRepository : ICageRepository
 {
     private readonly CageDAO _cageDAO;
     private readonly AnimalDAO _animalDao;
-    private readonly CageHistoriesDAO _cageHistoriesDao;
 
-    public CageRepository(CageDAO cageDAO, AnimalDAO animalDao, 
-                            CageHistoriesDAO cageHistoriesDao)
+    public CageRepository(CageDAO cageDAO, AnimalDAO animalDao)
     {
         _cageDAO = cageDAO;
         _animalDao = animalDao;
-        _cageHistoriesDao = cageHistoriesDao;
     }
 
-    public async Task<List<Cage>> GetCagesAsync()
-        => await _cageDAO.GetAllAsync();
+    public IQueryable<Cage> GetCagesAsync()
+        => _cageDAO.GetAllOdataAsync();
 
-    public async Task<Cage?> GetCageByIdAsync(int id)
+    public IQueryable<Cage> GetCageByIdAsync(int id)
     {
-        var result = await _cageDAO.GetByIdAsync(id);
-        if (result == null)
-            throw new Exception("Can not found!");
+        var result = _cageDAO.GetByIdOdataAsync(id);
         return result;
     }
 

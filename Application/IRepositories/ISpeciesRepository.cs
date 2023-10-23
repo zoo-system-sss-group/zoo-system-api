@@ -9,8 +9,8 @@ namespace Application.IRepositories
 {
     public interface ISpeciesRepository
     {
-        Task<List<Species>> GetSpeciesAsync();
-        Task<Species?> GetSpeciesByIdAsync(int id);
+        IQueryable<Species> GetSpeciesAsync();
+        IQueryable<Species> GetSpeciesByIdAsync(int id);
         Task AddSpeciesAsync(Species species);
         Task UpdateSpeciesAsync(Species species);
         Task SoftDeleteSpeciesAsync(int id);

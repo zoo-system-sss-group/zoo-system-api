@@ -9,8 +9,8 @@ namespace Application.IRepositories
 {
     public interface IAnimalRepository
     {
-        Task<List<AnimalInformation>> GetAnimalsAsync();
-        Task<AnimalInformation?> GetAnimalByIdAsync(int id);
+        IQueryable<AnimalInformation> GetAnimalsAsync();
+        IQueryable<AnimalInformation> GetAnimalByIdAsync(int id);
         Task AddAnimalsAsync(AnimalInformation animal);
         Task UpdateAnimalAsync(AnimalInformation animal);
         Task SoftDeleteAnimalsAsync(int id);

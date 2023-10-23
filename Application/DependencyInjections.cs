@@ -17,7 +17,6 @@ public static class DependencyInjections
         services.AddScoped<IDietRepository, DietRepository>();
         services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<ITicketOrderRepository, TicketOrderRepository>();
-
         return services;
     }
 }

@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
         modelBuilder.EntitySet<Cage>("Cages");
         modelBuilder.EntitySet<Species>("Species");
         modelBuilder.EntitySet<Diet>("Diets");
+        modelBuilder.EntitySet<CageHistory>("CageHistory");
         // Add OData
         services.AddControllers().AddOData(options 
             => options.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100)

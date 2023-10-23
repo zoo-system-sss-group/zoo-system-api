@@ -7,23 +7,18 @@ namespace Application.Repositories;
 public class AreaRepository : IAreaRepository
 {
     private readonly AreaDAO _areaDAO;
-    private readonly CageDAO _cageDAO;
 
-    public AreaRepository(AreaDAO areaDAO, CageDAO cageDAO)
+    public AreaRepository(AreaDAO areaDAO)
     {
         _areaDAO = areaDAO;
-        _cageDAO = cageDAO;
     }
 
-    public async Task<List<Area>> GetAreasAsync()
-       => await _areaDAO.GetAllAsync();
+    public IQueryable<Area> GetAreasAsync()
+       => _areaDAO.GetAllOdataAsync();
 
-    public async Task<Area?> GetAreaByIdAsync(int id)
+    public IQueryable<Area> GetAreaByIdAsync(int id)
     {
-        var area = await _areaDAO.GetByIdAsync(id);
-        if (area == null)
-            throw new Exception("Can con found!");
-        area.Cages = await _cageDAO.GetCageByAreaId(id);
+        var area = _areaDAO.GetByIdOdataAsync(id);
         return area;
     }
 

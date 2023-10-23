@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
+using Microsoft.EntityFrameworkCore;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
@@ -23,29 +25,29 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cage>>> Get()
+        public ActionResult<IQueryable<Cage>> Get()
         {
-            List<Cage> cages;
+            IQueryable<Cage> cages;
             try
             {
-                cages = await _cageRepository.GetCagesAsync();
+                cages = _cageRepository.GetCagesAsync(); //roi chinh lai het y chang v di
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            return Ok(cages);
+            return Ok(cages); // khong tolist lun
         }
         [HttpGet]
-        public async Task<ActionResult<Cage>> Get([FromRoute] int key)
+        public ActionResult<SingleResult> Get([FromRoute] int key)
         {
-            var cage = await _cageRepository.GetCageByIdAsync(key);
+            var cage =  _cageRepository.GetCageByIdAsync(key);
 
             if (cage == null)
             {
                 return NotFound();
             }
-            return Ok(cage);
+            return Ok(new SingleResult<Cage>(cage));
         }
         [HttpPost]
         [Authorize(Roles = "Staff")]

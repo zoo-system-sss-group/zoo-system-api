@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
@@ -22,12 +23,12 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Area>>> Get()
+        public ActionResult<IQueryable<Area>> Get()
         {
-            List<Area> areas;
+            IQueryable<Area> areas;
             try
             {
-                areas = await _areaRepository.GetAreasAsync();
+                areas = _areaRepository.GetAreasAsync();
             }
             catch (Exception ex)
             {
@@ -36,16 +37,16 @@ namespace ZooManagementWebApi.Controllers
             return Ok(areas);
         }
         [HttpGet]
-        public async Task<ActionResult<Area>> Get([FromRoute] int key)
+        public ActionResult<SingleResult> Get([FromRoute] int key)
         {
-            var area = await _areaRepository.GetAreaByIdAsync(key);
+            var area = _areaRepository.GetAreaByIdAsync(key);
 
             if (area == null)
             {
                 return NotFound();
             }
 
-            return Ok(area);
+            return Ok(new SingleResult<Area>(area));
         }
         [HttpPost]
         [Authorize(Roles = "Staff")]

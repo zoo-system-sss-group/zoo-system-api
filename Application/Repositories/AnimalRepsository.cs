@@ -13,11 +13,11 @@ public class AnimalRepsository : IAnimalRepository
         _animalDao = animalDao;
     }
 
-    public async Task<List<AnimalInformation>> GetAnimalsAsync()
-        => await _animalDao.GetAllAsync();
+    public IQueryable<AnimalInformation> GetAnimalsAsync()
+        => _animalDao.GetAllOdataAsync();
 
-    public async Task<AnimalInformation?> GetAnimalByIdAsync(int id)
-        => await _animalDao.GetByIdAsync(id);
+    public IQueryable<AnimalInformation> GetAnimalByIdAsync(int id)
+        => _animalDao.GetByIdOdataAsync(id);
 
     public async Task AddAnimalsAsync(AnimalInformation animal)
         => await _animalDao.SaveAsync(animal);
