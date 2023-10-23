@@ -13,18 +13,18 @@ public class SpeciesRepository : ISpeciesRepository
         _speciesDAO = speciesDAO;
     }
 
-    public async Task<List<Species>> GetSpeciesAsync()
-        => await _speciesDAO.GetAllAsync();
+    public IQueryable<Species> GetSpeciesAsync()
+        =>  _speciesDAO.GetAllOdataAsync();
 
-    public async Task<Species?> GetSpeciesByIdAsync(int id)
-        => await _speciesDAO.GetByIdAsync(id);
+    public IQueryable<Species> GetSpeciesByIdAsync(int id)
+        =>  _speciesDAO.GetByIdOdataAsync(id);
 
     public async Task AddSpeciesAsync(Species species)
         => await _speciesDAO.SaveAsync(species);
 
-    public async Task UpdateSpeciesAsync(int id, Species species)
+    public async Task UpdateSpeciesAsync(Species species)
     {
-        var result = await _speciesDAO.GetByIdAsync(id);
+        var result = await _speciesDAO.GetByIdAsync(species.Id);
         if (result == null)
             throw new Exception("Can not found!");
         await _speciesDAO.UpdateAsync(species);

@@ -3,6 +3,7 @@ using Application.Services;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
@@ -17,7 +18,12 @@ public static class ServiceCollectionExtensions
         var modelBuilder = new ODataConventionModelBuilder();
         // Add entity set / entity type
         modelBuilder.EntitySet<Account>("Accounts");
-
+        modelBuilder.EntitySet<AnimalInformation>("Animals");
+        modelBuilder.EntitySet<Area>("Areas");
+        modelBuilder.EntitySet<Cage>("Cages");
+        modelBuilder.EntitySet<Species>("Species");
+        modelBuilder.EntitySet<Diet>("Diets");
+        modelBuilder.EntitySet<CageHistory>("CageHistory");
         // Add OData
         services.AddControllers().AddOData(options 
             => options.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100)

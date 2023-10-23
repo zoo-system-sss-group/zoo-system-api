@@ -9,10 +9,10 @@ namespace Application.IRepositories
 {
     public interface ICageRepository
     {
-        Task<List<Cage>> GetCagesAsync();
-        Task<Cage?> GetCageByIdAsync(int id);
+        IQueryable<Cage> GetCagesAsync();
+        IQueryable<Cage> GetCageByIdAsync(int id);
         Task AddCageAsync(Cage cage);
-        Task UpdateCageAsync(int id, Cage cage);
+        Task UpdateCageAsync(Cage cage);
         Task SoftDeleteCageAsync(int id);
     }
 }

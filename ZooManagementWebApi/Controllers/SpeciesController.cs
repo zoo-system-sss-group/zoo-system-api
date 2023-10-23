@@ -1,13 +1,17 @@
 ﻿using Application.IRepositories;
+using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [EnableQuery]
+    [Authorize]
     public class SpeciesController : ControllerBase
     {
         private readonly ISpeciesRepository _speciesRepo;
@@ -18,56 +22,87 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetSpecies()
+        public ActionResult<IQueryable<Species>> Get()
         {
-            var response = new ApiResponse()
+            IQueryable<Species> species;
+            try
             {
-                Success = true,
-                Value = await _speciesRepo.GetSpeciesAsync()
-            };
-            return Ok(response);
+                species = _speciesRepo.GetSpeciesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(species);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetSpeciesById(int id)
+        [HttpGet]
+        public ActionResult<SingleResult> Get([FromRoute] int key)
         {
-            var response = new ApiResponse()
+            var specie = _speciesRepo.GetSpeciesByIdAsync(key);
+
+            if (specie == null)
             {
-                Success = true,
-                Value = await _speciesRepo.GetSpeciesByIdAsync(id)
-            };
-            return Ok(response);
+                return NotFound();
+            }
+
+            return Ok(new SingleResult<Species>(specie));
         }
         [HttpPost]
-        public async Task<IActionResult> AddSpecies(SpeciesDto speciesDto)
+        [Authorize(Roles = "Staff")]
+        public async Task<ActionResult<Species>> Post([FromBody] SpeciesDto dto)
         {
-            var species = mapper.Map<Species>(speciesDto);
-            await _speciesRepo.AddSpeciesAsync(species);
-            var response = new ApiResponse()
+            Species species;
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                species = mapper.Map<Species>(dto);
+                await _speciesRepo.AddSpeciesAsync(species);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return CreatedAtAction("Get", new { key = species.Id }, species);
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateSpecies(int id, SpeciesDto speciesDto)
+        [HttpPut]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> Put([FromRoute] int key, [FromBody] SpeciesDto dto)
         {
-            var species = mapper.Map<Species>(speciesDto);
-            await _speciesRepo.UpdateSpeciesAsync(id, species);
-            var response = new ApiResponse()
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                var species = mapper.Map<Species>(dto);
+                species.Id = key;
+                await _speciesRepo.UpdateSpeciesAsync(species);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NoContent();
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeleteSpecies(int id)
+
+        [HttpDelete]
+        [Authorize(Roles = "Staff")]
+        public async Task<IActionResult> Delete([FromRoute] int key)
         {
-            await _speciesRepo.SoftDeleteSpeciesAsync(id);
-            var response = new ApiResponse()
+            try
             {
-                Success = true,
-            };
-            return Ok(response);
+                await _speciesRepo.SoftDeleteSpeciesAsync(key);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return NoContent();
         }
     }
 }

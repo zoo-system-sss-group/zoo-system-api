@@ -2,7 +2,7 @@
 
 public class Cage : BaseEntity
 {
-    public string Code { get; set; } = default!; // Format: Axxxx, Bxxxx (x: is number, and based on Area Code)
+    public string Code { get; set; } = default!; 
     public string Name { get; set; } = default!;
     public string Location { get; set; } = default!;
     public byte[]? Image { get; set; }
