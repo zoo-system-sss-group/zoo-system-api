@@ -20,10 +20,7 @@ public class TicketOrderRepository : ITicketOrderRepository
         {
             throw new Exception("Duplicate TicketOrder Id.");
         }
-        else
-        {
-            await _ticketOrderDAO.SaveAsync(order);
-        }
+        await _ticketOrderDAO.SaveAsync(order);
     }
 
     public async Task DeleteTicketOrderAsync(TicketOrder order)
@@ -33,17 +30,18 @@ public class TicketOrderRepository : ITicketOrderRepository
         {
             throw new Exception("TicketOrder Id does not exist.");
         }
-        else
-        {
-            await _ticketOrderDAO.DeleteAsync(order);
-        }
+        await _ticketOrderDAO.DeleteAsync(order);
     }
 
     public async Task<List<TicketOrder>> GetAllTicketOrdersAsync()
-        => await _ticketOrderDAO.GetAllTicketOrdersAsync();
+    {
+        return await _ticketOrderDAO.GetAllTicketOrdersAsync();
+    }        
 
     public async Task<TicketOrder?> GetTicketOrderByIdAsync(int id)
-        => await _ticketOrderDAO.GetTicketOrderByIdAsync(id);
+    {
+        return await _ticketOrderDAO.GetTicketOrderByIdAsync(id);
+    }        
 
     public async Task SoftDeleteTicketOrderAsync(TicketOrder order)
     {
@@ -52,10 +50,7 @@ public class TicketOrderRepository : ITicketOrderRepository
         {
             throw new Exception("TicketOrder Id does not exist.");
         }
-        else
-        {
-            await _ticketOrderDAO.SoftDeleteAsync(order);
-        }
+        await _ticketOrderDAO.SoftDeleteAsync(order);
     }
 
     public async Task UpdateTicketOrderAsync(TicketOrder order)
@@ -65,10 +60,7 @@ public class TicketOrderRepository : ITicketOrderRepository
         {
             throw new Exception("TicketOrder Id does not exist.");
         }
-        else
-        {
-            order.CreationDate = tmpTicketOrder.CreationDate;
-            await _ticketOrderDAO.UpdateAsync(order);
-        }
+        order.CreationDate = tmpTicketOrder.CreationDate;
+        await _ticketOrderDAO.UpdateAsync(order);
     }
 }

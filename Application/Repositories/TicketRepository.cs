@@ -39,10 +39,14 @@ public class TicketRepository : ITicketRepository
     }
 
     public async Task<List<Ticket>> GetAllTicketsAsync()
-        => await _ticketDAO.GetAllTicketDetailsAsync();    
+    {
+        return await _ticketDAO.GetAllTicketDetailsAsync();
+    }        
 
     public async Task<Ticket?> GetTicketByIdAsync(int id)
-        => await _ticketDAO.GetByIdAsync(id);    
+    {
+        return await _ticketDAO.GetByIdAsync(id);
+    }
 
     public async Task SoftDeleteTicketAsync(Ticket ticket)
     {
@@ -72,5 +76,7 @@ public class TicketRepository : ITicketRepository
     }    
 
     public async Task AddTicketAsync(List<Ticket> tickets)
-        => await _ticketDAO.SaveRangeAsync(tickets);    
+    {
+        await _ticketDAO.SaveRangeAsync(tickets);
+    }           
 }
