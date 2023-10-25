@@ -9,8 +9,6 @@ public class Ticket : BaseEntity
     public double Price { get; set; }
     
     public bool IsActive { get; set; } = true;
-    
-    public DateTime EffectiveDate { get; set; }
 
     public TicketTypeEnum TicketType { get; set; }
 

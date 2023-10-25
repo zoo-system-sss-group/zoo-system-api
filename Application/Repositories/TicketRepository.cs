@@ -25,12 +25,12 @@ public class TicketRepository : ITicketRepository
         }        
     }        
 
-    public async Task DeleteTicketAsync(Ticket ticket)
+    public async Task DeleteTicketAsync(int ticketId)
     {
-        var tmpTicket = await _ticketDAO.GetByIdAsync(ticket.Id);
-        if (tmpTicket == null)
+        var ticket = await _ticketDAO.GetByIdAsync(ticketId);
+        if (ticket == null)
         {
-            throw new Exception("Ticket Id does not exist.");
+            throw new ArgumentException("Ticket Id does not exist.");
         }
         else
         {
@@ -48,12 +48,12 @@ public class TicketRepository : ITicketRepository
         return await _ticketDAO.GetByIdAsync(id);
     }
 
-    public async Task SoftDeleteTicketAsync(Ticket ticket)
+    public async Task SoftDeleteTicketAsync(int ticketId)
     {
-        var tmpTicket = await _ticketDAO.GetByIdAsync(ticket.Id);
-        if (tmpTicket == null)
+        var ticket = await _ticketDAO.GetByIdAsync(ticketId);
+        if (ticket == null)
         {
-            throw new Exception("Ticket Id does not exist.");
+            throw new ArgumentException("Ticket Id does not exist.");
         }
         else
         {
@@ -66,11 +66,12 @@ public class TicketRepository : ITicketRepository
         var tmpTicket = await _ticketDAO.GetByIdAsync(ticket.Id);
         if (tmpTicket == null)
         {
-            throw new Exception("Ticket Id does not exist.");
+            throw new ArgumentException("Ticket Id does not exist.");
         }
         else
         {
             ticket.CreationDate = tmpTicket.CreationDate;
+            ticket.OrderId = tmpTicket.OrderId;
             await _ticketDAO.UpdateAsync(ticket);
         }
     }    

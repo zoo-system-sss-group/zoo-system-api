@@ -20,15 +20,21 @@ public class TicketOrderRepository : ITicketOrderRepository
         {
             throw new Exception("Duplicate TicketOrder Id.");
         }
+
+        if ((order.EffectiveDate - DateTime.Today).TotalDays <= 0)
+        {
+            throw new Exception("Invalid effective date! " +
+                "You can only buy tickets for at least 1 day in advance from the current date");
+        }
         await _ticketOrderDAO.SaveAsync(order);
     }
 
-    public async Task DeleteTicketOrderAsync(TicketOrder order)
+    public async Task DeleteTicketOrderAsync(int orderId)
     {
-        var tmpTicketOrder = await _ticketOrderDAO.GetTicketOrderByIdAsync(order.Id);
-        if (tmpTicketOrder == null)
+        var order = await _ticketOrderDAO.GetTicketOrderByIdAsync(orderId);
+        if (order == null)
         {
-            throw new Exception("TicketOrder Id does not exist.");
+            throw new ArgumentException("TicketOrder Id does not exist.");
         }
         await _ticketOrderDAO.DeleteAsync(order);
     }
@@ -43,12 +49,12 @@ public class TicketOrderRepository : ITicketOrderRepository
         return await _ticketOrderDAO.GetTicketOrderByIdAsync(id);
     }        
 
-    public async Task SoftDeleteTicketOrderAsync(TicketOrder order)
+    public async Task SoftDeleteTicketOrderAsync(int orderId)
     {
-        var tmpTicketOrder = await _ticketOrderDAO.GetTicketOrderByIdAsync(order.Id);
-        if (tmpTicketOrder == null)
+        var order = await _ticketOrderDAO.GetTicketOrderByIdAsync(orderId);
+        if (order == null)
         {
-            throw new Exception("TicketOrder Id does not exist.");
+            throw new ArgumentException("TicketOrder Id does not exist.");
         }
         await _ticketOrderDAO.SoftDeleteAsync(order);
     }
@@ -58,7 +64,7 @@ public class TicketOrderRepository : ITicketOrderRepository
         var tmpTicketOrder = await _ticketOrderDAO.GetTicketOrderByIdAsync(order.Id);
         if (tmpTicketOrder == null)
         {
-            throw new Exception("TicketOrder Id does not exist.");
+            throw new ArgumentException("TicketOrder Id does not exist.");
         }
         order.CreationDate = tmpTicketOrder.CreationDate;
         await _ticketOrderDAO.UpdateAsync(order);

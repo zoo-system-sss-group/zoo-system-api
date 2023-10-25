@@ -17,7 +17,9 @@ namespace ZooManagementWebApi.Mapper
             CreateMap<Account, AccountDto>().ReverseMap();
 
             // Tickets           
-            
+            CreateMap<Ticket, TicketUpdateDto>().ReverseMap();
+            CreateMap<TicketOrder, TicketOrderDto>().ForMember(x => x.Tickets, opt => opt.Ignore());
+            CreateMap<TicketOrderDto, TicketOrder>().ForMember(x => x.Tickets, opt => opt.Ignore());
         }
     }
 }

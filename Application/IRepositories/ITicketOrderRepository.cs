@@ -8,6 +8,6 @@ public interface ITicketOrderRepository
     Task<TicketOrder?> GetTicketOrderByIdAsync(int id);
     Task AddTicketOrderAsync(TicketOrder order);
     Task UpdateTicketOrderAsync(TicketOrder order);
-    Task DeleteTicketOrderAsync(TicketOrder order);
-    Task SoftDeleteTicketOrderAsync(TicketOrder order);
+    Task DeleteTicketOrderAsync(int orderId);
+    Task SoftDeleteTicketOrderAsync(int orderId);
 }
