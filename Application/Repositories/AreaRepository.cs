@@ -30,6 +30,7 @@ public class AreaRepository : IAreaRepository
         var result = await _areaDAO.GetByIdAsync(area.Id);
         if (result == null)
             throw new Exception("Can not found!");
+        area.CreationDate = result.CreationDate;
         await _areaDAO.UpdateAsync(area);
     }
 

@@ -27,6 +27,7 @@ public class SpeciesRepository : ISpeciesRepository
         var result = await _speciesDAO.GetByIdAsync(species.Id);
         if (result == null)
             throw new Exception("Can not found!");
+        species.CreationDate = result.CreationDate;
         await _speciesDAO.UpdateAsync(species);
     }
 

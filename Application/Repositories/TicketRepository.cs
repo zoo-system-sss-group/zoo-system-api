@@ -66,6 +66,7 @@ public class TicketRepository : ITicketRepository
         }
         else
         {
+            ticket.CreationDate = tmpTicket.CreationDate;
             await _ticketDAO.UpdateAsync(ticket);
         }
     }    

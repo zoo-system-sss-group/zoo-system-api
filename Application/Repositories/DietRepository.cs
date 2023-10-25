@@ -35,6 +35,7 @@ public class DietRepository : IDietRepository
         var result = await _dietDAO.GetByIdAsync(diet.Id);
         if (result == null)
             throw new Exception("Can not found!");
+        diet.CreationDate = result.CreationDate;
         await _dietDAO.UpdateAsync(diet);
     }
 

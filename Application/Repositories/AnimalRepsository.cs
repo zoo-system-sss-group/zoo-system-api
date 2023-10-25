@@ -27,6 +27,7 @@ public class AnimalRepsository : IAnimalRepository
         var result = await _animalDao.GetByIdAsync(animal.Id);
         if (result == null)
             throw new Exception("Can not found!");
+        animal.CreationDate = result.CreationDate;
         await _animalDao.UpdateAsync(animal);
     }
 
