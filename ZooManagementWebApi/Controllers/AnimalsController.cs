@@ -3,112 +3,108 @@ using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
 using ZooManagementWebApi.DTOs;
-using ZooManagementWebApi.Mapper;
 
-namespace ZooManagementWebApi.Controllers
+namespace ZooManagementWebApi.Controllers;
+
+[EnableQuery]
+public class AnimalsController : ControllerBase
 {
-    [EnableQuery]
-    [Authorize]
-    public class AnimalsController : ControllerBase
+    private readonly IAnimalRepository _animalRepository;
+    private readonly IMapper mapper;
+    public AnimalsController(IAnimalRepository animalRepository, IMapper mapper)
     {
-        private readonly IAnimalRepository _animalRepository;
-        private readonly IMapper mapper;
-        public AnimalsController(IAnimalRepository animalRepository, IMapper mapper)
+        _animalRepository = animalRepository;
+        this.mapper = mapper;
+    }
+    [HttpGet]
+    public ActionResult<IQueryable<AnimalInformation>> Get()
+    {
+        IQueryable<AnimalInformation> animals;
+        try
         {
-            _animalRepository = animalRepository;
-            this.mapper = mapper;
+            animals = _animalRepository.GetAnimalsAsync();
         }
-        [HttpGet]
-        public ActionResult<IQueryable<AnimalInformation>> Get()
+        catch (Exception ex)
         {
-            IQueryable<AnimalInformation> animals;
-            try
-            {
-                animals = _animalRepository.GetAnimalsAsync();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(animals);
+            return BadRequest(ex.Message);
         }
+        return Ok(animals);
+    }
 
-        [HttpGet]
-        public ActionResult<SingleResult> Get([FromRoute] int key)
+    [HttpGet]
+    public ActionResult<SingleResult> Get([FromRoute] int key)
+    {
+        var animal = _animalRepository.GetAnimalByIdAsync(key);
+
+        if (animal == null)
         {
-            var animal = _animalRepository.GetAnimalByIdAsync(key);
-
-            if (animal == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(new SingleResult<AnimalInformation>(animal));
+            return NotFound();
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Staff")]
-        public async Task<ActionResult<AnimalInformation>> Post([FromBody] AnimalInformationDto dto)
-        {
-            AnimalInformation animal;
-            try
-            {
-                animal = mapper.Map<AnimalInformation>(dto);
-                await _animalRepository.AddAnimalsAsync(animal);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+        return Ok(new SingleResult<AnimalInformation>(animal));
+    }
 
-            return CreatedAtAction("Get", new { key = animal.Id }, animal);
+    [HttpPost]
+    [Authorize(Roles = "Staff")]
+    public async Task<ActionResult<AnimalInformation>> Post([FromBody] AnimalInformationDto dto)
+    {
+        AnimalInformation animal;
+        try
+        {
+            animal = mapper.Map<AnimalInformation>(dto);
+            await _animalRepository.AddAnimalsAsync(animal);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
 
-        [HttpPut]
-        [Authorize(Roles = "Staff")]
-        public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AnimalInformationDto dto)
-        {
-            try
-            {
-                var animal = mapper.Map<AnimalInformation>(dto);
-                animal.Id = key;
-                await _animalRepository.UpdateAnimalAsync(animal);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+        return CreatedAtAction("Get", new { key = animal.Id }, animal);
+    }
 
-            return NoContent();
+    [HttpPut]
+    [Authorize(Roles = "Staff")]
+    public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AnimalInformationDto dto)
+    {
+        try
+        {
+            var animal = mapper.Map<AnimalInformation>(dto);
+            animal.Id = key;
+            await _animalRepository.UpdateAnimalAsync(animal);
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
 
-        [HttpDelete]
-        [Authorize(Roles = "Staff")]
-        public async Task<IActionResult> Delete([FromRoute] int key)
-        {
-            try
-            {
-                await _animalRepository.SoftDeleteAnimalsAsync(key);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+        return NoContent();
+    }
 
-            return NoContent();
+    [HttpDelete]
+    [Authorize(Roles = "Staff")]
+    public async Task<IActionResult> Delete([FromRoute] int key)
+    {
+        try
+        {
+            await _animalRepository.SoftDeleteAnimalsAsync(key);
         }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+        return NoContent();
     }
 }

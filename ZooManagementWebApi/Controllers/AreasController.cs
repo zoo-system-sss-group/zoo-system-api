@@ -1,9 +1,7 @@
 ﻿using Application.IRepositories;
-using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
@@ -12,7 +10,6 @@ using ZooManagementWebApi.DTOs;
 namespace ZooManagementWebApi.Controllers;
 
 [EnableQuery]
-[Authorize]
 public class AreasController : ControllerBase
 {
     private readonly IAreaRepository _areaRepository;
