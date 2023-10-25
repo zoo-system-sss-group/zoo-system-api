@@ -10,7 +10,6 @@ using ZooManagementWebApi.DTOs;
 namespace ZooManagementWebApi.Controllers;
 
 [EnableQuery]
-[Authorize]
 public class AreasController : ControllerBase
 {
     private readonly IAreaRepository _areaRepository;
