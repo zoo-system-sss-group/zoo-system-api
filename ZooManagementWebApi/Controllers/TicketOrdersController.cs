@@ -1,182 +1,240 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain.Entities;
-using ZooManagementWebApi.DTOs;
 using Application.IRepositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.OData.Query;
+using ZooManagementWebApi.DTOs;
+using DataAccess.Commons;
+using Domain.Enums;
+using System.Globalization;
+using Application.IServices;
 
 namespace ZooManagementWebApi.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
+[EnableQuery]
 public class TicketOrdersController : ControllerBase
 {
-    private readonly ITicketRepository _ticketRepo;
     private readonly ITicketOrderRepository _orderRepo;
     private readonly IMapper _mapper;
+    private readonly AppConfiguration _config;
+    private readonly IEmailService _emailService;
 
-    public TicketOrdersController(ITicketRepository ticketRepository,
-                                ITicketOrderRepository orderRepo,
-                                IMapper mapper)
+    public TicketOrdersController(ITicketOrderRepository orderRepo,
+                                IMapper mapper,
+                                AppConfiguration configuration,
+                                IEmailService emailService)
     {
-        _ticketRepo = ticketRepository;
         _mapper = mapper;
         _orderRepo = orderRepo;
+        _config = configuration;
+        _emailService = emailService;
     }
 
-    // GET: api/TicketOrders
+    // GET: odata/TicketOrders
     [HttpGet]
-    public async Task<IActionResult> GetTicketOrders()
+    [Authorize(Roles = "Staff")]
+    public async Task<ActionResult<IEnumerable<TicketOrder>>> Get()
     {
+        List<TicketOrder> TicketOrders;
         try
         {
-            return Ok(new ApiResponse
-            {
-                Success = true,
-                Value = await _orderRepo.GetAllTicketOrdersAsync()
-            });
+            TicketOrders = await _orderRepo.GetAllTicketOrdersAsync();
         }
         catch (Exception ex)
         {
-            return BadRequest(new ApiResponse
-            {
-                Success = false,
-                ErrorMessage = $"{ex.Message}"
-            });
+            return BadRequest(ex.Message);
         }
+        return Ok(TicketOrders);
     }
 
-    // GET: api/TicketOrders/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult> GetTicketOrder(int id)
+    // GET: odata/TicketOrders/5
+    [HttpGet]
+    [Authorize(Roles = "Staff")]
+    public async Task<ActionResult<TicketOrder>> Get([FromRoute] int key)
     {
-        var ticketOrder = await _orderRepo.GetTicketOrderByIdAsync(id);
+        var ticketOrder = await _orderRepo.GetTicketOrderByIdAsync(key);
+
         if (ticketOrder == null)
         {
-            return NotFound(new ApiResponse
-            {
-                Success = false,
-                ErrorMessage = "TicketOrder Id does not exist."
-            });
+            return NotFound();
         }
-        return Ok(new ApiResponse
-        {
-            Success = true,
-            Value = _mapper.Map<TicketOrderViewDTO>(ticketOrder)
-        });
+
+        return Ok(ticketOrder);
     }
 
-    // PUT: api/TicketOrders/5        
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutTicketOrder(int id, TicketOrderUpdateDTO dto)
+    // PUT: odata/TicketOrders/5
+    [HttpPut]
+    [Authorize(Roles = "Staff")]
+    public async Task<IActionResult> Put([FromRoute] int key, [FromBody] TicketOrderDto dto)
     {
-        var tmp = await _orderRepo.GetTicketOrderByIdAsync(id);
-        if (tmp == null)
+        if (dto == null)
         {
-            return NotFound(new ApiResponse
-            {
-                Success = false,
-                ErrorMessage = "TicketOrder Id does not exist."
-            });
+            return BadRequest("Invalid payment method or invalid ticket type!");
         }
         try
         {
             var ticketOrder = _mapper.Map<TicketOrder>(dto);
-            ticketOrder.Id = id;
+            ticketOrder.Id = key;
+
+            foreach (var t in dto.Tickets)
+            {
+                for (var i = 0; i < t.Quantity; i++)
+                {
+                    var typeId = (int)t.TicketType;
+                    var ticketType = _config.TicketTypeInformation.TicketType
+                                .FirstOrDefault(x => x.Id.Equals(typeId.ToString()));
+
+                    var ticket = new Ticket
+                    {
+                        TicketType = t.TicketType,
+                        Price = double.Parse(ticketType!.Price)
+                    };
+
+                    ticketOrder.Tickets.Add(ticket);
+                }
+            }
+
             await _orderRepo.UpdateTicketOrderAsync(ticketOrder);
         }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
         catch (Exception ex)
         {
-            return BadRequest(new ApiResponse
-            {
-                Success = false,
-                ErrorMessage = $"{ex.Message}"
-            });
+            return BadRequest(ex.Message);
         }
 
         return NoContent();
     }
 
-    // POST: api/TicketOrders/
-    [HttpPost()]
-    public async Task<ActionResult<Ticket>> PurchaseTicket(TicketOrderCreateDTO dto)
+    // POST: odata/TicketOrders
+    [HttpPost]
+    public async Task<ActionResult<TicketOrder>> Post([FromBody] TicketOrderDto dto)
     {
-        // Create ticket order
-        var lastestOrder = (await _orderRepo.GetAllTicketOrdersAsync()).OrderBy(x => x.Id).LastOrDefault();
-        var order = _mapper.Map<TicketOrder>(dto);
-        order.Id = lastestOrder == null ? 1 : lastestOrder.Id + 1;
-        try
-        {            
-            //// Create ticket
-            //var tickets = new List<Ticket>();
-            //foreach (var item in dto.Tickets)
-            //{
-            //    var ticketType = await _ticketRepo.GetTicketTypeByCodeAsync(item.TypeCode);
-            //    if (ticketType == null)
-            //    {
-            //        throw new Exception("Invalid ticket type");
-            //    }
-            //    for (var i = 0; i < item.Quantity; i++)
-            //    {
-            //        var ticket = new Ticket
-            //        {
-            //            TypeCode = item.TypeCode,
-            //            EffectiveDate = item.EffectiveDate,
-            //            Price = ticketType.Price,
-            //            OrderId = order!.Id
-            //        };
-            //        tickets.Add(ticket);
-            //        order.Total += ticket.Price;
-            //    }
-            //}
-            //// Save in database
-            //order.Tickets = tickets;
-            //await _orderRepo.AddTicketOrderAsync(order);
-        }
-        catch (Exception ex)
+        if (dto == null)
         {
-            return BadRequest(new ApiResponse
-            {
-                Success = false,
-                ErrorMessage = $"{ex.Message} Details: {ex}"
-            });
+            return BadRequest("Invalid payment method or invalid ticket type!");
         }
-        return Ok(new ApiResponse
-        {
-            Success = true,
-            Value = new { id = order.Id }
-        });
-    }
-
-    // DELETE: api/TicketOrders/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTicketOrder(int id)
-    {
-        var order = await _orderRepo.GetTicketOrderByIdAsync(id);
-        if (order == null)
-        {
-            return NotFound(new ApiResponse
-            {
-                Success= false,
-                ErrorMessage = "TicketOrder Id does not exist."
-            });
-        }
+        TicketOrder ticketOrder;
         try
         {
-            if (order.IsDeleted)
+            var lastesItem = (await _orderRepo.GetAllTicketOrdersAsync())
+                                .OrderBy(x => x.Id).LastOrDefault();
+            var lastesId = 0;
+            if (lastesItem != null)
             {
-                throw new Exception("This order has been deleted");
+                lastesId = lastesItem.Id;
             }
-            await _orderRepo.SoftDeleteTicketOrderAsync(order);
+
+            ticketOrder = _mapper.Map<TicketOrder>(dto);
+            ticketOrder.Id = ++lastesId;
+
+            foreach(var t in dto.Tickets)
+            {
+                for (var i = 0; i < t.Quantity; i++)
+                {
+                    var typeId = (int)t.TicketType;
+                    var ticketType = _config.TicketTypeInformation.TicketType
+                                .FirstOrDefault(x => x.Id.Equals(typeId.ToString()));
+
+                    var ticket = new Ticket
+                    {
+                        TicketType = t.TicketType,
+                        Price = double.Parse(ticketType!.Price),
+                        OrderId = ticketOrder.Id
+                    };
+
+                    ticketOrder.TotalTicket++;
+                    ticketOrder.TotalMoney += ticket.Price;
+                    ticketOrder.Tickets.Add(ticket);
+                }
+            }
+
+            await _orderRepo.AddTicketOrderAsync(ticketOrder);
+            // send ticket info to guest email
+            await SendConfirmEmailAsync(ticketOrder);
         }
         catch (Exception ex)
         {
-            return BadRequest(new ApiResponse
-            {
-                Success = false,
-                ErrorMessage = $"{ex.Message}"
-            });
+            return BadRequest(ex.Message);
+        }
+
+        return CreatedAtAction("Get", new { key = ticketOrder.Id }, ticketOrder);
+    }
+
+    // DELETE: odata/TicketOrders/5
+    [HttpDelete]
+    [Authorize(Roles = "Staff")]
+    public async Task<IActionResult> Delete([FromRoute] int key)
+    {
+        try
+        {
+            await _orderRepo.DeleteTicketOrderAsync(key);
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
 
         return NoContent();
+    }
+
+    // GET: api/ticketorders/payments
+    [HttpGet("api/ticketorders/payments")]
+    public IActionResult GetAllTicketTypes()
+    {
+        try
+        {
+            var payments = new List<PaymentVM>();
+            var paymentName = Enum.GetNames(typeof(PaymentEnum)).ToList();
+            int i = 0;
+            foreach (var s in paymentName)
+            {
+                payments.Add(new PaymentVM { Id = i++, Name = s });
+            }
+            return Ok(payments);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { ErrorMessage = ex.Message });
+        }
+    }
+
+    private async Task SendConfirmEmailAsync(TicketOrder order)
+    {
+        //file path in localhost
+        string exePath = Environment.CurrentDirectory.ToString();
+        if (exePath.Contains(@"\bin\Debug\net7.0"))
+            exePath = exePath.Remove(exePath.Length - (@"\bin\Debug\net7.0").Length);
+        string FilePath = exePath + @"\EmailTemplates\DefaultTemplate.html";
+
+        StreamReader streamreader = new StreamReader(FilePath);
+        string mailText = streamreader.ReadToEnd();
+        streamreader.Close();
+        var childrenTickets = order.Tickets
+                            .Where(x => x.TicketType == TicketTypeEnum.ChildrenTicket)
+                            .Count();
+        var adultTickets = order.Tickets
+                            .Where(x => x.TicketType == TicketTypeEnum.AdultTicket)
+                            .Count();
+        //Replace email informations
+        mailText = mailText.Replace("[CustomerName]", order.CustomerName);
+        mailText = mailText.Replace("[CreationDate]", order.CreationDate!.Value.ToString("f"));
+        mailText = mailText.Replace("[OrderCode]", order.Code.ToString());
+        mailText = mailText.Replace("[Email]", order.Email);
+        mailText = mailText.Replace("[PhoneNumber]", order.PhoneNumber);
+        mailText = mailText.Replace("[EffectiveDate]", order.EffectiveDate.ToString("f"));
+        mailText = mailText.Replace("[ChildrenTickets]", childrenTickets.ToString());
+        mailText = mailText.Replace("[AdultTickets]", adultTickets.ToString());        
+        mailText = mailText.Replace("[TotalMoney]", order.TotalMoney.ToString("C0", CultureInfo.GetCultureInfo("vi-VN")));
+        mailText = mailText.Replace("[PaymentMethod]", order.PaymentMethod.ToString());
+        // Send email to customer (send reservation information)
+        await _emailService.SendMailAsync(new List<string> { order.Email }, "Zoo Management System - Reservation Confirmation", mailText);
     }
 }

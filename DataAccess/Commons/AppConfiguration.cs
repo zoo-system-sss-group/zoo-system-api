@@ -30,7 +30,12 @@ public class EmailSetting
 
 public class TicketTypeInformation
 {
-    public string AdultTicketPrice { get; set; } = default!;
-    public string ChildrenTicketPrice { get; set; } = default!;
+    public List<TicketType> TicketType { get; set; } = default!;
+}
+public class TicketType
+{
+    public string Id { get; set; } = default!;
+    public string Name { get; set; } = default!;
+    public string Price { get; set; } = default!;
 }
 #endregion
