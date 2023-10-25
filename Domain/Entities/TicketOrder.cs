@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities;
 
@@ -10,9 +11,10 @@ public class TicketOrder : BaseEntity
     
     public string Email { get; set; } = default!;
     
+    [MinLength(10, ErrorMessage = "Phone number at least 10 digits.")]
     public string PhoneNumber { get; set; } = default!;
-
-    public DateTime EffectiveDate { get; set; }
+    
+    public DateTime EffectiveDate { get; set; } // Vé cho hôm nào
 
     public PaymentEnum PaymentMethod { get; set; }
     

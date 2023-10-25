@@ -12,7 +12,7 @@ public class Ticket : BaseEntity
     
     public DateTime EffectiveDate { get; set; }
 
-    public TicketTypeEnum Status { get; set; }
+    public TicketTypeEnum TicketType { get; set; }
 
     public int OrderId { get; set; }
 

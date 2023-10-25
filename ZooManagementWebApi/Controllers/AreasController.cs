@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
+using Microsoft.EntityFrameworkCore;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers;
@@ -51,7 +52,7 @@ public class AreasController : ControllerBase
     {
         Area area;
         try
-        {
+        {            
             area = mapper.Map<Area>(dto);
             await _areaRepository.AddAreaAsync(area);
         }
