@@ -206,6 +206,39 @@ public class TicketOrdersController : ControllerBase
         }
     }
 
+    // POST: api/ticketorders/total
+    [HttpPost("api/ticketorders/total")]
+    public ActionResult GetTotalMoney([FromBody] TicketListDto dto)
+    {
+        if (dto == null)
+        {
+            return BadRequest("Invalid payment method or invalid ticket type!");
+        }
+
+        try
+        {
+            double total = 0;
+
+            foreach (var t in dto.Tickets)
+            {
+                for (var i = 0; i < t.Quantity; i++)
+                {
+                    var typeId = (int)t.TicketType;
+                    var ticketType = _config.TicketTypeInformation.TicketType
+                                .FirstOrDefault(x => x.Id.Equals(typeId.ToString()));
+
+                    total += double.Parse(ticketType!.Price);
+                }
+            }
+
+            return Ok(new { Total = total });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     private async Task SendConfirmEmailAsync(TicketOrder order)
     {
         //file path in localhost
