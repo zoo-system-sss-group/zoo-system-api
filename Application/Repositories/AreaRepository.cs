@@ -23,9 +23,6 @@ public class AreaRepository : IAreaRepository
     }
 
     public async Task AddAreaAsync(Area area)
-        => await _areaDAO.SaveAsync(area);
-
-    public async Task UpdateAreaAsync(Area area)
     {
         // check duplicate code
         var tmp = (await _areaDAO.GetAllAsync())
@@ -36,7 +33,7 @@ public class AreaRepository : IAreaRepository
         }
 
         await _areaDAO.SaveAsync(area);
-    }        
+    }
 
     public async Task UpdateAreaAsync(Area area)
     {
