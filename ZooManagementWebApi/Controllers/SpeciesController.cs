@@ -11,12 +11,11 @@ using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers;
 
-[EnableQuery]
-public class SpeciesController : ControllerBase
-{
+
     [EnableQuery]
     [Authorize]
     public class SpeciesController : ControllerBase
+    { 
     private readonly ISpeciesRepository _speciesRepo;
     private readonly IMapper mapper;
     public SpeciesController(ISpeciesRepository speciesRepo, IMapper mapper)
@@ -24,14 +23,7 @@ public class SpeciesController : ControllerBase
         _speciesRepo = speciesRepo;
         this.mapper = mapper;
     }
-    [HttpGet]
-    public ActionResult<IQueryable<Species>> Get()
-    {
-        IQueryable<Species> species;
-        try
-        {
-            species = _speciesRepo.GetSpeciesAsync();
-        }
+    
         [HttpGet]
         public ActionResult<IQueryable<Species>> Get()
         {
@@ -106,85 +98,5 @@ public class SpeciesController : ControllerBase
             }
 
             return NoContent();
-    }
-    [HttpGet]
-    public ActionResult<SingleResult> Get([FromRoute] int key)
-    {
-        var specie = _speciesRepo.GetSpeciesByIdAsync(key);
-
-        if (specie == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(new SingleResult<Species>(specie));
-    }
-    [HttpPost]
-    [Authorize(Roles = "Staff")]
-    public async Task<ActionResult<Species>> Post([FromBody] SpeciesDto dto)
-    {
-        Species species;
-        try
-        {
-            species = mapper.Map<Species>(dto);
-            await _speciesRepo.AddSpeciesAsync(species);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-
-        return CreatedAtAction("Get", new { key = species.Id }, species);
-    }
-    [HttpPut]
-    [Authorize(Roles = "Staff")]
-    public async Task<IActionResult> Put([FromRoute] int key, [FromBody] SpeciesDto dto)
-    {
-        try
-        {
-            var species = mapper.Map<Species>(dto);
-            species.Id = key;
-            await _speciesRepo.UpdateSpeciesAsync(species);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        return NoContent();
-    }
-
-    [HttpDelete]
-    [Authorize(Roles = "Staff")]
-    public async Task<IActionResult> Delete([FromRoute] int key)
-    {
-        try
-        {
-            await _speciesRepo.SoftDeleteSpeciesAsync(key);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        return NoContent();
-    }
-
-    [HttpGet("api/species/habitats")]
-    public IActionResult  GetHaibtats()
-    {
-        try
-        {
-            var habitats = new List<HabitatVM>();
-            var listName = Enum.GetNames(typeof(HabitatEnum)).ToList();
-            int i = 0;
-            foreach (var habitat in listName)
-            {
-                habitats.Add(new HabitatVM { Id = i++, Name = habitat });
-            }
-            return Ok(habitats);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { ErrorMessage = ex.Message });
-        }
     }
 }
