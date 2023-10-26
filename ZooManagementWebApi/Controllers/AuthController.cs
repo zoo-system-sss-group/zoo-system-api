@@ -96,4 +96,30 @@ public class AuthController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet("current-user")]
+    [Authorize]
+    public async Task<IActionResult> GetCurrentUser()
+    {
+        var userId = _claimService.GetCurrentUserId;
+        var user = await _accountRepo.GetAccountByIdAsync(userId);
+
+        if (user != null)
+        {
+            var response = new ApiResponse()
+            {
+                Success = true,
+                Value = user
+            };
+            return Ok(response);
+        }
+        else
+        {
+            return NotFound(new ApiResponse
+            {
+                Success = false,
+                ErrorMessage = "Something wrong! User Id not found."
+            });
+        }
+    }
 }

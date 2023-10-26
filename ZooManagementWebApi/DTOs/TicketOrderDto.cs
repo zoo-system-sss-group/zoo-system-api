@@ -1,28 +1,22 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Entities;
+namespace ZooManagementWebApi.DTOs;
 
-public class TicketOrder : BaseEntity
+public class TicketOrderDto
 {
-    public Guid Code { get; set; } = Guid.NewGuid();
-
     public string CustomerName { get; set; } = default!;
-    
+
     public string Email { get; set; } = default!;
-    
+
     [MinLength(10, ErrorMessage = "Phone number at least 10 digits.")]
     public string PhoneNumber { get; set; } = default!;
-    
+
     public DateTime EffectiveDate { get; set; } // Vé cho hôm nào
 
     public PaymentEnum PaymentMethod { get; set; }
-    
-    public double TotalMoney { get; set; } = 0;
-    
-    public int TotalTicket { get; set; } = 0;
 
-    public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Success;
-
-    public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+    [NotMapped]
+    public List<TicketCreateDto> Tickets { get; set; } = new List<TicketCreateDto>();
 }

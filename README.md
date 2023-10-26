@@ -3,7 +3,7 @@ PLEASE READ THIS FILE CAREFULLY!
 ## EF migration code first
 To apply the latest migrations to your physical database, run this command(run the command from <strong>zoo-management-system solution folder</strong>)
 ```
-dotnet ef database update - s ZooManagementWebApi -p DataAccess
+dotnet ef database update -s ZooManagementWebApi -p DataAccess
 ```
 Example:
 ![](./Screenshot%202023-10-18%20154556.png)

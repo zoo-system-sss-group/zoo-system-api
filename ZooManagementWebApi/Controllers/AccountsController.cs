@@ -61,7 +61,7 @@ public class AccountsController : ControllerBase
         {
             var account = _mapper.Map<Account>(dto);
             account.Id = key;
-            account.Password = account.Password.Hash();
+            account.Password = account.Password.Hash();            
             await _accountRepository.UpdateAccountAsync(account);
         }
         catch (ArgumentException ex)

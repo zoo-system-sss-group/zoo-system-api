@@ -27,9 +27,23 @@ public class AreaRepository : IAreaRepository
 
     public async Task UpdateAreaAsync(Area area)
     {
+        // check duplicate code
+        var tmp = (await _areaDAO.GetAllAsync())
+                .FirstOrDefault(x => x.Code.Equals(area.Code));
+        if (tmp != null)
+        {
+            throw new Exception($"The area code with value '{area.Code}' is duplicated!");
+        }
+
+        await _areaDAO.SaveAsync(area);
+    }        
+
+    public async Task UpdateAreaAsync(Area area)
+    {
         var result = await _areaDAO.GetByIdAsync(area.Id);
         if (result == null)
             throw new Exception("Can not found!");
+        area.CreationDate = result.CreationDate;
         await _areaDAO.UpdateAsync(area);
     }
 

@@ -34,6 +34,7 @@ public class CageRepository : ICageRepository
         var result = await _cageDAO.GetByIdAsync(cage.Id);
         if (result == null)
             throw new Exception("Can not found!");
+        cage.CreationDate = result.CreationDate;
         await _cageDAO.UpdateAsync(cage);
     }
 
