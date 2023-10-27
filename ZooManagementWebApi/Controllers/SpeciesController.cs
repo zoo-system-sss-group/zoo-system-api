@@ -14,6 +14,7 @@ namespace ZooManagementWebApi.Controllers;
 [EnableQuery]
 public class SpeciesController : ControllerBase
 {
+
     private readonly ISpeciesRepository _speciesRepo;
     private readonly IMapper mapper;
     public SpeciesController(ISpeciesRepository speciesRepo, IMapper mapper)
@@ -35,6 +36,7 @@ public class SpeciesController : ControllerBase
         }
         return Ok(species);
     }
+
     [HttpGet]
     public ActionResult<SingleResult> Get([FromRoute] int key)
     {
@@ -74,10 +76,6 @@ public class SpeciesController : ControllerBase
             species.Id = key;
             await _speciesRepo.UpdateSpeciesAsync(species);
         }
-        catch (ArgumentException ex)
-        {
-            return NotFound(ex.Message);
-        }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
@@ -93,20 +91,15 @@ public class SpeciesController : ControllerBase
         {
             await _speciesRepo.SoftDeleteSpeciesAsync(key);
         }
-        catch (ArgumentException ex)
-        {
-            return NotFound(ex.Message);
-        }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
         }
-
         return NoContent();
     }
 
     [HttpGet("api/species/habitats")]
-    public IActionResult  GetHaibtats()
+    public IActionResult GetHaibtats()
     {
         try
         {

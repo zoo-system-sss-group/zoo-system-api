@@ -2,6 +2,10 @@
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
@@ -20,6 +24,7 @@ public class AreasController : ControllerBase
         _areaRepository = areaRepository;
         this.mapper = mapper;
     }
+
     [HttpGet]
     public ActionResult<IQueryable<Area>> Get()
     {
@@ -52,7 +57,7 @@ public class AreasController : ControllerBase
     {
         Area area;
         try
-        {            
+        {
             area = mapper.Map<Area>(dto);
             await _areaRepository.AddAreaAsync(area);
         }
@@ -72,10 +77,6 @@ public class AreasController : ControllerBase
             var area = mapper.Map<Area>(dto);
             area.Id = key;
             await _areaRepository.UpdateAreaAsync(area);
-        }
-        catch (ArgumentException ex)
-        {
-            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
