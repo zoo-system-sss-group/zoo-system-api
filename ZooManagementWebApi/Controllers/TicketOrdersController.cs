@@ -105,6 +105,7 @@ public class TicketOrdersController : ControllerBase
         var order = _mapper.Map<TicketOrder>(dto);
         order.Id = lastestOrder == null ? 1 : lastestOrder.Id + 1;
         try
+<<<<<<< Updated upstream
         {            
             //// Create ticket
             //var tickets = new List<Ticket>();
@@ -131,6 +132,46 @@ public class TicketOrdersController : ControllerBase
             //// Save in database
             //order.Tickets = tickets;
             //await _orderRepo.AddTicketOrderAsync(order);
+=======
+        {
+            var lastesItem = (await _orderRepo.GetAllTicketOrdersAsync())
+                                .OrderBy(x => x.Id).LastOrDefault();
+            var lastesId = 0;
+            if (lastesItem != null)
+            {
+                lastesId = lastesItem.Id;
+            }
+
+            ticketOrder = _mapper.Map<TicketOrder>(dto);
+            ticketOrder.Id = ++lastesId;
+
+            foreach(var t in dto.Tickets)
+            {
+                for (var i = 0; i < t.Quantity; i++)
+                {
+                    var typeId = (int)t.TicketType;
+                    var ticketType = _config.TicketTypeInformation.TicketType
+                                .FirstOrDefault(x => x.Id.Equals(typeId.ToString()));
+
+                    var ticket = new Ticket
+                    {
+                        TicketType = t.TicketType,
+                        Price = double.Parse(ticketType!.Price),
+                        OrderId = ticketOrder.Id
+                    };
+
+                    ticketOrder.TotalTicket++;
+                    ticketOrder.TotalMoney += ticket.Price;
+                    ticketOrder.Tickets.Add(ticket);
+                }
+            }
+
+            await _orderRepo.AddTicketOrderAsync(ticketOrder);
+            // send ticket info to guest email
+            if(!string.IsNullOrEmpty(ticketOrder.Email))
+            await SendConfirmEmailAsync(ticketOrder);
+            //li do nen dung transaction create thanh cong nhung k gui mail 
+>>>>>>> Stashed changes
         }
         catch (Exception ex)
         {
