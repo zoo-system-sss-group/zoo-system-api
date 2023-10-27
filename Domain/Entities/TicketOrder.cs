@@ -9,7 +9,7 @@ public class TicketOrder : BaseEntity
 
     public string CustomerName { get; set; } = default!;
     [EmailAddress]
-    public string? Email { get; set; }
+    public string Email { get; set; } = default!;
     
     [Phone]
     public string PhoneNumber { get; set; } = default!;
@@ -21,7 +21,7 @@ public class TicketOrder : BaseEntity
     public int TotalTicket { get; set; } = 0;
     [EnumDataType(typeof(OrderStatusEnum))]
 
-    public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Waiting;
+    public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Success;
 
     public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }
