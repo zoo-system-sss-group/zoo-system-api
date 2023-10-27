@@ -8,6 +8,7 @@ public class AreaConfig : IEntityTypeConfiguration<Area>
 {
     public void Configure(EntityTypeBuilder<Area> builder)
     {
+        builder.HasIndex(x => x.Code).IsUnique();
 
         #region has init data
         builder.HasData(

@@ -9,6 +9,6 @@ public interface ITicketRepository
     Task AddTicketAsync(Ticket ticket);
     Task AddTicketAsync(List<Ticket> tickets);
     Task UpdateTicketAsync(Ticket ticket);   
-    Task DeleteTicketAsync(Ticket ticket);    
-    Task SoftDeleteTicketAsync(Ticket ticket);    
+    Task DeleteTicketAsync(int ticketId);    
+    Task SoftDeleteTicketAsync(int ticketId);    
 }

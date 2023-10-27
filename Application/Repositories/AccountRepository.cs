@@ -62,6 +62,7 @@ public class AccountRepository : IAccountRepository
         {
             throw new Exception("Duplicate with other account's usernamed!");
         }
+        account.CreationDate = acc.CreationDate;
         await _accountDao.UpdateAsync(account);
     }
 }

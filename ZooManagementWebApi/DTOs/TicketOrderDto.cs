@@ -17,6 +17,7 @@ public class TicketOrderDto
     
     public DateTime EffectiveDate { get; set; } // Vé cho hôm nào
     [EnumDataType(typeof(PaymentEnum))]
+
     public PaymentEnum PaymentMethod { get; set; }
 
     [NotMapped]

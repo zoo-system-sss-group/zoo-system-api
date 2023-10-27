@@ -32,6 +32,20 @@ public class BaseDAO<TEntity> where TEntity : BaseEntity
         }
         return entity;
     }
+    public IQueryable<TEntity> GetAllOdataAsync()
+    {
+        IQueryable<TEntity> list;
+        var context = new AppDBContext(_configuration);
+        list =  context.Set<TEntity>();
+        return list;
+    }
+    public IQueryable<TEntity> GetByIdOdataAsync(int id, bool queryAble = true)
+    {
+        IQueryable<TEntity> entity;
+        var context = new AppDBContext(_configuration);
+        entity =  context.Set<TEntity>().Where(x => x.Id == id);
+        return entity;
+    }
 
     public async Task SaveAsync(TEntity p)
     {

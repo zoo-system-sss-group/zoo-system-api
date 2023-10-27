@@ -1,85 +1,110 @@
 ﻿using Application.IRepositories;
+using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Results;
 using ZooManagementWebApi.DTOs;
-using ZooManagementWebApi.Mapper;
 
-namespace ZooManagementWebApi.Controllers
+namespace ZooManagementWebApi.Controllers;
+
+[EnableQuery]
+public class AnimalsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AnimalsController : ControllerBase
+    private readonly IAnimalRepository _animalRepository;
+    private readonly IMapper mapper;
+    public AnimalsController(IAnimalRepository animalRepository, IMapper mapper)
     {
-        private readonly IAnimalRepository _animalRepository;
-        private readonly IMapper mapper;
-        public AnimalsController(IAnimalRepository animalRepository, IMapper mapper)
+        _animalRepository = animalRepository;
+        this.mapper = mapper;
+    }
+    [HttpGet]
+    public ActionResult<IQueryable<AnimalInformation>> Get()
+    {
+        IQueryable<AnimalInformation> animals;
+        try
         {
-            _animalRepository = animalRepository;
-            this.mapper = mapper;
+            animals = _animalRepository.GetAnimalsAsync();
         }
-        [HttpGet()]
-        public async Task<IActionResult> GetAnimals()
+        catch (Exception ex)
         {
-            var response = new ApiResponse()
-            {
-                Success = true,
-                Value = await _animalRepository.GetAnimalsAsync()
-            };
-            return Ok(response);
+            return BadRequest(ex.Message);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAnimalsById(int id)
+        return Ok(animals);
+    }
+
+    [HttpGet]
+    public ActionResult<SingleResult> Get([FromRoute] int key)
+    {
+        var animal = _animalRepository.GetAnimalByIdAsync(key);
+
+        if (animal == null)
         {
-            var response = new ApiResponse()
-            {
-                Success = true,
-                Value = await _animalRepository.GetAnimalByIdAsync(id)
-            };
-            return Ok(response);
+            return NotFound();
         }
-        [HttpGet("diet")]
-        public async Task<IActionResult> GetAnimalDietById(int id)
+
+        return Ok(new SingleResult<AnimalInformation>(animal));
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Staff")]
+    public async Task<ActionResult<AnimalInformation>> Post([FromBody] AnimalInformationDto dto)
+    {
+        AnimalInformation animal;
+        try
         {
-            var response = new ApiResponse()
-            {
-                Success = true,
-                Value = await _animalRepository.GetAnimalDietByIdAsync(id)
-            };
-            return Ok(response);
-        }
-        [HttpPost]
-        public async Task<IActionResult> AddAnimals(AnimalInformationDto animalDto)
-        {
-            var animal = mapper.Map<AnimalInformation>(animalDto);
+            animal = mapper.Map<AnimalInformation>(dto);
             await _animalRepository.AddAnimalsAsync(animal);
-            var response = new ApiResponse()
-            {
-                Success = true,
-            };
-            return Ok(response);
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAnimal(int id, AnimalInformationDto animalDto)
+        catch (Exception ex)
         {
-            var animalInformation = mapper.Map<AnimalInformation>(animalDto);
-            await _animalRepository.UpdateAnimalAsync(id, animalInformation);
-            var response = new ApiResponse()
-            {
-                Success = true,
-            };
-            return Ok(response);
+            return BadRequest(ex.Message);
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeleteAnimals(int id)
+
+        return CreatedAtAction("Get", new { key = animal.Id }, animal);
+    }
+
+    [HttpPut]
+    [Authorize(Roles = "Staff")]
+    public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AnimalInformationDto dto)
+    {
+        try
         {
-            await _animalRepository.SoftDeleteAnimalsAsync(id);
-            var response = new ApiResponse()
-            {
-                Success = true,
-            };
-            return Ok(response);
+            var animal = mapper.Map<AnimalInformation>(dto);
+            animal.Id = key;
+            await _animalRepository.UpdateAnimalAsync(animal);
         }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+        return NoContent();
+    }
+
+    [HttpDelete]
+    [Authorize(Roles = "Staff")]
+    public async Task<IActionResult> Delete([FromRoute] int key)
+    {
+        try
+        {
+            await _animalRepository.SoftDeleteAnimalsAsync(key);
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
+        return NoContent();
     }
 }
