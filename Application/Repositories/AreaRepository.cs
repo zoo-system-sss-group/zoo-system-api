@@ -33,7 +33,7 @@ public class AreaRepository : IAreaRepository
         }
 
         await _areaDAO.SaveAsync(area);
-    }        
+    }
 
     public async Task UpdateAreaAsync(Area area)
     {

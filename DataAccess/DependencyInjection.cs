@@ -17,6 +17,7 @@ public static class DependencyInjections
         services.AddSingleton<SpeciesDAO>();
         services.AddSingleton<TicketDAO>();
         services.AddSingleton<TicketOrderDAO>();
+        services.AddSingleton<FeedHistoryDAO>();
         return services;
     }
 }

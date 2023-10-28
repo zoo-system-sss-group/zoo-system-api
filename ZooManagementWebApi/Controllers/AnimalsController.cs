@@ -3,6 +3,7 @@ using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
@@ -20,6 +21,7 @@ public class AnimalsController : ControllerBase
         _animalRepository = animalRepository;
         this.mapper = mapper;
     }
+
     [HttpGet]
     public ActionResult<IQueryable<AnimalInformation>> Get()
     {
@@ -34,6 +36,7 @@ public class AnimalsController : ControllerBase
         }
         return Ok(animals);
     }
+
 
     [HttpGet]
     public ActionResult<SingleResult> Get([FromRoute] int key)
@@ -76,10 +79,6 @@ public class AnimalsController : ControllerBase
             animal.Id = key;
             await _animalRepository.UpdateAnimalAsync(animal);
         }
-        catch (ArgumentException ex)
-        {
-            return NotFound(ex.Message);
-        }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
@@ -95,10 +94,6 @@ public class AnimalsController : ControllerBase
         try
         {
             await _animalRepository.SoftDeleteAnimalsAsync(key);
-        }
-        catch (ArgumentException ex)
-        {
-            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
