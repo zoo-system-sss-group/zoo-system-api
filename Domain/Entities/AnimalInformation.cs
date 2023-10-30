@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Enums;
+
+namespace Domain.Entities;
 
 public class AnimalInformation : BaseEntity
 {
@@ -9,6 +11,7 @@ public class AnimalInformation : BaseEntity
     public string? Image { get; set; }
     public DateTime BirthDate { get; set; }
     public int SpeciesId { get; set; }
+    public AnimalStatusEnum Status { get; set; } = AnimalStatusEnum.Mature;
     
     public Species Species { get; set; } = default!;
     public  ICollection<TrainingDetail> TrainingDetails { get; set; } = new List<TrainingDetail>();
