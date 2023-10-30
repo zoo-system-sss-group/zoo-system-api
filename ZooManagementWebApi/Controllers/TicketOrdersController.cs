@@ -9,6 +9,7 @@ using DataAccess.Commons;
 using Domain.Enums;
 using System.Globalization;
 using Application.IServices;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ZooManagementWebApi.Controllers;
 
@@ -131,7 +132,7 @@ public class TicketOrdersController : ControllerBase
             ticketOrder = _mapper.Map<TicketOrder>(dto);
             ticketOrder.Id = ++lastesId;
 
-            foreach(var t in dto.Tickets)
+            foreach (var t in dto.Tickets)
             {
                 for (var i = 0; i < t.Quantity; i++)
                 {
@@ -154,7 +155,8 @@ public class TicketOrdersController : ControllerBase
 
             await _orderRepo.AddTicketOrderAsync(ticketOrder);
             // send ticket info to guest email
-            await SendConfirmEmailAsync(ticketOrder);
+            if (!string.IsNullOrEmpty(ticketOrder.Email))
+                await SendConfirmEmailAsync(ticketOrder);
         }
         catch (Exception ex)
         {
@@ -264,7 +266,7 @@ public class TicketOrdersController : ControllerBase
         mailText = mailText.Replace("[PhoneNumber]", order.PhoneNumber);
         mailText = mailText.Replace("[EffectiveDate]", order.EffectiveDate.ToString("f"));
         mailText = mailText.Replace("[ChildrenTickets]", childrenTickets.ToString());
-        mailText = mailText.Replace("[AdultTickets]", adultTickets.ToString());        
+        mailText = mailText.Replace("[AdultTickets]", adultTickets.ToString());
         mailText = mailText.Replace("[TotalMoney]", order.TotalMoney.ToString("C0", CultureInfo.GetCultureInfo("vi-VN")));
         mailText = mailText.Replace("[PaymentMethod]", order.PaymentMethod.ToString());
         // Send email to customer (send reservation information)

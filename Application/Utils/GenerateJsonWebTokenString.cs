@@ -20,7 +20,7 @@ public static class GenerateJsonWebTokenString
         };
         var token = new JwtSecurityToken(
             claims: claims,
-            expires: now.AddHours(1),
+            expires: now.AddDays(1),
             signingCredentials: credentials);
 
 

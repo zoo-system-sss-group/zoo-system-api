@@ -1,4 +1,5 @@
 ﻿using Application.IRepositories;
+using Application.IServices;
 using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -17,11 +18,12 @@ namespace ZooManagementWebApi.Controllers
     {
         private readonly IFeedHistoryRepository feedHistoryRepository;
         private readonly IMapper mapper;
-
-        public FeedHistoryController(IFeedHistoryRepository feedHistoryRepository, IMapper mapper)
+        private readonly IClaimService claimService;
+        public FeedHistoryController(IFeedHistoryRepository feedHistoryRepository, IMapper mapper, IClaimService claimService)
         {
             this.feedHistoryRepository = feedHistoryRepository;
             this.mapper = mapper;
+            this.claimService = claimService;
         }
 
         [HttpGet]
@@ -52,13 +54,17 @@ namespace ZooManagementWebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Staff")]
+        [Authorize(Roles = "Trainer")]
         public async Task<ActionResult<FeedHistory>> Post([FromBody] List<FeedHistoryDto> dto)
         {
             List<FeedHistory> feedHistory;
             try
             {
                 feedHistory = mapper.Map<List<FeedHistory>>(dto);
+                foreach(FeedHistory history in feedHistory)
+                {   
+                    history.TrainerId = claimService.GetCurrentUserId;
+                }
                 await feedHistoryRepository.AddFeedHistoryAsync(feedHistory);
             }
             catch (Exception ex)
