@@ -18,6 +18,7 @@ public static class DependencyInjections
         services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<ITicketOrderRepository, TicketOrderRepository>();
         services.AddScoped<IFeedHistoryRepository, FeedHistoryRepository>();
+        services.AddScoped<ICageHistoryRepository, CageHistoryRepository>();
         return services;
     }
 }

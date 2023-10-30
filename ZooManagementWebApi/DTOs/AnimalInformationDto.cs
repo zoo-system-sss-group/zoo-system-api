@@ -1,4 +1,6 @@
-﻿namespace ZooManagementWebApi.DTOs
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ZooManagementWebApi.DTOs
 {
     public class AnimalInformationDto
     {
@@ -9,5 +11,7 @@
         public byte[]? Image { get; set; }
         public DateTime BirthDate { get; set; }
         public int SpeciesId { get; set; }
+        [NotMapped]
+        public List<CageHistoryDto> CageHistories { get; set; } = new List<CageHistoryDto>();
     }
 }

@@ -9,12 +9,10 @@ namespace Application.Repositories;
 public class CageRepository : ICageRepository
 {
     private readonly CageDAO _cageDAO;
-    private readonly AnimalDAO _animalDao;
 
-    public CageRepository(CageDAO cageDAO, AnimalDAO animalDao)
+    public CageRepository(CageDAO cageDAO)
     {
         _cageDAO = cageDAO;
-        _animalDao = animalDao;
     }
 
     public IQueryable<Cage> GetCagesAsync()
