@@ -34,6 +34,10 @@ public class AuthController : ControllerBase
             {
                 response.Success = false;
                 response.ErrorMessage = "Wrong username/password!";
+            } 
+            else if (account.IsDeleted){
+                response.Success = false;
+                response.ErrorMessage = "This account has been inactive!";
             }
             else
             {
