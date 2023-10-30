@@ -13,6 +13,7 @@ namespace ZooManagementWebApi.Mapper
             CreateMap<CageDto, Cage>().ReverseMap();
             CreateMap<DietDto, Diet>().ReverseMap();
             CreateMap<DietDto, Diet>().ReverseMap();
+            CreateMap<CageHistoryDto, CageHistory>().ReverseMap();
             CreateMap<FeedHistoryDto, FeedHistory>().ReverseMap();
             // Accounts
             CreateMap<Account, AccountDto>().ReverseMap();
