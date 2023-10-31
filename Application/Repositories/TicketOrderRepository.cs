@@ -21,10 +21,11 @@ public class TicketOrderRepository : ITicketOrderRepository
             throw new Exception("Duplicate TicketOrder Id.");
         }
 
-        if ((order.EffectiveDate - DateTime.Today).TotalDays <= 0)
+        if ((order.EffectiveDate - DateTime.Today).TotalDays <= 0 
+            || (order.EffectiveDate - DateTime.Today).TotalDays > 30)
         {
             throw new Exception("Invalid effective date! " +
-                "You can only buy tickets for at least 1 day in advance from the current date");
+                "You can only buy tickets for at least 1 day and maximum for 30 days in advance from the current date");
         }
         await _ticketOrderDAO.SaveAsync(order);
     }
@@ -36,7 +37,7 @@ public class TicketOrderRepository : ITicketOrderRepository
         {
             throw new ArgumentException("TicketOrder Id does not exist.");
         }
-        await _ticketOrderDAO.DeleteAsync(order);
+        await _ticketOrderDAO.SoftDeleteAsync(order);
     }
 
     public async Task<List<TicketOrder>> GetAllTicketOrdersAsync()

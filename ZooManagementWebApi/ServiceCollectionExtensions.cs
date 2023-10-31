@@ -27,6 +27,7 @@ public static class ServiceCollectionExtensions
         modelBuilder.EntitySet<FeedHistory>("FeedHistory");
         modelBuilder.EntitySet<Ticket>("Tickets");
         modelBuilder.EntitySet<TicketOrder>("TicketOrders");
+        modelBuilder.EntitySet<TrainingDetail>("TrainingDetails");
         // Add OData
         services.AddControllers().AddOData(options 
             => options.Select().Filter().Count().OrderBy().Expand().SetMaxTop(100)
