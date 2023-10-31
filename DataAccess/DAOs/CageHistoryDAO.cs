@@ -17,12 +17,12 @@ namespace DataAccess.DAOs
         {
             _configuration = configuration;
         }
-        public async Task<List<CageHistory>?> GetCageHistoryByAnimalIdAsync(int animalId)
+        public async Task<CageHistory?> GetCageHistoryByAnimalIdAsync(int animalId)
         {
-            List<CageHistory>? cageHistories;
+            CageHistory? cageHistories;
             using (var context = new AppDBContext(_configuration))
             {
-                cageHistories = await context.CageHistories.Where(x => x.AnimalId == animalId).ToListAsync();
+                cageHistories = await context.CageHistories.Where(x => x.AnimalId == animalId && x.EndDate == null).FirstOrDefaultAsync();
             }
             return cageHistories;
         }

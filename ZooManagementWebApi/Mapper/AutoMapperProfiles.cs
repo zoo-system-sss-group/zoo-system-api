@@ -7,7 +7,8 @@ namespace ZooManagementWebApi.Mapper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<AnimalInformationDto, AnimalInformation>().ReverseMap();
+            CreateMap<AnimalInformationDto, AnimalInformation>();
+            CreateMap<AnimalInformation, AnimalInformationDto>().ForMember(x => x.CageHistory, opt => opt.Ignore());
             CreateMap<SpeciesDto, Species>().ReverseMap();
             CreateMap<AreaDto, Area>().ReverseMap();
             CreateMap<CageDto, Cage>().ReverseMap();

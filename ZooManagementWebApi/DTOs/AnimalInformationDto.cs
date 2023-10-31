@@ -14,7 +14,6 @@ namespace ZooManagementWebApi.DTOs
         public string? Image { get; set; }
         public DateTime BirthDate { get; set; }
         public int SpeciesId { get; set; }
-        [NotMapped]
-        public List<CageHistoryDto> CageHistories { get; set; } = new List<CageHistoryDto>();
+        public CageHistoryDto CageHistory { get; set; } = null;
     }
 }

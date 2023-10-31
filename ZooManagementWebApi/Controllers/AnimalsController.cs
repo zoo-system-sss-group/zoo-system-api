@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
+using System.Xml;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers;
@@ -59,6 +60,7 @@ public class AnimalsController : ControllerBase
         try
         {
             animal = mapper.Map<AnimalInformation>(dto);
+            animal.CageHistories.Add(mapper.Map<CageHistory>(dto.CageHistory));
             await _animalRepository.AddAnimalsAsync(animal);
         }
         catch (Exception ex)
