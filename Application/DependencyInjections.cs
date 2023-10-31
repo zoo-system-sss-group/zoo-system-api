@@ -20,6 +20,7 @@ public static class DependencyInjections
         services.AddScoped<IFeedHistoryRepository, FeedHistoryRepository>();
         services.AddScoped<ICageHistoryRepository, CageHistoryRepository>();
         services.AddScoped<ITrainingDetailRepository, TrainingDetailRepository>();
+        services.AddScoped<IDietDetailRepository, DietDetailRepository>();
         return services;
     }
 }
