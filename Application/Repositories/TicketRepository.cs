@@ -34,7 +34,7 @@ public class TicketRepository : ITicketRepository
         }
         else
         {
-            await _ticketDAO.DeleteAsync(ticket);
+            await _ticketDAO.SoftDeleteAsync(ticket);
         }
     }
 
