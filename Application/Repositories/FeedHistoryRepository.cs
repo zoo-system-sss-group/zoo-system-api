@@ -12,10 +12,14 @@ namespace Application.Repositories
     public class FeedHistoryRepository : IFeedHistoryRepository
     {
         private readonly FeedHistoryDAO _feedHistoryDAO;
+        private readonly AnimalDAO _animalDAO;
+        private readonly TrainingDetailDAO _trainingDetailDAO;
 
-        public FeedHistoryRepository(FeedHistoryDAO feedHistoryDAO)
+        public FeedHistoryRepository(FeedHistoryDAO feedHistoryDAO, AnimalDAO animalDAO, TrainingDetailDAO trainingDetailDAO)
         {
             _feedHistoryDAO = feedHistoryDAO;
+            _animalDAO = animalDAO;
+            _trainingDetailDAO = trainingDetailDAO;
         }
 
         public IQueryable<FeedHistory> GetFeedHistoriesAsync()
@@ -28,8 +32,16 @@ namespace Application.Repositories
         }
 
         public async Task AddFeedHistoryAsync(List<FeedHistory> feedHistory)
-            => await _feedHistoryDAO.SaveRangeAsync(feedHistory);
+        {
+            foreach (FeedHistory history in feedHistory) 
+            {
+                var trainerId = await _trainingDetailDAO.GetCurrentTrainerByAnimalIdAsync(history.AnimalId);
+                if (history.TrainerId != trainerId)
+                    throw new Exception("Khong phan su mien cho an!");
+            }
+            await _feedHistoryDAO.SaveRangeAsync(feedHistory);
 
+        }
         public async Task UpdateFeedHistoryAsync(FeedHistory feedHistory)
         {
             var result = await _feedHistoryDAO.GetByIdAsync(feedHistory.Id);
