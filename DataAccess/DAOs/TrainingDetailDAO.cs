@@ -26,4 +26,5 @@ namespace DataAccess.DAOs
             }
             return trainerId;
         }
+    }
 }
