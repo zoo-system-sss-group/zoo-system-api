@@ -61,7 +61,10 @@ public class AccountsController : ControllerBase
         {
             var account = _mapper.Map<Account>(dto);
             account.Id = key;
-            account.Password = account.Password.Hash();            
+            if (account.Password != null)
+            {
+                account.Password = account.Password.Hash();
+            }            
             await _accountRepository.UpdateAccountAsync(account);
         }
         catch (ArgumentException ex)
@@ -81,6 +84,10 @@ public class AccountsController : ControllerBase
     [Authorize(Roles = "Staff")]
     public async Task<ActionResult<Account>> Post([FromBody] AccountDto dto)
     {
+        if (dto.Password == null)
+        {
+            return BadRequest("Password is required");
+        }
         Account account;
         try
         {
