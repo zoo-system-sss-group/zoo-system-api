@@ -58,7 +58,7 @@ public class TrainingDetailsController : ControllerBase
 
     // PUT: odata/TrainingDetails/5
     [HttpPut]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] TrainingDetailDto dto)
     {
         try
@@ -81,7 +81,7 @@ public class TrainingDetailsController : ControllerBase
 
     // POST: odata/TrainingDetails
     [HttpPost]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<TrainingDetail>> Post([FromBody] TrainingDetailDto dto)
     {
         TrainingDetail trainingDetail;
@@ -100,7 +100,7 @@ public class TrainingDetailsController : ControllerBase
 
     // DELETE: odata/TrainingDetails/5
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try
