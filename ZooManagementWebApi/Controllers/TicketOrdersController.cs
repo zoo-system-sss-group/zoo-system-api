@@ -96,6 +96,11 @@ public class TicketOrdersController : ControllerBase
             }
 
             await _orderRepo.UpdateTicketOrderAsync(ticketOrder);
+
+            if (ticketOrder.Status == OrderStatusEnum.Success && !string.IsNullOrEmpty(ticketOrder.Email))
+            {
+                await SendTicketInfoEmailAsync(ticketOrder);
+            }
         }
         catch (ArgumentException ex)
         {
@@ -246,6 +251,37 @@ public class TicketOrdersController : ControllerBase
         string exePath = Environment.CurrentDirectory.ToString();
         if (exePath.Contains(@"\bin\Debug\net7.0"))
             exePath = exePath.Remove(exePath.Length - (@"\bin\Debug\net7.0").Length);
+        string FilePath = exePath + @"\EmailTemplates\ConfirmEmailTemplate.html";
+
+        StreamReader streamreader = new StreamReader(FilePath);
+        string mailText = streamreader.ReadToEnd();
+        streamreader.Close();
+        var childrenTickets = order.Tickets
+                            .Where(x => x.TicketType == TicketTypeEnum.ChildrenTicket)
+                            .Count();
+        var adultTickets = order.Tickets
+                            .Where(x => x.TicketType == TicketTypeEnum.AdultTicket)
+                            .Count();
+        //Replace email informations
+        mailText = mailText.Replace("[CustomerName]", order.CustomerName);
+        mailText = mailText.Replace("[CreationDate]", order.CreationDate!.Value.ToString("f"));    
+        mailText = mailText.Replace("[Email]", order.Email);
+        mailText = mailText.Replace("[PhoneNumber]", order.PhoneNumber);
+        mailText = mailText.Replace("[EffectiveDate]", order.EffectiveDate.ToString("f"));
+        mailText = mailText.Replace("[ChildrenTickets]", childrenTickets.ToString());
+        mailText = mailText.Replace("[AdultTickets]", adultTickets.ToString());
+        mailText = mailText.Replace("[TotalMoney]", order.TotalMoney.ToString("C0", CultureInfo.GetCultureInfo("vi-VN")));
+        mailText = mailText.Replace("[PaymentMethod]", order.PaymentMethod.ToString());
+        // Send email to customer (send reservation information)
+        await _emailService.SendMailAsync(new List<string> { order.Email }, "Zoo Management System - Reservation Confirmation", mailText);
+    }
+
+    private async Task SendTicketInfoEmailAsync(TicketOrder order)
+    {
+        //file path in localhost
+        string exePath = Environment.CurrentDirectory.ToString();
+        if (exePath.Contains(@"\bin\Debug\net7.0"))
+            exePath = exePath.Remove(exePath.Length - (@"\bin\Debug\net7.0").Length);
         string FilePath = exePath + @"\EmailTemplates\DefaultTemplate.html";
 
         StreamReader streamreader = new StreamReader(FilePath);
@@ -260,8 +296,8 @@ public class TicketOrdersController : ControllerBase
         //Replace email informations
         mailText = mailText.Replace("[CustomerName]", order.CustomerName);
         mailText = mailText.Replace("[CreationDate]", order.CreationDate!.Value.ToString("f"));
-        mailText = mailText.Replace("[OrderCode]", order.Code.ToString());
         mailText = mailText.Replace("[Email]", order.Email);
+        mailText = mailText.Replace("[OrderCode]", order.Code.ToString());
         mailText = mailText.Replace("[PhoneNumber]", order.PhoneNumber);
         mailText = mailText.Replace("[EffectiveDate]", order.EffectiveDate.ToString("f"));
         mailText = mailText.Replace("[ChildrenTickets]", childrenTickets.ToString());
