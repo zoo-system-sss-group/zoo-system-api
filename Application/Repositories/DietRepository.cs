@@ -16,19 +16,13 @@ public class DietRepository : IDietRepository
     }
 
     public async Task<List<Diet>> GetDietsAsync()
-        => await _dietDAO.GetAllAsync();
+        => await _dietDAO.GetAllDietsAsync();
 
     public async Task<Diet?> GetDietByIdAsync(int id)
-        => await _dietDAO.GetByIdAsync(id);
+        => await _dietDAO.GetDietByIdAsync(id);
 
     public async Task AddDietAsync(Diet diet)
         => await _dietDAO.SaveAsync(diet);
-
-    public async Task<Diet?> GetCurrentDietByAnimalIdAsync(int id)
-    {
-        var dietDetail = await _dietDetailDao.GetDietDetailByAnimalId(id);
-        return await _dietDAO.GetByIdAsync(dietDetail.DietId);
-    } 
     
     public async Task UpdateDietAsync(Diet diet)
     {

@@ -12,14 +12,30 @@ public class DietDetailDAO : BaseDAO<DietDetail>
         _configuration = configuration;
     }
 
-    public async Task<DietDetail?> GetDietDetailByAnimalId(int id)
+    public async Task<List<DietDetail>> GetAllDietDetailsAsync()
     {
-        List<DietDetail>? dietDetails;
+        var diets = new List<DietDetail>();
         using (var context = new AppDBContext(_configuration))
         {
-            dietDetails = await context.DietDetails.Where(ch => ch.AnimalId == id && ch.EndDate == null).ToListAsync();
+            diets = await context.DietDetails
+                            .Include(x => x.Animal)
+                            .Include(x => x.Diet)
+                            .ToListAsync();
         }
-        return dietDetails[0];
+        return diets;
+    }
+
+    public async Task<DietDetail?> GetDietDetailByIdAsync(int id)
+    {
+        DietDetail? diet;
+        using (var context = new AppDBContext(_configuration))
+        {
+            diet = await context.DietDetails
+                            .Include(x => x.Animal)
+                            .Include(x => x.Diet)
+                            .FirstOrDefaultAsync(x => x.Id == id);
+        }
+        return diet;
     }
 
 }
