@@ -1,10 +1,8 @@
 ﻿using Application.IRepositories;
 using Application.IServices;
-using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
@@ -76,7 +74,6 @@ namespace ZooManagementWebApi.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Put([FromRoute] int key, [FromBody] FeedHistoryDto dto)
         {
             try
@@ -98,7 +95,6 @@ namespace ZooManagementWebApi.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Delete([FromRoute] int key)
         {
             try

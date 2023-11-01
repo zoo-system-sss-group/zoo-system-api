@@ -24,7 +24,9 @@ public class AccountConfig : IEntityTypeConfiguration<Account>
             new Account() { Id = 4, Username = "FoxFriend", Password = "123456".Hash(), Fullname = "Fox Friend", Role = RoleEnum.Trainer },
             new Account() { Id = 5, Username = "PenguinPal", Password = "123456".Hash(), Fullname = "Penguin Pal", Role = RoleEnum.Trainer },
             // staffs
-            new Account() { Id = 6, Username = "staff", Password = "123456".Hash(), Fullname = "Nhân viên sở thú", Role = RoleEnum.Staff }
+            new Account() { Id = 6, Username = "staff", Password = "123456".Hash(), Fullname = "Nhân viên sở thú", Role = RoleEnum.Staff },
+            // admin
+            new Account() { Id = 7, Username = "admin", Password = "123456".Hash(), Fullname = "Quản trị viên", Role = RoleEnum.Admin }
         );
 
     }

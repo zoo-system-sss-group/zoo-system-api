@@ -50,7 +50,7 @@ public class SpeciesController : ControllerBase
         return Ok(new SingleResult<Species>(specie));
     }
     [HttpPost]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<Species>> Post([FromBody] SpeciesDto dto)
     {
         Species species;
@@ -67,7 +67,7 @@ public class SpeciesController : ControllerBase
         return CreatedAtAction("Get", new { key = species.Id }, species);
     }
     [HttpPut]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] SpeciesDto dto)
     {
         try
@@ -84,7 +84,7 @@ public class SpeciesController : ControllerBase
     }
 
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try

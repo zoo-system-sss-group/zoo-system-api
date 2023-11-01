@@ -9,7 +9,6 @@ using DataAccess.Commons;
 using Domain.Enums;
 using System.Globalization;
 using Application.IServices;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ZooManagementWebApi.Controllers;
 
@@ -34,7 +33,7 @@ public class TicketOrdersController : ControllerBase
 
     // GET: odata/TicketOrders
     [HttpGet]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<IEnumerable<TicketOrder>>> Get()
     {
         List<TicketOrder> TicketOrders;
@@ -51,7 +50,7 @@ public class TicketOrdersController : ControllerBase
 
     // GET: odata/TicketOrders/5
     [HttpGet]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<TicketOrder>> Get([FromRoute] int key)
     {
         var ticketOrder = await _orderRepo.GetTicketOrderByIdAsync(key);
@@ -66,7 +65,7 @@ public class TicketOrdersController : ControllerBase
 
     // PUT: odata/TicketOrders/5
     [HttpPut]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] TicketOrderDto dto)
     {
         if (dto == null)
@@ -168,7 +167,7 @@ public class TicketOrdersController : ControllerBase
 
     // DELETE: odata/TicketOrders/5
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try

@@ -1,7 +1,9 @@
 ﻿using Application.IRepositories;
+using Application.IServices;
 using Application.Utils;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -15,11 +17,14 @@ public class AccountsController : ControllerBase
 {
     private readonly IAccountRepository _accountRepository;
     private readonly IMapper _mapper;
-
-    public AccountsController(IAccountRepository AccountRepository, IMapper mapper)
+    private readonly IClaimService _claimService;
+    public AccountsController(IAccountRepository AccountRepository, 
+                                IMapper mapper,
+                                IClaimService claimService)
     {
         _accountRepository = AccountRepository;
         _mapper = mapper;
+        _claimService = claimService;
     }
 
     // GET: odata/Accounts
@@ -54,12 +59,20 @@ public class AccountsController : ControllerBase
 
     // PUT: odata/Accounts/5
     [HttpPut]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AccountDto dto)
     {
         try
         {
+            var currentRole = _claimService.GetCurrentRole;
             var account = _mapper.Map<Account>(dto);
+
+            if (currentRole.Equals("Staff") && (account.Role == RoleEnum.Staff
+                                                || account.Role == RoleEnum.Admin))
+            {
+                return BadRequest("Staff role can not update staff or admin account.");
+            }
+
             account.Id = key;
             if (account.Password != null)
             {
@@ -81,7 +94,7 @@ public class AccountsController : ControllerBase
 
     // POST: odata/Accounts
     [HttpPost]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<Account>> Post([FromBody] AccountDto dto)
     {
         if (dto.Password == null)
@@ -91,7 +104,19 @@ public class AccountsController : ControllerBase
         Account account;
         try
         {
+            var currentRole = _claimService.GetCurrentRole;
             account = _mapper.Map<Account>(dto);
+
+            if (currentRole.Equals("Staff") && (account.Role == RoleEnum.Staff 
+                                                || account.Role == RoleEnum.Admin))
+            {
+                return BadRequest("Staff role can not create staff or admin account.");
+            }
+            if (currentRole.Equals("Admin") && (account.Role == RoleEnum.Admin))
+            {
+                return BadRequest("You can not create admin account.");
+            }     
+            
             account.Password = account.Password.Hash();
             await _accountRepository.AddAccountAsync(account);
         }
@@ -105,11 +130,24 @@ public class AccountsController : ControllerBase
 
     // DELETE: odata/Accounts/5
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try
         {
+            var currentRole = _claimService.GetCurrentRole;
+            var account = await _accountRepository.GetAccountByIdAsync(key);
+
+            if (currentRole.Equals("Staff") && (account!.Role == RoleEnum.Staff
+                                                || account!.Role == RoleEnum.Admin))
+            {
+                return BadRequest("Staff role can not delete staff or admin account.");
+            }
+            if (currentRole.Equals("Admin") && (account!.Role == RoleEnum.Admin))
+            {
+                return BadRequest("You can not delete admin account.");
+            }
+
             await _accountRepository.DeleteAccountAsync(key);
         }
         catch (ArgumentException ex)

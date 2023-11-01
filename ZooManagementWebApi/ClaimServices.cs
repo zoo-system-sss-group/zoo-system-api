@@ -39,4 +39,17 @@ public class ClaimService : IClaimService
     }
 
     public DateTime? GetCurrentTime => DateTime.Now;
+
+    public string GetCurrentRole
+    {
+        get
+        {
+            var userRoleClaim = _httpContextAccessor
+                                    .HttpContext?
+                                    .User?
+                                    .FindFirstValue(ClaimTypes.Role);
+            return string.IsNullOrEmpty(userRoleClaim) ?
+                            string.Empty : userRoleClaim;
+        }
+    }
 }
