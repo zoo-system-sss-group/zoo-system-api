@@ -9,7 +9,7 @@ using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers;
 
-[EnableQuery]
+[EnableQuery(MaxExpansionDepth =5)]
 [Authorize]
 public class TrainingDetailsController : ControllerBase
 {
@@ -27,7 +27,7 @@ public class TrainingDetailsController : ControllerBase
     }
 
     // GET: odata/TrainingDetails
-    [HttpGet]
+    [HttpGet]    
     public ActionResult<IQueryable<TrainingDetail>> Get()
     {
         IQueryable<TrainingDetail> trainingDetails;
