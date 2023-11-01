@@ -58,7 +58,6 @@ public class TrainingDetailsController : ControllerBase
 
     // PUT: odata/TrainingDetails/5
     [HttpPut]
-    [Authorize(Roles = "Staff")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] TrainingDetailDto dto)
     {
         try
@@ -81,7 +80,6 @@ public class TrainingDetailsController : ControllerBase
 
     // POST: odata/TrainingDetails
     [HttpPost]
-    [Authorize(Roles = "Staff")]
     public async Task<ActionResult<TrainingDetail>> Post([FromBody] TrainingDetailDto dto)
     {
         TrainingDetail trainingDetail;
@@ -100,7 +98,6 @@ public class TrainingDetailsController : ControllerBase
 
     // DELETE: odata/TrainingDetails/5
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try
@@ -119,18 +116,4 @@ public class TrainingDetailsController : ControllerBase
         return NoContent();
     }
 
-    //[HttpGet("api/trainingDetails/animals")]
-    //public async Task<IActionResult> GetOwnTrainginAnimal()
-    //{
-    //    var trainerId = _claimService.GetCurrentUserId;
-    //    var trainingDetail = (await _trainingDetailRepository.GetAllTrainingDetailsAsync())
-    //                            .Where(x => x.TrainerId == trainerId);
-
-    //    if (trainingDetail == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    return Ok(trainingDetail);
-    //}
 }
