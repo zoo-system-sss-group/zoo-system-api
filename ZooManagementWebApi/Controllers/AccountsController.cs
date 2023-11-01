@@ -26,7 +26,7 @@ public class AccountsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Account>>> Get()
     {
-        List<Account> accounts;
+        List<Account> accounts; 
         try
         {
             accounts = await _accountRepository.GetAllAccountsAsync();
