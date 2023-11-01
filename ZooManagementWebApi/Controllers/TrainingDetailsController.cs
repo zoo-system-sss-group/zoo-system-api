@@ -1,4 +1,5 @@
 ﻿using Application.IRepositories;
+using Application.IServices;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -14,22 +15,25 @@ public class TrainingDetailsController : ControllerBase
 {
     private readonly ITrainingDetailRepository _trainingDetailRepository;
     private readonly IMapper _mapper;
+    private readonly IClaimService _claimService;
 
     public TrainingDetailsController(ITrainingDetailRepository trainingDetailRepository, 
-                                        IMapper mapper)
+                                        IMapper mapper, 
+                                        IClaimService claimService)
     {
         _trainingDetailRepository = trainingDetailRepository;
         _mapper = mapper;
+        _claimService = claimService;
     }
 
     // GET: odata/TrainingDetails
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TrainingDetail>>> Get()
+    public ActionResult<IQueryable<TrainingDetail>> Get()
     {
-        List<TrainingDetail> trainingDetails;
+        IQueryable<TrainingDetail> trainingDetails;
         try
         {
-            trainingDetails = await _trainingDetailRepository.GetAllTrainingDetailsAsync();
+            trainingDetails = _trainingDetailRepository.GetQueryTrainingDetails();
         }
         catch (Exception ex)
         {
@@ -40,9 +44,9 @@ public class TrainingDetailsController : ControllerBase
 
     // GET: odata/TrainingDetails/5
     [HttpGet]
-    public async Task<ActionResult<TrainingDetail>> Get([FromRoute] int key)
+    public ActionResult<IQueryable<TrainingDetail>> Get([FromRoute] int key)
     {
-        var trainingDetail = await _trainingDetailRepository.GetTrainingDetailByIdAsync(key);
+        var trainingDetail = _trainingDetailRepository.GetQueryTrainingDetailById(key);
 
         if (trainingDetail == null)
         {
@@ -114,4 +118,19 @@ public class TrainingDetailsController : ControllerBase
 
         return NoContent();
     }
+
+    //[HttpGet("api/trainingDetails/animals")]
+    //public async Task<IActionResult> GetOwnTrainginAnimal()
+    //{
+    //    var trainerId = _claimService.GetCurrentUserId;
+    //    var trainingDetail = (await _trainingDetailRepository.GetAllTrainingDetailsAsync())
+    //                            .Where(x => x.TrainerId == trainerId);
+
+    //    if (trainingDetail == null)
+    //    {
+    //        return NotFound();
+    //    }
+
+    //    return Ok(trainingDetail);
+    //}
 }

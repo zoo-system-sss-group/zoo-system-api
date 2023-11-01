@@ -59,12 +59,12 @@ public class TrainingDetailRepository : ITrainingDetailRepository
 
     public async Task<List<TrainingDetail>> GetAllTrainingDetailsAsync()
     {
-        return await _trainingDetailDAO.GetAllAsync();
+        return await _trainingDetailDAO.GetAllTrainingDetailsAsync();
     }
 
     public async Task<TrainingDetail?> GetTrainingDetailByIdAsync(int id)
     {
-        return await _trainingDetailDAO.GetByIdAsync(id);
+        return await _trainingDetailDAO.GetTrainingDetailByIdAsync(id);
     }
 
     public async Task UpdateTrainingDetailAsync(TrainingDetail trainingDetail)
@@ -76,5 +76,15 @@ public class TrainingDetailRepository : ITrainingDetailRepository
         }
         trainingDetail.CreationDate = tmpTrainingDetail.CreationDate;
         await _trainingDetailDAO.UpdateAsync(trainingDetail);
+    }
+
+    public IQueryable<TrainingDetail> GetQueryTrainingDetails()
+    {
+        return  _trainingDetailDAO.GetAllOdataAsync();
+    }
+
+    public IQueryable<TrainingDetail> GetQueryTrainingDetailById(int id)
+    {
+        return _trainingDetailDAO.GetByIdOdataAsync(id);
     }
 }
