@@ -21,6 +21,7 @@ public class TrainingDetailRepository : ITrainingDetailRepository
 
     public async Task AddTrainingDetailAsync(TrainingDetail trainingDetail)
     {
+        // check if exist trainerId & animalId
         var errMessage = "";
         if ((await _accountDao.GetByIdAsync(trainingDetail.TrainerId)) == null)
         {
@@ -34,7 +35,18 @@ public class TrainingDetailRepository : ITrainingDetailRepository
         {
             throw new Exception(errMessage);
         }
+        
+        // check duplicate with available (animalId,trainerId)
+        var availableTraining = (await _trainingDetailDAO.GetAllTrainingDetailsAsync())
+                                .FirstOrDefault(x => x.TrainerId == trainingDetail.TrainerId
+                                                  && x.AnimalId == trainingDetail.AnimalId
+                                                  && x.EndDate == null);
+        if (availableTraining != null)
+        {
+            throw new Exception($"The key (animalId, trainerId) ({trainingDetail.AnimalId}, {trainingDetail.TrainerId}) duplicate with other available training detail.");
+        }
 
+        // check duplicate Id
         var tmpTrainingDetail = await _trainingDetailDAO.GetByIdAsync(trainingDetail.Id);
         if (tmpTrainingDetail != null)
         {
@@ -50,11 +62,7 @@ public class TrainingDetailRepository : ITrainingDetailRepository
         {
             throw new ArgumentException("TrainingDetail Id does not exist.");
         }
-        if (trainingDetail.IsDeleted)
-        {
-            throw new ArgumentException("This training detail has been deleted!");
-        }
-        await _trainingDetailDAO.SoftDeleteAsync(trainingDetail);
+        await _trainingDetailDAO.DeleteAsync(trainingDetail);
     }
 
     public async Task<List<TrainingDetail>> GetAllTrainingDetailsAsync()

@@ -118,10 +118,29 @@ public class TicketOrdersController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<TicketOrder>> Post([FromBody] TicketOrderDto dto)
     {
+        // check valid payment method & ticket type enum
         if (dto == null)
         {
             return BadRequest("Invalid payment method or invalid ticket type!");
         }
+        // check BR for buying at least 1 adult ticket
+        if (dto.Tickets.Any())
+        {
+            var adultTickets = dto.Tickets.Where(x => x.TicketType == TicketTypeEnum.AdultTicket);
+            var adultTicketCount = 0;
+            foreach(var ticket in adultTickets)
+            {
+                adultTicketCount += ticket.Quantity;
+            }
+            if (adultTicketCount <= 0)
+            {
+                return BadRequest("Must order at lease 1 adult ticket.");
+            }
+        } else
+        {
+            return BadRequest("Tickets can not be empty.");
+        }
+
         TicketOrder ticketOrder;
         try
         {
@@ -158,6 +177,7 @@ public class TicketOrdersController : ControllerBase
             }
 
             await _orderRepo.AddTicketOrderAsync(ticketOrder);
+
             // send ticket info to guest email
             if (!string.IsNullOrEmpty(ticketOrder.Email))
                 await SendConfirmEmailAsync(ticketOrder);

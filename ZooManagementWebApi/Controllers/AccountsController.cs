@@ -59,9 +59,13 @@ public class AccountsController : ControllerBase
 
     // PUT: odata/Accounts/5
     [HttpPut]
-    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AccountDto dto)
     {
+        if (_claimService.GetCurrentRole.Equals("Staff") && 
+                _claimService.GetCurrentUserId != key)
+        {
+            return BadRequest("Staff role can only edit own profile");
+        }
         try
         {
             var currentRole = _claimService.GetCurrentRole;
