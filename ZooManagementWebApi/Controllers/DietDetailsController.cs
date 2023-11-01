@@ -53,7 +53,6 @@ public class DietDetailsController :ControllerBase
 
     // PUT: odata/DietDetails/5
     [HttpPut]
-    [Authorize(Roles = "Staff")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] DietDetail dto)
     {
         try
@@ -76,7 +75,6 @@ public class DietDetailsController :ControllerBase
 
     // POST: odata/DietDetails
     [HttpPost]
-    [Authorize(Roles = "Staff")]
     public async Task<ActionResult<DietDetail>> Post([FromBody] DietDetail dto)
     {
         DietDetail DietDetail;
@@ -95,7 +93,6 @@ public class DietDetailsController :ControllerBase
 
     // DELETE: odata/DietDetails/5
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try
