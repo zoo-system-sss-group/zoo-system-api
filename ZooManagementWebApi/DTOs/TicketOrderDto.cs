@@ -23,6 +23,10 @@ public class TicketOrderDto
     [EnumDataType(typeof(PaymentEnum))]
     public PaymentEnum PaymentMethod { get; set; } = PaymentEnum.Card;
 
+
+    [EnumDataType(typeof(OrderStatusEnum))]
+    public OrderStatusEnum? Status { get; set; } = OrderStatusEnum.Waiting;
+
     [NotMapped]
     public List<TicketCreateDto> Tickets { get; set; } = new List<TicketCreateDto>();
 }
