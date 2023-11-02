@@ -40,4 +40,12 @@ public class DietRepository : IDietRepository
             throw new Exception("Can not found!");
         await _dietDAO.SoftDeleteAsync(result);
     }
+
+    public async Task<Diet?> GetCurrentDietOfAnimalAsync(int animalId)
+    {
+        var currentDietDetail = (await _dietDetailDao.GetAllDietDetailsAsync())
+                            .FirstOrDefault(x => x.AnimalId == animalId
+                                              && x.EndDate == null);
+        return currentDietDetail != null ? currentDietDetail.Diet : null;
+    }
 }

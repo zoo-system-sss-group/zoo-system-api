@@ -9,4 +9,5 @@ public class Diet : BaseEntity
     public int TimesPerDay { get; set; }
 
     public ICollection<DietDetail> DietDetails { get; set; } = new List<DietDetail>();
+    public ICollection<FeedHistory> FeedHistories { get; set; } = new List<FeedHistory>();
 }
