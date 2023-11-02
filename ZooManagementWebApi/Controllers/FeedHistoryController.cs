@@ -67,7 +67,11 @@ namespace ZooManagementWebApi.Controllers
                 foreach(FeedHistory history in feedHistory)
                 {   
                     history.TrainerId = claimService.GetCurrentUserId;
-                    history.Diet = await _dietRepository.GetCurrentDietOfAnimalAsync(history.AnimalId);
+                    var currentDiet = await _dietRepository.GetCurrentDietOfAnimalAsync(history.AnimalId);
+                    if (currentDiet != null)
+                    {
+                        history.DietId = currentDiet.Id;
+                    }
                 }
                 await feedHistoryRepository.AddFeedHistoryAsync(feedHistory);
             }
