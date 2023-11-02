@@ -13,5 +13,9 @@ public class FeedHistoryConfig : IEntityTypeConfiguration<FeedHistory>
         builder.Property(x => x.IsDeleted).HasDefaultValue(false);
 
         builder.Property(x => x.FeedingDate).HasDefaultValueSql("getutcdate()");
+
+        builder.HasOne(x => x.Diet).WithMany(x => x.FeedHistories)
+                                    .HasForeignKey(x => x.DietId)
+                                    .OnDelete(DeleteBehavior.SetNull);
     }
 }

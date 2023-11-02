@@ -17,11 +17,16 @@ namespace ZooManagementWebApi.Controllers
         private readonly IFeedHistoryRepository feedHistoryRepository;
         private readonly IMapper mapper;
         private readonly IClaimService claimService;
-        public FeedHistoryController(IFeedHistoryRepository feedHistoryRepository, IMapper mapper, IClaimService claimService)
+        private readonly IDietRepository _dietRepository;
+        public FeedHistoryController(IFeedHistoryRepository feedHistoryRepository, 
+                                    IMapper mapper, 
+                                    IClaimService claimService,
+                                    IDietRepository dietRepository)
         {
             this.feedHistoryRepository = feedHistoryRepository;
             this.mapper = mapper;
             this.claimService = claimService;
+            _dietRepository = dietRepository;
         }
 
         [HttpGet]
@@ -62,6 +67,7 @@ namespace ZooManagementWebApi.Controllers
                 foreach(FeedHistory history in feedHistory)
                 {   
                     history.TrainerId = claimService.GetCurrentUserId;
+                    history.Diet = await _dietRepository.GetCurrentDietOfAnimalAsync(history.AnimalId);
                 }
                 await feedHistoryRepository.AddFeedHistoryAsync(feedHistory);
             }

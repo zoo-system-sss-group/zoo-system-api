@@ -9,4 +9,5 @@ public interface IDietRepository
     Task AddDietAsync(Diet diet);
     Task UpdateDietAsync(Diet diet);
     Task SoftDeleteDietAsync(int id);
+    Task<Diet?> GetCurrentDietOfAnimalAsync(int animalId);
 }
