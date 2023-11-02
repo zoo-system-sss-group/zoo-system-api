@@ -61,10 +61,10 @@ public class AccountsController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AccountDto dto)
     {
-        if (_claimService.GetCurrentRole.Equals("Staff") && 
+        if (_claimService.GetCurrentRole.Equals("Trainer") && 
                 _claimService.GetCurrentUserId != key)
         {
-            return BadRequest("Staff role can only edit own profile");
+            return BadRequest("Trainer role can only edit own profile");
         }
         try
         {
