@@ -4,6 +4,7 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231102095126_Connect FeedHistory-Diet DB")]
+    partial class ConnectFeedHistoryDietDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,84 +82,77 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Avatar = "https://i.pinimg.com/564x/be/85/2f/be852fd4ad1cb76b83ce962f618895bd.jpg",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 28, DateTimeKind.Local).AddTicks(9567),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 475, DateTimeKind.Local).AddTicks(4143),
                             Fullname = "Lion Tamer",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 28, DateTimeKind.Local).AddTicks(9584),
-                            Password = "lgNKN9KYohQzzrmdBpyWn8Q5+uUwk3G+xO1ko+OQQ44FpPWn",
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 475, DateTimeKind.Local).AddTicks(4158),
+                            Password = "kK/bveedKbrJs3Hml2bmFM1LUD5RzrB1tn6aONTER6CBjPHO",
                             Role = 1,
                             Username = "LionTamer"
                         },
                         new
                         {
                             Id = 2,
-                            Avatar = "https://i.pinimg.com/564x/ed/de/aa/eddeaaf250c19489e25bd0a2dd3e7756.jpg",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 32, DateTimeKind.Local).AddTicks(3751),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 479, DateTimeKind.Local).AddTicks(3312),
                             Fullname = "Pachyderm Pro",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 32, DateTimeKind.Local).AddTicks(3755),
-                            Password = "P5zHdw81AZGCDGBoLot1dTgoJtGxlf8zLYBH4fCfhViYaNhf",
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 479, DateTimeKind.Local).AddTicks(3325),
+                            Password = "mTGMRWTNJkL2RDOTAKYmSljdr0aIVc7r/adEOlyPuFwwfB1Z",
                             Role = 1,
                             Username = "PachydermPro"
                         },
                         new
                         {
                             Id = 3,
-                            Avatar = "https://i.pinimg.com/564x/14/b0/3b/14b03bdcab41f458dd15c9f5669cef2d.jpg",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 35, DateTimeKind.Local).AddTicks(6377),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 483, DateTimeKind.Local).AddTicks(1369),
                             Fullname = "Shark Whisperer",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 35, DateTimeKind.Local).AddTicks(6378),
-                            Password = "ECYp+eUL2keeF9upt9xLBIbJwW67okM/o0sKgUIcq1LnUWq8",
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 483, DateTimeKind.Local).AddTicks(1371),
+                            Password = "N1myHZyC4uj/B3zSCfFfUmmitaxFCCzthuI84uHP/EQBpSNr",
                             Role = 1,
                             Username = "SharkWhisperer"
                         },
                         new
                         {
                             Id = 4,
-                            Avatar = "https://i.pinimg.com/564x/6c/a3/4b/6ca34beddfbd279418c915d2258d698b.jpg",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 39, DateTimeKind.Local).AddTicks(756),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 486, DateTimeKind.Local).AddTicks(9383),
                             Fullname = "Fox Friend",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 39, DateTimeKind.Local).AddTicks(770),
-                            Password = "dhp9XeX0YduSPb7f4yQ5V5uTtq67FmZaSpoIwrjkQ8DmZobE",
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 486, DateTimeKind.Local).AddTicks(9384),
+                            Password = "unbznzIO1tz82f8kzoI8kyzqBmfcewwA9FNqJZwRsCOZGoF/",
                             Role = 1,
                             Username = "FoxFriend"
                         },
                         new
                         {
                             Id = 5,
-                            Avatar = "https://i.pinimg.com/736x/81/3c/57/813c57fcb969d58fac1672594da05532.jpg",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 43, DateTimeKind.Local).AddTicks(3097),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 490, DateTimeKind.Local).AddTicks(9756),
                             Fullname = "Penguin Pal",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 43, DateTimeKind.Local).AddTicks(3101),
-                            Password = "V3x8DpTg1o/+jqp9Drsasb+6e/HLsG9tFVCvVtFRE1tJ0NNw",
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 490, DateTimeKind.Local).AddTicks(9768),
+                            Password = "4ULiUqZ0MPsLWvWnC3QXD1DQwxXCIkRbbQtovJ/uCI6IDFYR",
                             Role = 1,
                             Username = "PenguinPal"
                         },
                         new
                         {
                             Id = 6,
-                            Avatar = "https://i.pinimg.com/564x/7d/cd/61/7dcd61988b0add83b5ba9a656512593e.jpg",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 46, DateTimeKind.Local).AddTicks(7784),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 494, DateTimeKind.Local).AddTicks(8933),
                             Fullname = "Nhân viên sở thú",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 46, DateTimeKind.Local).AddTicks(7794),
-                            Password = "eTPRRQBzqKd7OGE0AY9CGB0DWzhycnPF1gQ6wQSQxUc9m2qY",
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 494, DateTimeKind.Local).AddTicks(8944),
+                            Password = "xcXq9AgHqIhRsnZ90/rnBoHmjMclSAwe58xFT08Knlqe17rr",
                             Role = 0,
                             Username = "staff"
                         },
                         new
                         {
                             Id = 7,
-                            Avatar = "https://i.pinimg.com/564x/0e/4b/7a/0e4b7aef4834bfc646775d8fd3705825.jpg",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 50, DateTimeKind.Local).AddTicks(3642),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 498, DateTimeKind.Local).AddTicks(7453),
                             Fullname = "Quản trị viên",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 50, DateTimeKind.Local).AddTicks(3651),
-                            Password = "zNiQKIpE00M/Me+nYzwEDT1q6wUCh6NJ86+nZaN7OmV/ofHc",
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 498, DateTimeKind.Local).AddTicks(7455),
+                            Password = "LE0NaCGIDDpI5NQZM+QbfF6vAyODJWUG8BspSfkp4d/HTR/F",
                             Role = 2,
                             Username = "admin"
                         });
@@ -225,11 +221,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             BirthDate = new DateTime(2018, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(3930),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4728),
                             Description = "Majestic African lion named Simba.",
                             Image = "https://i.pinimg.com/564x/db/40/00/db40008ec6c5e2d789834f67359eee44.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(3936),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4744),
                             Name = "Simba",
                             SpeciesId = 1,
                             Status = 1,
@@ -239,12 +235,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 2,
                             BirthDate = new DateTime(2015, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4038),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4882),
                             Description = "Gentle Asian elephant named Dumbo.",
                             Height = 10.0,
                             Image = "https://i.pinimg.com/564x/1c/d5/9d/1cd59d96db28e0cbf5e88270bac8fb34.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4038),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4883),
                             Name = "Dumbo",
                             SpeciesId = 2,
                             Status = 1,
@@ -254,11 +250,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 3,
                             BirthDate = new DateTime(2017, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4049),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4893),
                             Description = "Fearsome great white shark named Jaws.",
                             Image = "https://i.pinimg.com/564x/fb/b9/fb/fbb9fb9a5f8f9f2d4244ad7c2bb1b6fe.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4049),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4894),
                             Name = "Jaws",
                             SpeciesId = 3,
                             Status = 1,
@@ -268,11 +264,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 4,
                             BirthDate = new DateTime(2020, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4055),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4903),
                             Description = "Cunning European red fox named Foxy.",
                             Image = "https://i.pinimg.com/564x/9c/ee/58/9cee58f97470496aa9b99ac613125a5c.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4055),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4904),
                             Name = "Foxy",
                             SpeciesId = 4,
                             Status = 1,
@@ -282,11 +278,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 5,
                             BirthDate = new DateTime(2019, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4062),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4913),
                             Description = "Regal emperor penguin named Emmy.",
                             Image = "https://i.pinimg.com/564x/ae/3c/24/ae3c24f7dbd9e9ba721a3b76fec1c32b.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4062),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4914),
                             Name = "Emmy",
                             SpeciesId = 5,
                             Status = 1,
@@ -296,11 +292,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 6,
                             BirthDate = new DateTime(2017, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4067),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4920),
                             Description = "Energetic kangaroo named Kang.",
                             Image = "https://i.pinimg.com/564x/5a/4c/15/5a4c15238fce3e4e1c5405965c1a7237.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4068),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4921),
                             Name = "Kang",
                             SpeciesId = 6,
                             Status = 1,
@@ -310,12 +306,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 7,
                             BirthDate = new DateTime(2016, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4106),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4928),
                             Description = "Majestic grizzly bear named Bear.",
                             Height = 5.0,
                             Image = "https://i.pinimg.com/564x/7a/51/b9/7a51b95ffc4d7cbac381c30cc5fbe077.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4106),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4929),
                             Name = "Bear",
                             SpeciesId = 7,
                             Status = 1,
@@ -325,12 +321,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 8,
                             BirthDate = new DateTime(2015, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4113),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4939),
                             Description = "Proud polar bear named Nanook.",
                             Height = 4.5,
                             Image = "https://i.pinimg.com/564x/0c/6c/eb/0c6ceb9b063baff86c11b7e1f696bf04.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4113),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4940),
                             Name = "Nanook",
                             SpeciesId = 8,
                             Status = 1,
@@ -340,12 +336,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 9,
                             BirthDate = new DateTime(2016, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4118),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4946),
                             Description = "Fierce Bengal tiger named Raja.",
                             Height = 3.0,
                             Image = "https://i.pinimg.com/564x/52/91/cf/5291cf756d15a62f4b8b717e154ca37e.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4119),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4947),
                             Name = "Raja",
                             SpeciesId = 9,
                             Status = 1,
@@ -355,12 +351,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 10,
                             BirthDate = new DateTime(2017, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4124),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4952),
                             Description = "Adorable panda named Pandy.",
                             Height = 2.0,
                             Image = "https://i.pinimg.com/564x/99/bf/a4/99bfa449a463241b88739980663738d0.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4124),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4953),
                             Name = "Pandy",
                             SpeciesId = 10,
                             Status = 1,
@@ -370,11 +366,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 11,
                             BirthDate = new DateTime(2019, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4129),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4959),
                             Description = "Graceful African lioness named Zara.",
                             Image = "https://i.pinimg.com/564x/4e/26/37/4e26371ca9dfefc559fff95d041d911b.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4129),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4960),
                             Name = "Zara",
                             SpeciesId = 1,
                             Status = 1,
@@ -384,12 +380,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 12,
                             BirthDate = new DateTime(2016, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4135),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4965),
                             Description = "Gentle Asian elephant named Babar.",
                             Height = 9.5,
                             Image = "https://i.pinimg.com/564x/77/f9/6c/77f96c07e4682b864bd8c1815da37aa7.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4135),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4966),
                             Name = "Babar",
                             SpeciesId = 2,
                             Status = 1,
@@ -399,11 +395,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 13,
                             BirthDate = new DateTime(2018, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4140),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4972),
                             Description = "Majestic great white shark named Fins.",
                             Image = "https://i.pinimg.com/564x/bb/81/9e/bb819e828e69a7b74d0efec858df28ff.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4140),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4972),
                             Name = "Fins",
                             SpeciesId = 3,
                             Status = 1,
@@ -413,11 +409,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 14,
                             BirthDate = new DateTime(2021, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4145),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4978),
                             Description = "Clever European red fox named Sly.",
                             Image = "https://i.pinimg.com/564x/a1/af/f6/a1aff62d5b61c8ff2d9fd1128f4ae8c7.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4145),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4978),
                             Name = "Sly",
                             SpeciesId = 4,
                             Status = 1,
@@ -427,11 +423,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 15,
                             BirthDate = new DateTime(2020, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4150),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4984),
                             Description = "Charming emperor penguin named Waddle.",
                             Image = "https://i.pinimg.com/564x/5b/a3/b2/5ba3b2ac8ca269f8c111255b03ee2224.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4150),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4985),
                             Name = "Waddle",
                             SpeciesId = 5,
                             Status = 1,
@@ -441,11 +437,11 @@ namespace DataAccess.Migrations
                         {
                             Id = 16,
                             BirthDate = new DateTime(2017, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4155),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4990),
                             Description = "Energetic kangaroo named Joey.",
                             Image = "https://i.pinimg.com/736x/cb/86/34/cb8634141686341ac17d6a99b0ec4d5d.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4156),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4991),
                             Name = "Joey",
                             SpeciesId = 6,
                             Status = 1,
@@ -455,12 +451,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 17,
                             BirthDate = new DateTime(2022, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4160),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4997),
                             Description = "Playful grizzly bear cub named Bearly.",
                             Height = 2.5,
                             Image = "https://i.pinimg.com/564x/25/10/b7/2510b768ba2867870004f6a05f3a8484.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4160),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(4998),
                             Name = "Bearly",
                             SpeciesId = 7,
                             Status = 1,
@@ -470,12 +466,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 18,
                             BirthDate = new DateTime(2020, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4165),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(5003),
                             Description = "Young polar bear named Snowy.",
                             Height = 3.0,
                             Image = "https://i.pinimg.com/564x/05/b5/41/05b541cd74e53a88bc086a841727cf92.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4166),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(5004),
                             Name = "Snowy",
                             SpeciesId = 8,
                             Status = 1,
@@ -485,12 +481,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 19,
                             BirthDate = new DateTime(2022, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4170),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(5010),
                             Description = "Adventurous Bengal tiger cub named Tyga.",
                             Height = 2.0,
                             Image = "https://i.pinimg.com/564x/ea/b4/67/eab467dd41563c6658fec4a730f78e90.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4171),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(5011),
                             Name = "Tyga",
                             SpeciesId = 9,
                             Status = 1,
@@ -500,12 +496,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 20,
                             BirthDate = new DateTime(2019, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4175),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(5016),
                             Description = "Bamboo-loving panda named Bamboo.",
                             Height = 1.5,
                             Image = "https://i.pinimg.com/564x/86/e0/33/86e03347fd80983cc6a19bfe75d49620.jpg",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(4176),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 503, DateTimeKind.Local).AddTicks(5017),
                             Name = "Bamboo",
                             SpeciesId = 10,
                             Status = 1,
@@ -564,11 +560,11 @@ namespace DataAccess.Migrations
                             Id = 1,
                             Capacity = 100,
                             Code = "A",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6699),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1797),
                             Description = "An exhibit featuring animals from the African savanna",
                             IsDeleted = false,
                             Location = "Savanna Exhibit",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6701),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1810),
                             Name = "African Savanna"
                         },
                         new
@@ -576,11 +572,11 @@ namespace DataAccess.Migrations
                             Id = 2,
                             Capacity = 80,
                             Code = "B",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6705),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1812),
                             Description = "A lush and diverse rainforest habitat",
                             IsDeleted = false,
                             Location = "Rainforest Pavilion",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6705),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1813),
                             Name = "Rainforest"
                         },
                         new
@@ -588,11 +584,11 @@ namespace DataAccess.Migrations
                             Id = 3,
                             Capacity = 50,
                             Code = "C",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6708),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1814),
                             Description = "A cold and watery habitat for penguins",
                             IsDeleted = false,
                             Location = "Aquatic Pavilion",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6708),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1815),
                             Name = "Penguin Cove"
                         },
                         new
@@ -600,11 +596,11 @@ namespace DataAccess.Migrations
                             Id = 4,
                             Capacity = 60,
                             Code = "D",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6710),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1817),
                             Description = "A hot and arid desert environment",
                             IsDeleted = false,
                             Location = "Desert Exhibit",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6711),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1817),
                             Name = "Desert Oasis"
                         },
                         new
@@ -612,11 +608,11 @@ namespace DataAccess.Migrations
                             Id = 5,
                             Capacity = 70,
                             Code = "E",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6713),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1819),
                             Description = "A vibrant coral reef with colorful fish",
                             IsDeleted = false,
                             Location = "Aquatic Pavilion",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(6713),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(1819),
                             Name = "Tropical Reef"
                         });
                 });
@@ -678,12 +674,11 @@ namespace DataAccess.Migrations
                             AreaId = 1,
                             Capacity = 10,
                             Code = "A0001",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8156),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5152),
                             Description = "A spacious exhibit featuring African animals.",
-                            Image = "https://i.pinimg.com/736x/7e/90/d7/7e90d7179d7c55a5f8a9f868d00b1b7a.jpg",
                             IsDeleted = false,
                             Location = "Savannah Exhibit",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8158),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5163),
                             Name = "African Safari"
                         },
                         new
@@ -692,12 +687,11 @@ namespace DataAccess.Migrations
                             AreaId = 1,
                             Capacity = 15,
                             Code = "A0002",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8163),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5166),
                             Description = "A dedicated area for Asian elephants.",
-                            Image = "https://i.pinimg.com/736x/6c/16/68/6c166887958e66c8e3b01a7e84a425b7.jpg",
                             IsDeleted = false,
                             Location = "Asian Elephant Pavilion",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8163),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5167),
                             Name = "Elephant Sanctuary"
                         },
                         new
@@ -706,12 +700,11 @@ namespace DataAccess.Migrations
                             AreaId = 2,
                             Capacity = 12,
                             Code = "B0003",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8166),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5168),
                             Description = "A large tank showcasing great white sharks.",
-                            Image = "https://i.pinimg.com/736x/3e/cb/a3/3ecba328f8dff176289a8d3fd9d81059.jpg",
                             IsDeleted = false,
                             Location = "Marine World",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8166),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5169),
                             Name = "Shark Tank"
                         },
                         new
@@ -720,12 +713,11 @@ namespace DataAccess.Migrations
                             AreaId = 2,
                             Capacity = 20,
                             Code = "B0004",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8168),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5172),
                             Description = "A natural habitat for grizzly bears.",
-                            Image = "https://i.pinimg.com/236x/6d/d2/62/6dd26201a3938ca84937edbc98531d66.jpg",
                             IsDeleted = false,
                             Location = "North American Habitat",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8169),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5172),
                             Name = "Grizzly Wilderness"
                         },
                         new
@@ -734,12 +726,11 @@ namespace DataAccess.Migrations
                             AreaId = 3,
                             Capacity = 8,
                             Code = "C0005",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8172),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5175),
                             Description = "A chilly paradise for emperor penguins.",
-                            Image = "https://i.pinimg.com/736x/b9/c3/d3/b9c3d39666b871e2ab805c71c0747be4.jpg",
                             IsDeleted = false,
                             Location = "Antarctic Exhibit",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8172),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5175),
                             Name = "Penguin Paradise"
                         },
                         new
@@ -748,12 +739,11 @@ namespace DataAccess.Migrations
                             AreaId = 1,
                             Capacity = 20,
                             Code = "A0006",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8174),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5177),
                             Description = "A vast exhibit showcasing African wildlife.",
-                            Image = "https://i.pinimg.com/736x/fe/4b/2a/fe4b2aee3aa2d9339c70e901bb67e4f0.jpg",
                             IsDeleted = false,
                             Location = "Wide Open Savannah",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8175),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5177),
                             Name = "African Plains"
                         },
                         new
@@ -762,12 +752,11 @@ namespace DataAccess.Migrations
                             AreaId = 2,
                             Capacity = 18,
                             Code = "B0007",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8176),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5179),
                             Description = "A chilly environment for polar animals.",
-                            Image = "https://i.pinimg.com/736x/54/f0/b1/54f0b14281c56c4933a43dbcda2efbbe.jpg",
                             IsDeleted = false,
                             Location = "Arctic Enclosure",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8177),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5180),
                             Name = "Polar Icecaps"
                         },
                         new
@@ -776,12 +765,11 @@ namespace DataAccess.Migrations
                             AreaId = 3,
                             Capacity = 12,
                             Code = "C0008",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8179),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5181),
                             Description = "An arid landscape for Australian fauna.",
-                            Image = "https://i.pinimg.com/736x/24/93/01/24930132c3e7bb452e2e49cef68f4e56.jpg",
                             IsDeleted = false,
                             Location = "Australian Habitat",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8179),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5182),
                             Name = "Aussie Outback"
                         },
                         new
@@ -790,12 +778,11 @@ namespace DataAccess.Migrations
                             AreaId = 4,
                             Capacity = 15,
                             Code = "D0009",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8181),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5184),
                             Description = "A dense forest for Siberian wildlife.",
-                            Image = "https://i.pinimg.com/736x/18/fd/af/18fdaf68d166b9911cca446adb0f3f58.jpg",
                             IsDeleted = false,
                             Location = "Russian Wilderness",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8182),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5184),
                             Name = "Siberian Taiga"
                         },
                         new
@@ -804,12 +791,11 @@ namespace DataAccess.Migrations
                             AreaId = 5,
                             Capacity = 25,
                             Code = "E0010",
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8184),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5186),
                             Description = "A lush jungle exhibit for Amazon species.",
-                            Image = "https://i.pinimg.com/736x/4d/af/35/4daf352008585dc28fe1790e4f5245ac.jpg",
                             IsDeleted = false,
                             Location = "South American Jungle",
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 54, DateTimeKind.Local).AddTicks(8184),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 504, DateTimeKind.Local).AddTicks(5187),
                             Name = "Amazon Rainforest"
                         });
                 });
@@ -868,200 +854,200 @@ namespace DataAccess.Migrations
                             Id = 1,
                             AnimalId = 1,
                             CageId = 1,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(875),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(518),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(877),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(871)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(518),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(508)
                         },
                         new
                         {
                             Id = 2,
                             AnimalId = 2,
                             CageId = 2,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(880),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(520),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(881),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(880)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(521),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(520)
                         },
                         new
                         {
                             Id = 3,
                             AnimalId = 3,
                             CageId = 3,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(882),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(522),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(883),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(882)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(523),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(522)
                         },
                         new
                         {
                             Id = 4,
                             AnimalId = 4,
                             CageId = 4,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(885),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(525),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(885),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(884)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(525),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(524)
                         },
                         new
                         {
                             Id = 5,
                             AnimalId = 5,
                             CageId = 5,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(887),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(527),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(887),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(886)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(527),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(526)
                         },
                         new
                         {
                             Id = 6,
                             AnimalId = 6,
                             CageId = 6,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(888),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(529),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(889),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(888)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(530),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(529)
                         },
                         new
                         {
                             Id = 7,
                             AnimalId = 7,
                             CageId = 7,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(890),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(531),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(891),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(890)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(532),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(531)
                         },
                         new
                         {
                             Id = 8,
                             AnimalId = 8,
                             CageId = 8,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(892),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(533),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(893),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(892)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(534),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(533)
                         },
                         new
                         {
                             Id = 9,
                             AnimalId = 9,
                             CageId = 9,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(894),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(536),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(895),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(894)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(536),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(535)
                         },
                         new
                         {
                             Id = 10,
                             AnimalId = 10,
                             CageId = 10,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(896),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(538),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(896),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(896)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(538),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(537)
                         },
                         new
                         {
                             Id = 11,
                             AnimalId = 11,
                             CageId = 1,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(898),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(540),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(898),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(897)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(540),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(539)
                         },
                         new
                         {
                             Id = 12,
                             AnimalId = 12,
                             CageId = 2,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(900),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(542),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(900),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(899)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(543),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(541)
                         },
                         new
                         {
                             Id = 13,
                             AnimalId = 13,
                             CageId = 3,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(902),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(544),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(902),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(901)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(545),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(544)
                         },
                         new
                         {
                             Id = 14,
                             AnimalId = 14,
                             CageId = 4,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(904),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(546),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(904),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(903)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(547),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(546)
                         },
                         new
                         {
                             Id = 15,
                             AnimalId = 15,
                             CageId = 5,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(906),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(548),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(906),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(905)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(549),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(548)
                         },
                         new
                         {
                             Id = 16,
                             AnimalId = 16,
                             CageId = 6,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(907),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(551),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(908),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(907)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(551),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(550)
                         },
                         new
                         {
                             Id = 17,
                             AnimalId = 17,
                             CageId = 7,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(909),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(553),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(910),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(909)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(553),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(552)
                         },
                         new
                         {
                             Id = 18,
                             AnimalId = 18,
                             CageId = 8,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(911),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(555),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(912),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(911)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(555),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(554)
                         },
                         new
                         {
                             Id = 19,
                             AnimalId = 19,
                             CageId = 9,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(913),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(557),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(914),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(913)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(558),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(557)
                         },
                         new
                         {
                             Id = 20,
                             AnimalId = 20,
                             CageId = 10,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(915),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(559),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(915),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(915)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(560),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(559)
                         });
                 });
 
@@ -1117,11 +1103,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2978),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5068),
                             DietName = "African Lion - Birth Diet",
                             FoodName = "Milk",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2979),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5075),
                             Quantity = 0.5,
                             TimesPerDay = 8,
                             Unit = "liters"
@@ -1129,11 +1115,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2983),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5079),
                             DietName = "African Lion - Mature Diet",
                             FoodName = "Meat and vegetables",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2984),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5079),
                             Quantity = 2.0,
                             TimesPerDay = 2,
                             Unit = "kilograms"
@@ -1141,11 +1127,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2986),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5081),
                             DietName = "African Lion - Pregnant Diet",
                             FoodName = "Special pregnancy diet",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2987),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5081),
                             Quantity = 2.5,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1153,11 +1139,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2989),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5083),
                             DietName = "Asian Elephant - Birth Diet",
                             FoodName = "Milk and Vegetables",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2989),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5084),
                             Quantity = 5.0,
                             TimesPerDay = 4,
                             Unit = "liters"
@@ -1165,11 +1151,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2991),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5085),
                             DietName = "Asian Elephant - Mature Diet",
                             FoodName = "Grasses, Fruits, Vegetables, and Sugarcane",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2991),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5086),
                             Quantity = 150.0,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1177,11 +1163,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2993),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5088),
                             DietName = "Asian Elephant - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Fruits, Vegetables, and Sugarcane)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2994),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5088),
                             Quantity = 150.0,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1189,11 +1175,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2996),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5090),
                             DietName = "Great White Shark - Birth Diet",
                             FoodName = "Fish and other small sea creatures",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2996),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5090),
                             Quantity = 10.0,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1201,11 +1187,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2998),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5092),
                             DietName = "Great White Shark - Mature Diet",
                             FoodName = "Seals, sea lions, fish, and other sharks",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(2998),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5093),
                             Quantity = 30.0,
                             TimesPerDay = 2,
                             Unit = "kilograms"
@@ -1213,11 +1199,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3000),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5133),
                             DietName = "Great White Shark - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Fish and Sea Creatures)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3001),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5133),
                             Quantity = 40.0,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1225,11 +1211,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3002),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5135),
                             DietName = "European Red Fox - Birth Diet",
                             FoodName = "Milk and Small Creatures",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3003),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5136),
                             Quantity = 0.5,
                             TimesPerDay = 4,
                             Unit = "liters"
@@ -1237,11 +1223,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 11,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3004),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5137),
                             DietName = "European Red Fox - Mature Diet",
                             FoodName = "Small mammals, birds, fruits, and insects",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3005),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5138),
                             Quantity = 2.0,
                             TimesPerDay = 2,
                             Unit = "kilograms"
@@ -1249,11 +1235,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 12,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3006),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5140),
                             DietName = "European Red Fox - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Small Creatures and Fruits)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3007),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5140),
                             Quantity = 2.5,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1261,11 +1247,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 13,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3009),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5142),
                             DietName = "Emperor Penguin - Birth Diet",
                             FoodName = "Milk and Fish",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3009),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5142),
                             Quantity = 0.5,
                             TimesPerDay = 8,
                             Unit = "liters"
@@ -1273,11 +1259,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 14,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3011),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5144),
                             DietName = "Emperor Penguin - Mature Diet",
                             FoodName = "Fish, squid, and krill",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3011),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5145),
                             Quantity = 2.0,
                             TimesPerDay = 2,
                             Unit = "kilograms"
@@ -1285,11 +1271,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 15,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3013),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5146),
                             DietName = "Emperor Penguin - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Fish and Seafood)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3013),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5147),
                             Quantity = 2.5,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1297,11 +1283,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 16,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3015),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5149),
                             DietName = "Kangaroo - Birth Diet",
                             FoodName = "Milk and Grasses",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3015),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5149),
                             Quantity = 0.5,
                             TimesPerDay = 8,
                             Unit = "liters"
@@ -1309,11 +1295,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 17,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3017),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5151),
                             DietName = "Kangaroo - Mature Diet",
                             FoodName = "Grasses and plants",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3017),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5152),
                             Quantity = 2.0,
                             TimesPerDay = 2,
                             Unit = "kilograms"
@@ -1321,11 +1307,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 18,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3047),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5153),
                             DietName = "Kangaroo - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Grasses and Leaves)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3048),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5154),
                             Quantity = 2.5,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1333,11 +1319,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 19,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3050),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5156),
                             DietName = "Grizzly Bear - Birth Diet",
                             FoodName = "Milk and Berries",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3050),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5156),
                             Quantity = 2.0,
                             TimesPerDay = 4,
                             Unit = "liters"
@@ -1345,11 +1331,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 20,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3052),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5158),
                             DietName = "Grizzly Bear - Mature Diet",
                             FoodName = "Fish, berries, roots, and small mammals",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3053),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5158),
                             Quantity = 5.0,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1357,11 +1343,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 21,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3055),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5160),
                             DietName = "Grizzly Bear - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Berries and Small Creatures)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3055),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5161),
                             Quantity = 6.0,
                             TimesPerDay = 4,
                             Unit = "kilograms"
@@ -1369,11 +1355,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 22,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3057),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5162),
                             DietName = "Polar Bear - Birth Diet",
                             FoodName = "Milk and Fish",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3057),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5163),
                             Quantity = 1.0,
                             TimesPerDay = 6,
                             Unit = "liters"
@@ -1381,11 +1367,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 23,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3059),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5165),
                             DietName = "Polar Bear - Mature Diet",
                             FoodName = "Seals and fish",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3060),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5165),
                             Quantity = 4.0,
                             TimesPerDay = 2,
                             Unit = "kilograms"
@@ -1393,11 +1379,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 24,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3062),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5167),
                             DietName = "Polar Bear - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Fish and Seafood)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3062),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5167),
                             Quantity = 5.0,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1405,11 +1391,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 25,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3064),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5169),
                             DietName = "Bengal Tiger - Birth Diet",
                             FoodName = "Milk and Meat",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3064),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5170),
                             Quantity = 0.5,
                             TimesPerDay = 8,
                             Unit = "liters"
@@ -1417,11 +1403,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 26,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3066),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5171),
                             DietName = "Bengal Tiger - Mature Diet",
                             FoodName = "Deer, wild boar, and other ungulates",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3067),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5172),
                             Quantity = 2.0,
                             TimesPerDay = 2,
                             Unit = "kilograms"
@@ -1429,11 +1415,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 27,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3069),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5174),
                             DietName = "Bengal Tiger - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Meat and Prey)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3069),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5174),
                             Quantity = 2.5,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1441,11 +1427,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 28,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3071),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5176),
                             DietName = "Panda - Birth Diet",
                             FoodName = "Milk and Bamboo",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3071),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5177),
                             Quantity = 0.5,
                             TimesPerDay = 8,
                             Unit = "liters"
@@ -1453,11 +1439,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 29,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3073),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5178),
                             DietName = "Panda - Mature Diet",
                             FoodName = "Bamboo shoots and leaves",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3074),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5179),
                             Quantity = 2.0,
                             TimesPerDay = 2,
                             Unit = "kilograms"
@@ -1465,11 +1451,11 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 30,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3075),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5181),
                             DietName = "Panda - Pregnant Diet",
                             FoodName = "Special pregnancy diet (Extra Bamboo and Vegetation)",
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(3076),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 505, DateTimeKind.Local).AddTicks(5181),
                             Quantity = 2.5,
                             TimesPerDay = 3,
                             Unit = "kilograms"
@@ -1527,201 +1513,201 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             AnimalId = 1,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5124),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(203),
                             DietId = 1,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5125),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5128)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(206),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(207)
                         },
                         new
                         {
                             Id = 2,
                             AnimalId = 2,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5130),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(209),
                             DietId = 5,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5130),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5131)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(209),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(210)
                         },
                         new
                         {
                             Id = 3,
                             AnimalId = 3,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5133),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(212),
                             DietId = 7,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5133),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5134)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(212),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(213)
                         },
                         new
                         {
                             Id = 4,
                             AnimalId = 4,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5136),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(215),
                             DietId = 10,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5136),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5137)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(215),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(216)
                         },
                         new
                         {
                             Id = 5,
                             AnimalId = 5,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5138),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(217),
                             DietId = 14,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5139),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5140)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(218),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(219)
                         },
                         new
                         {
                             Id = 6,
                             AnimalId = 6,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5141),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(220),
                             DietId = 16,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5142),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5142)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(221),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(222)
                         },
                         new
                         {
                             Id = 7,
                             AnimalId = 7,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5144),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(223),
                             DietId = 20,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5144),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5145)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(224),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(225)
                         },
                         new
                         {
                             Id = 8,
                             AnimalId = 8,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5146),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(226),
                             DietId = 22,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5147),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5148)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(227),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(228)
                         },
                         new
                         {
                             Id = 9,
                             AnimalId = 9,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5149),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(229),
                             DietId = 26,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5149),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5150)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(230),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(230)
                         },
                         new
                         {
                             Id = 10,
                             AnimalId = 10,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5151),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(232),
                             DietId = 28,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5152),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5153)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(232),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(233)
                         },
                         new
                         {
                             Id = 11,
                             AnimalId = 11,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5154),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(235),
                             DietId = 2,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5155),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5155)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(235),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(236)
                         },
                         new
                         {
                             Id = 12,
                             AnimalId = 12,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5157),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(267),
                             DietId = 6,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5157),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5158)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(267),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(268)
                         },
                         new
                         {
                             Id = 13,
                             AnimalId = 13,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5159),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(270),
                             DietId = 8,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5160),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5161)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(271),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(272)
                         },
                         new
                         {
                             Id = 14,
                             AnimalId = 14,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5162),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(273),
                             DietId = 12,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5162),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5163)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(274),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(274)
                         },
                         new
                         {
                             Id = 15,
                             AnimalId = 15,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5164),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(276),
                             DietId = 15,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5165),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5166)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(276),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(277)
                         },
                         new
                         {
                             Id = 16,
                             AnimalId = 16,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5167),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(279),
                             DietId = 18,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5168),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5168)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(279),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(280)
                         },
                         new
                         {
                             Id = 17,
                             AnimalId = 17,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5170),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(282),
                             DietId = 21,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5170),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5171)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(282),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(283)
                         },
                         new
                         {
                             Id = 18,
                             AnimalId = 18,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5172),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(285),
                             DietId = 24,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5173),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5174)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(285),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(286)
                         },
                         new
                         {
                             Id = 19,
                             AnimalId = 19,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5175),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(287),
                             DietId = 27,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5175),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5176)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(288),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(289)
                         },
                         new
                         {
                             Id = 20,
                             AnimalId = 20,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5177),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(290),
                             DietId = 30,
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5178),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 55, DateTimeKind.Local).AddTicks(5179)
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(291),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 506, DateTimeKind.Local).AddTicks(292)
                         });
                 });
 
@@ -1866,12 +1852,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2551),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5070),
                             Description = "The African lion is a large predatory cat native to Africa.",
                             Habitat = 0,
                             IsDeleted = false,
                             LifeSpan = 10,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2557),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5085),
                             Name = "African Lion",
                             ScientificName = "Panthera leo",
                             WildDiet = "Wild antelopes, zebras, and other herbivores"
@@ -1879,12 +1865,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2561),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5089),
                             Description = "The Asian elephant is the largest living land animal in Asia.",
                             Habitat = 1,
                             IsDeleted = false,
                             LifeSpan = 60,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2562),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5089),
                             Name = "Asian Elephant",
                             ScientificName = "Elephas maximus",
                             WildDiet = "Grasses, bamboo, fruits, and tree bark"
@@ -1892,12 +1878,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2564),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5092),
                             Description = "The great white shark is a fearsome predator of the oceans.",
                             Habitat = 2,
                             IsDeleted = false,
                             LifeSpan = 70,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2565),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5093),
                             Name = "Great White Shark",
                             ScientificName = "Carcharodon carcharias",
                             WildDiet = "Seals, sea lions, fish, and other sharks"
@@ -1905,12 +1891,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2567),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5095),
                             Description = "The European red fox is a cunning and adaptable predator.",
                             Habitat = 3,
                             IsDeleted = false,
                             LifeSpan = 5,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2567),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5095),
                             Name = "European Red Fox",
                             ScientificName = "Vulpes vulpes",
                             WildDiet = "Small mammals, birds, fruits, and insects"
@@ -1918,12 +1904,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2569),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5145),
                             Description = "The emperor penguin is the largest penguin species and lives in Antarctica.",
                             Habitat = 4,
                             IsDeleted = false,
                             LifeSpan = 20,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2570),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5146),
                             Name = "Emperor Penguin",
                             ScientificName = "Aptenodytes forsteri",
                             WildDiet = "Fish, squid, and krill"
@@ -1931,12 +1917,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2572),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5148),
                             Description = "Kangaroos are marsupials known for their powerful hind legs and pouches.",
                             Habitat = 5,
                             IsDeleted = false,
                             LifeSpan = 6,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2572),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5148),
                             Name = "Kangaroo",
                             ScientificName = "Macropus",
                             WildDiet = "Grasses and plants"
@@ -1944,12 +1930,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2574),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5150),
                             Description = "The grizzly bear is a large and formidable North American mammal.",
                             Habitat = 6,
                             IsDeleted = false,
                             LifeSpan = 20,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2574),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5151),
                             Name = "Grizzly Bear",
                             ScientificName = "Ursus arctos horribilis",
                             WildDiet = "Fish, berries, roots, and small mammals"
@@ -1957,12 +1943,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2576),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5153),
                             Description = "The polar bear is a marine mammal adapted to the Arctic environment.",
                             Habitat = 4,
                             IsDeleted = false,
                             LifeSpan = 25,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2577),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5153),
                             Name = "Polar Bear",
                             ScientificName = "Ursus maritimus",
                             WildDiet = "Seals and fish"
@@ -1970,12 +1956,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2578),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5158),
                             Description = "The Bengal tiger is a majestic big cat native to the Indian subcontinent.",
                             Habitat = 1,
                             IsDeleted = false,
                             LifeSpan = 15,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2579),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5158),
                             Name = "Bengal Tiger",
                             ScientificName = "Panthera tigris tigris",
                             WildDiet = "Deer, wild boar, and other ungulates"
@@ -1983,12 +1969,12 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2581),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5160),
                             Description = "The panda is an iconic bear species known for its bamboo diet.",
                             Habitat = 1,
                             IsDeleted = false,
                             LifeSpan = 20,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 56, DateTimeKind.Local).AddTicks(2581),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 507, DateTimeKind.Local).AddTicks(5160),
                             Name = "Panda",
                             ScientificName = "Ailuropoda melanoleuca",
                             WildDiet = "Bamboo shoots and leaves"
@@ -2169,200 +2155,200 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             AnimalId = 1,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(114),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(814),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(114),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(108),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(817),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(804),
                             TrainerId = 1
                         },
                         new
                         {
                             Id = 2,
                             AnimalId = 11,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(119),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(819),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(119),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(118),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(820),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(819),
                             TrainerId = 1
                         },
                         new
                         {
                             Id = 3,
                             AnimalId = 2,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(121),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(822),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(121),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(120),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(822),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(821),
                             TrainerId = 2
                         },
                         new
                         {
                             Id = 4,
                             AnimalId = 12,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(123),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(824),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(123),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(122),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(824),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(823),
                             TrainerId = 2
                         },
                         new
                         {
                             Id = 5,
                             AnimalId = 3,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(125),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(826),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(125),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(124),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(827),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(826),
                             TrainerId = 3
                         },
                         new
                         {
                             Id = 6,
                             AnimalId = 13,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(127),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(828),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(127),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(126),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(829),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(828),
                             TrainerId = 3
                         },
                         new
                         {
                             Id = 7,
                             AnimalId = 4,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(129),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(830),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(129),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(128),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(831),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(830),
                             TrainerId = 4
                         },
                         new
                         {
                             Id = 8,
                             AnimalId = 14,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(131),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(833),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(131),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(130),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(833),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(832),
                             TrainerId = 4
                         },
                         new
                         {
                             Id = 9,
                             AnimalId = 5,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(132),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(835),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(133),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(132),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(835),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(834),
                             TrainerId = 5
                         },
                         new
                         {
                             Id = 10,
                             AnimalId = 15,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(134),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(837),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(135),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(134),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(837),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(836),
                             TrainerId = 5
                         },
                         new
                         {
                             Id = 11,
                             AnimalId = 6,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(136),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(839),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(137),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(136),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(840),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(839),
                             TrainerId = 1
                         },
                         new
                         {
                             Id = 12,
                             AnimalId = 16,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(138),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(841),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(139),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(138),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(842),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(841),
                             TrainerId = 1
                         },
                         new
                         {
                             Id = 13,
                             AnimalId = 7,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(140),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(843),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(141),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(140),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(844),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(843),
                             TrainerId = 2
                         },
                         new
                         {
                             Id = 14,
                             AnimalId = 17,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(142),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(846),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(143),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(142),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(846),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(845),
                             TrainerId = 2
                         },
                         new
                         {
                             Id = 15,
                             AnimalId = 8,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(144),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(848),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(145),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(144),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(848),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(847),
                             TrainerId = 3
                         },
                         new
                         {
                             Id = 16,
                             AnimalId = 18,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(146),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(850),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(146),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(146),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(850),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(849),
                             TrainerId = 3
                         },
                         new
                         {
                             Id = 17,
                             AnimalId = 9,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(148),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(852),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(148),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(147),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(853),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(851),
                             TrainerId = 4
                         },
                         new
                         {
                             Id = 18,
                             AnimalId = 19,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(150),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(854),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(150),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(149),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(855),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(854),
                             TrainerId = 4
                         },
                         new
                         {
                             Id = 19,
                             AnimalId = 10,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(152),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(856),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(152),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(151),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(857),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(856),
                             TrainerId = 5
                         },
                         new
                         {
                             Id = 20,
                             AnimalId = 20,
-                            CreationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(154),
+                            CreationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(858),
                             IsDeleted = false,
-                            ModificationDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(154),
-                            StartDate = new DateTime(2023, 11, 2, 21, 4, 37, 57, DateTimeKind.Local).AddTicks(153),
+                            ModificationDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(859),
+                            StartDate = new DateTime(2023, 11, 2, 16, 51, 25, 509, DateTimeKind.Local).AddTicks(858),
                             TrainerId = 5
                         });
                 });

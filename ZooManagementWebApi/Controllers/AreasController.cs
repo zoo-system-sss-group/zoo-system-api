@@ -49,7 +49,7 @@ public class AreasController : ControllerBase
         return Ok(new SingleResult<Area>(area));
     }
     [HttpPost]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<Area>> Post([FromBody] AreaDto dto)
     {
         Area area;
@@ -66,7 +66,7 @@ public class AreasController : ControllerBase
         return CreatedAtAction("Get", new { key = area.Id }, area);
     }
     [HttpPut]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AreaDto dto)
     {
         try
@@ -83,7 +83,7 @@ public class AreasController : ControllerBase
     }
 
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try

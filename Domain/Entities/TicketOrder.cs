@@ -21,7 +21,7 @@ public class TicketOrder : BaseEntity
     public int TotalTicket { get; set; } = 0;
     [EnumDataType(typeof(OrderStatusEnum))]
 
-    public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Success;
+    public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Waiting;
 
     public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }

@@ -1,10 +1,8 @@
 ﻿using Application.IRepositories;
 using Application.IServices;
-using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
@@ -19,11 +17,16 @@ namespace ZooManagementWebApi.Controllers
         private readonly IFeedHistoryRepository feedHistoryRepository;
         private readonly IMapper mapper;
         private readonly IClaimService claimService;
-        public FeedHistoryController(IFeedHistoryRepository feedHistoryRepository, IMapper mapper, IClaimService claimService)
+        private readonly IDietRepository _dietRepository;
+        public FeedHistoryController(IFeedHistoryRepository feedHistoryRepository, 
+                                    IMapper mapper, 
+                                    IClaimService claimService,
+                                    IDietRepository dietRepository)
         {
             this.feedHistoryRepository = feedHistoryRepository;
             this.mapper = mapper;
             this.claimService = claimService;
+            _dietRepository = dietRepository;
         }
 
         [HttpGet]
@@ -64,6 +67,11 @@ namespace ZooManagementWebApi.Controllers
                 foreach(FeedHistory history in feedHistory)
                 {   
                     history.TrainerId = claimService.GetCurrentUserId;
+                    var currentDiet = await _dietRepository.GetCurrentDietOfAnimalAsync(history.AnimalId);
+                    if (currentDiet != null)
+                    {
+                        history.DietId = currentDiet.Id;
+                    }
                 }
                 await feedHistoryRepository.AddFeedHistoryAsync(feedHistory);
             }
@@ -76,7 +84,6 @@ namespace ZooManagementWebApi.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Put([FromRoute] int key, [FromBody] FeedHistoryDto dto)
         {
             try
@@ -98,7 +105,6 @@ namespace ZooManagementWebApi.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Delete([FromRoute] int key)
         {
             try

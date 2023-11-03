@@ -1,13 +1,10 @@
 ﻿using Application.IRepositories;
-using Application.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
-using Microsoft.EntityFrameworkCore;
 using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
@@ -48,7 +45,7 @@ namespace ZooManagementWebApi.Controllers
             return Ok(new SingleResult<Cage>(cage));
         }
         [HttpPost]
-        [Authorize(Roles = "Staff")]
+        [Authorize(Roles = "Staff,Admin")]
         public async Task<ActionResult<Cage>> Post([FromBody] CageDto dto)
         {
             Cage cage;
@@ -65,7 +62,7 @@ namespace ZooManagementWebApi.Controllers
             return CreatedAtAction("Get", new { key = cage.Id }, cage);
         }
         [HttpPut]
-        [Authorize(Roles = "Staff")]
+        [Authorize(Roles = "Staff,Admin")]
         public async Task<IActionResult> Put([FromRoute] int key, [FromBody] CageDto dto)
         {
             try
@@ -86,7 +83,7 @@ namespace ZooManagementWebApi.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Staff")]
+        [Authorize(Roles = "Staff,Admin")]
         public async Task<IActionResult> Delete([FromRoute] int key)
         {
             try

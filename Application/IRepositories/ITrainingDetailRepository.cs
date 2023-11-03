@@ -9,4 +9,6 @@ public interface ITrainingDetailRepository
     Task AddTrainingDetailAsync(TrainingDetail trainingDetail);
     Task UpdateTrainingDetailAsync(TrainingDetail trainingDetail);
     Task DeleteTrainingDetailAsync(int id);
+    IQueryable<TrainingDetail> GetQueryTrainingDetails();
+    IQueryable<TrainingDetail> GetQueryTrainingDetailById(int id);
 }

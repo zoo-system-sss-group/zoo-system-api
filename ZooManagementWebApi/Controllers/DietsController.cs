@@ -47,7 +47,7 @@ namespace ZooManagementWebApi.Controllers
             return Ok(diet);
         }
         [HttpPost]
-        [Authorize(Roles = "Staff")]
+        [Authorize(Roles = "Staff,Admin")]
         public async Task<ActionResult<Diet>> Post([FromBody] DietDto dto)
         {
             Diet diet;
@@ -64,7 +64,7 @@ namespace ZooManagementWebApi.Controllers
             return CreatedAtAction("Get", new { key = diet.Id }, diet);
         }
         [HttpPut]
-        [Authorize(Roles = "Staff")]
+        [Authorize(Roles = "Staff,Admin")]
         public async Task<IActionResult> Put([FromRoute] int key, [FromBody] DietDto dto)
         {
             try
@@ -85,7 +85,7 @@ namespace ZooManagementWebApi.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Staff")]
+        [Authorize(Roles = "Staff,Admin")]
         public async Task<IActionResult> Delete([FromRoute] int key)
         {
             try

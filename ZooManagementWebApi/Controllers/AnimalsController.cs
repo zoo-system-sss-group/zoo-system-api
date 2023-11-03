@@ -53,7 +53,7 @@ public class AnimalsController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<AnimalInformation>> Post([FromBody] AnimalInformationDto dto)
     {
         AnimalInformation animal;
@@ -72,7 +72,7 @@ public class AnimalsController : ControllerBase
     }
 
     [HttpPut]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] AnimalInformationDto dto)
     {
         try
@@ -90,7 +90,7 @@ public class AnimalsController : ControllerBase
     }
 
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try

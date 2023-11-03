@@ -20,7 +20,7 @@ namespace ZooManagementWebApi.Controllers
             this.mapper = mapper;
         }
         [HttpPost]
-        [Authorize(Roles ="Staff")]
+        [Authorize(Roles = "Staff,Admin")]
         public async Task<ActionResult<Area>> Post(CageHistoryDto dto)
         {
             CageHistory cageHistory;

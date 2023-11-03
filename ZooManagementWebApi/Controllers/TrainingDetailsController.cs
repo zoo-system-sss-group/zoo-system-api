@@ -1,4 +1,5 @@
 ﻿using Application.IRepositories;
+using Application.IServices;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -8,28 +9,31 @@ using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers;
 
-[EnableQuery]
+[EnableQuery(MaxExpansionDepth =5)]
 [Authorize]
 public class TrainingDetailsController : ControllerBase
 {
     private readonly ITrainingDetailRepository _trainingDetailRepository;
     private readonly IMapper _mapper;
+    private readonly IClaimService _claimService;
 
     public TrainingDetailsController(ITrainingDetailRepository trainingDetailRepository, 
-                                        IMapper mapper)
+                                        IMapper mapper, 
+                                        IClaimService claimService)
     {
         _trainingDetailRepository = trainingDetailRepository;
         _mapper = mapper;
+        _claimService = claimService;
     }
 
     // GET: odata/TrainingDetails
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<TrainingDetail>>> Get()
+    [HttpGet]    
+    public ActionResult<IQueryable<TrainingDetail>> Get()
     {
-        List<TrainingDetail> trainingDetails;
+        IQueryable<TrainingDetail> trainingDetails;
         try
         {
-            trainingDetails = await _trainingDetailRepository.GetAllTrainingDetailsAsync();
+            trainingDetails = _trainingDetailRepository.GetQueryTrainingDetails();
         }
         catch (Exception ex)
         {
@@ -40,9 +44,9 @@ public class TrainingDetailsController : ControllerBase
 
     // GET: odata/TrainingDetails/5
     [HttpGet]
-    public async Task<ActionResult<TrainingDetail>> Get([FromRoute] int key)
+    public ActionResult<IQueryable<TrainingDetail>> Get([FromRoute] int key)
     {
-        var trainingDetail = await _trainingDetailRepository.GetTrainingDetailByIdAsync(key);
+        var trainingDetail = _trainingDetailRepository.GetQueryTrainingDetailById(key);
 
         if (trainingDetail == null)
         {
@@ -54,7 +58,7 @@ public class TrainingDetailsController : ControllerBase
 
     // PUT: odata/TrainingDetails/5
     [HttpPut]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] TrainingDetailDto dto)
     {
         try
@@ -77,7 +81,7 @@ public class TrainingDetailsController : ControllerBase
 
     // POST: odata/TrainingDetails
     [HttpPost]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<TrainingDetail>> Post([FromBody] TrainingDetailDto dto)
     {
         TrainingDetail trainingDetail;
@@ -96,7 +100,7 @@ public class TrainingDetailsController : ControllerBase
 
     // DELETE: odata/TrainingDetails/5
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try
@@ -114,4 +118,5 @@ public class TrainingDetailsController : ControllerBase
 
         return NoContent();
     }
+
 }

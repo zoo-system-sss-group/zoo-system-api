@@ -26,7 +26,7 @@ public class TicketsController : ControllerBase
     }
     // GET: odata/Tickets
     [HttpGet]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<IEnumerable<Ticket>>> Get()
     {
         List<Ticket> Tickets;
@@ -43,7 +43,7 @@ public class TicketsController : ControllerBase
 
     // GET: odata/Tickets/5
     [HttpGet]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<ActionResult<Ticket>> Get([FromRoute] int key)
     {
         var ticket = await _ticketRepo.GetTicketByIdAsync(key);
@@ -58,7 +58,7 @@ public class TicketsController : ControllerBase
 
     // PUT: odata/Tickets/5
     [HttpPut]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Put([FromRoute] int key, [FromBody] TicketUpdateDto dto)
     {
         try
@@ -100,7 +100,7 @@ public class TicketsController : ControllerBase
 
     // DELETE: odata/Tickets/5
     [HttpDelete]
-    [Authorize(Roles = "Staff")]
+    [Authorize(Roles = "Staff,Admin")]
     public async Task<IActionResult> Delete([FromRoute] int key)
     {
         try
