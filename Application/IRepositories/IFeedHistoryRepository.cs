@@ -9,10 +9,9 @@ namespace Application.IRepositories
 {
     public interface IFeedHistoryRepository
     {
-        IQueryable<FeedHistory> GetFeedHistoriesAsync();
-        IQueryable<FeedHistory> GetFeedHistoryByIdAsync(int id);
-        Task AddFeedHistoryAsync(List<FeedHistory> feedHistory);
+        Task<FeedHistory> GetByIdAsync(int id);
+        Task AddFeedHistoryAsync(FeedHistory feedHistory);
         Task UpdateFeedHistoryAsync(FeedHistory feedHistory);
-        Task SoftDeleteFeedHistoryAsync(int id);
+        Task<List<FeedHistory>> GetTodayFeedHistoriesByAnimalId(int animalId);
     }
 }

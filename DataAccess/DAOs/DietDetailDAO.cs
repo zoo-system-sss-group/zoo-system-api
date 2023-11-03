@@ -37,5 +37,4 @@ public class DietDetailDAO : BaseDAO<DietDetail>
         }
         return diet;
     }
-
 }
