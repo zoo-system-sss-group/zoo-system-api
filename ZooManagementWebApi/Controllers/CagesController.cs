@@ -16,12 +16,10 @@ namespace ZooManagementWebApi.Controllers
     public class CagesController : ControllerBase
     {
         private readonly ICageRepository _cageRepository;
-        private readonly IDietRepository _dietRepository;
         private readonly IMapper mapper;
-        public CagesController(ICageRepository cageRepository, IDietRepository dietRepository, IMapper mapper)
+        public CagesController(ICageRepository cageRepository, IMapper mapper)
         {
             _cageRepository = cageRepository;
-            _dietRepository = dietRepository;
             this.mapper = mapper;
         }
         [HttpGet]
