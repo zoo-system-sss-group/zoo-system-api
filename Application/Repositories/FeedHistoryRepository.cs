@@ -37,5 +37,7 @@ namespace Application.Repositories
                 throw new Exception("Can not found!");
             await _feedHistoryDAO.UpdateAsync(feedHistory);
         }
+        public IQueryable<FeedHistory> GetFeedHistories()
+             => _feedHistoryDAO.GetFeedHistories();
     }
 }

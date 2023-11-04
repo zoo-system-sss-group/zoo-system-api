@@ -30,6 +30,21 @@ namespace ZooManagementWebApi.Controllers
             this.claimService = claimService;
             this.dietRepository = dietRepository;
         }
+        [HttpGet]
+        [EnableQuery]
+        public async Task<ActionResult<IEnumerable<FeedHistory>>> Get()
+        {
+            IQueryable<FeedHistory> feedHistories;
+            try
+            {
+                feedHistories = feedHistoryRepository.GetFeedHistories();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(feedHistories);
+        }
         [HttpGet("{key}")]
         [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Get([FromRoute] int key)

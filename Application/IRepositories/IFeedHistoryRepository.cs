@@ -13,5 +13,6 @@ namespace Application.IRepositories
         Task AddFeedHistoryAsync(FeedHistory feedHistory);
         Task UpdateFeedHistoryAsync(FeedHistory feedHistory);
         Task<List<FeedHistory>> GetTodayFeedHistoriesByAnimalId(int animalId);
+        IQueryable<FeedHistory> GetFeedHistories();
     }
 }

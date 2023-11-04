@@ -25,6 +25,7 @@ public static class ServiceCollectionExtensions
         modelBuilder.EntitySet<Diet>("Diets");
         modelBuilder.EntitySet<CageHistory>("CageHistory");
         modelBuilder.EntitySet<Ticket>("Tickets");
+        modelBuilder.EntitySet<FeedHistory>("FeedHistory");
         modelBuilder.EntitySet<TicketOrder>("TicketOrders");
         modelBuilder.EntitySet<TrainingDetail>("TrainingDetails");
         modelBuilder.EntitySet<DietDetail>("DietDetails");
