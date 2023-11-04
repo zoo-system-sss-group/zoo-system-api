@@ -31,6 +31,7 @@ namespace ZooManagementWebApi.Controllers
             this.dietRepository = dietRepository;
         }
         [HttpGet]
+        [Authorize]
         [EnableQuery]
         public async Task<ActionResult<IEnumerable<FeedHistory>>> Get()
         {

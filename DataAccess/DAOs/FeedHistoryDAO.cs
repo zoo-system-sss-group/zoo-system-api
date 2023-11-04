@@ -24,6 +24,7 @@ namespace DataAccess.DAOs
             IQueryable<FeedHistory> diets;
             var context = new AppDBContext(_configuration);
             diets = context.FeedHistories.OrderByDescending(x => x.FeedingDate);
+                diets = await context.FeedHistories.Where(x => x.AnimalId == animalId).ToListAsync();
             return diets;
         }
     }
