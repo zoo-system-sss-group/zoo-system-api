@@ -30,6 +30,22 @@ namespace ZooManagementWebApi.Controllers
             this.claimService = claimService;
             this.dietRepository = dietRepository;
         }
+        [HttpGet]
+        [Authorize]
+        [EnableQuery]
+        public async Task<ActionResult<IEnumerable<FeedHistory>>> Get()
+        {
+            IQueryable<FeedHistory> feedHistories;
+            try
+            {
+                feedHistories = feedHistoryRepository.GetFeedHistories();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(feedHistories);
+        }
         [HttpGet("{key}")]
         [Authorize(Roles = "Trainer")]
         public async Task<IActionResult> Get([FromRoute] int key)
@@ -38,16 +54,29 @@ namespace ZooManagementWebApi.Controllers
             if (feedHistories == null || feedHistories.Count() == 0)
             {
                 var diet = await dietRepository.GetCurrentDietOfAnimalAsync(key);
-                for (int i = 0; i < diet.TimesPerDay; i++)
+                if (diet != null)
                 {
-                    await feedHistoryRepository.AddFeedHistoryAsync(new FeedHistory
+                    TimeSpan startTime = new TimeSpan(7, 0, 0);
+                    TimeSpan endTime = new TimeSpan(19, 0, 0);
+                    int timesPerDay = diet.TimesPerDay;
+                    TimeSpan timeInterval = new TimeSpan((endTime - startTime).Ticks / (timesPerDay-1));
+
+                    for (int i = 0; i < timesPerDay; i++)
                     {
-                        AnimalId = key,
-                        DietId = diet.Id,
-                        FeedingDate = DateTime.Today,
-                        TrainerId = claimService.GetCurrentUserId
-                    });
+                        TimeSpan feedingTime = startTime + timeInterval * i;
+
+                        DateTime feedingDateTime = DateTime.Today.Add(feedingTime);
+
+                        await feedHistoryRepository.AddFeedHistoryAsync(new FeedHistory
+                        {
+                            AnimalId = key,
+                            DietId = diet.Id,
+                            FeedingDate = feedingDateTime,
+                            TrainerId = claimService.GetCurrentUserId
+                        });
+                    }
                 }
+                else throw new Exception("this animal does not have a diet");
                 feedHistories = await feedHistoryRepository.GetTodayFeedHistoriesByAnimalId(key);
             }
 
