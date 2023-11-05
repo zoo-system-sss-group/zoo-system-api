@@ -68,6 +68,8 @@ public class TicketOrderRepository : ITicketOrderRepository
             throw new ArgumentException("TicketOrder Id does not exist.");
         }
         order.CreationDate = tmpTicketOrder.CreationDate;
+        order.TotalMoney = tmpTicketOrder.TotalMoney;
+        order.TotalTicket = tmpTicketOrder.TotalTicket;
         await _ticketOrderDAO.UpdateAsync(order);
     }
 }

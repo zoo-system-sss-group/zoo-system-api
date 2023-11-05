@@ -77,30 +77,27 @@ public class TicketOrdersController : ControllerBase
             var ticketOrder = _mapper.Map<TicketOrder>(dto);
             ticketOrder.Id = key;
 
-            foreach (var t in dto.Tickets)
-            {
-                for (var i = 0; i < t.Quantity; i++)
-                {
-                    var typeId = (int)t.TicketType;
-                    var ticketType = _config.TicketTypeInformation.TicketType
-                                .FirstOrDefault(x => x.Id.Equals(typeId.ToString()));
-
-                    var ticket = new Ticket
-                    {
-                        TicketType = t.TicketType,
-                        Price = double.Parse(ticketType!.Price)
-                    };
-
-                    ticketOrder.Tickets.Add(ticket);
-                }
-            }
-
             await _orderRepo.UpdateTicketOrderAsync(ticketOrder);
 
-            if (ticketOrder.Status == OrderStatusEnum.Success && !string.IsNullOrEmpty(ticketOrder.Email))
+            var updatedOrder = await _orderRepo.GetTicketOrderByIdAsync(key);
+
+            if (updatedOrder != null)
             {
-                await SendTicketInfoEmailAsync(ticketOrder);
-            }
+                // update tickets status
+                if (updatedOrder.Status == OrderStatusEnum.IsUsed)
+                {
+                    foreach (var ticket in updatedOrder.Tickets)
+                    {
+                        ticket.IsActive = false;
+                    }
+                }
+                // send email
+                if (updatedOrder.Status == OrderStatusEnum.Success
+                    && !string.IsNullOrEmpty(updatedOrder.Email))
+                {
+                    await SendTicketInfoEmailAsync(updatedOrder);
+                }
+            }            
         }
         catch (ArgumentException ex)
         {
@@ -324,6 +321,10 @@ public class TicketOrdersController : ControllerBase
         mailText = mailText.Replace("[AdultTickets]", adultTickets.ToString());
         mailText = mailText.Replace("[TotalMoney]", order.TotalMoney.ToString("C0", CultureInfo.GetCultureInfo("vi-VN")));
         mailText = mailText.Replace("[PaymentMethod]", order.PaymentMethod.ToString());
+        var qrValue = $"Name: {order.CustomerName};" +
+            $"\n ChildrenTickets: {childrenTickets}; \n AdultTickets: {adultTickets};" +
+            $"\n Code: {order.Code};";
+        mailText = mailText.Replace("[QRValue]", qrValue.ToString());
         // Send email to customer (send reservation information)
         await _emailService.SendMailAsync(new List<string> { order.Email }, "Zoo Management System - Reservation Confirmation", mailText);
     }
