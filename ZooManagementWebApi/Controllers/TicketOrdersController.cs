@@ -16,6 +16,7 @@ namespace ZooManagementWebApi.Controllers;
 public class TicketOrdersController : ControllerBase
 {
     private readonly ITicketOrderRepository _orderRepo;
+    private readonly ITicketRepository _ticketRepo;
     private readonly IMapper _mapper;
     private readonly AppConfiguration _config;
     private readonly IEmailService _emailService;
@@ -23,12 +24,14 @@ public class TicketOrdersController : ControllerBase
     public TicketOrdersController(ITicketOrderRepository orderRepo,
                                 IMapper mapper,
                                 AppConfiguration configuration,
-                                IEmailService emailService)
+                                IEmailService emailService,
+                                ITicketRepository ticketRepo)
     {
         _mapper = mapper;
         _orderRepo = orderRepo;
         _config = configuration;
         _emailService = emailService;
+        _ticketRepo = ticketRepo;
     }
 
     // GET: odata/TicketOrders
@@ -89,6 +92,7 @@ public class TicketOrdersController : ControllerBase
                     foreach (var ticket in updatedOrder.Tickets)
                     {
                         ticket.IsActive = false;
+                        await _ticketRepo.UpdateTicketAsync(ticket);
                     }
                 }
                 // send email
