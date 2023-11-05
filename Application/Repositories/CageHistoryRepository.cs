@@ -19,8 +19,11 @@ namespace Application.Repositories
         public async Task AddCageHistoryAsync(CageHistory cageHistory)
         {
             var tmp = await cageHistoryDAO.GetCageHistoryByAnimalIdAsync(cageHistory.AnimalId);
-            tmp.EndDate = DateTime.Now;
-            await cageHistoryDAO.UpdateAsync(tmp);
+            if (tmp != null)
+            {
+                tmp.EndDate = DateTime.Now;
+                await cageHistoryDAO.UpdateAsync(tmp);
+            }
             await cageHistoryDAO.SaveAsync(cageHistory);
         }
     }

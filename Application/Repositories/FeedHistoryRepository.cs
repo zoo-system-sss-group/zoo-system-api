@@ -12,34 +12,22 @@ namespace Application.Repositories
     public class FeedHistoryRepository : IFeedHistoryRepository
     {
         private readonly FeedHistoryDAO _feedHistoryDAO;
-        private readonly AnimalDAO _animalDAO;
         private readonly TrainingDetailDAO _trainingDetailDAO;
 
-        public FeedHistoryRepository(FeedHistoryDAO feedHistoryDAO, AnimalDAO animalDAO, TrainingDetailDAO trainingDetailDAO)
+        public FeedHistoryRepository(FeedHistoryDAO feedHistoryDAO, TrainingDetailDAO trainingDetailDAO)
         {
             _feedHistoryDAO = feedHistoryDAO;
-            _animalDAO = animalDAO;
             _trainingDetailDAO = trainingDetailDAO;
         }
 
-        public IQueryable<FeedHistory> GetFeedHistoriesAsync()
-           => _feedHistoryDAO.GetAllOdataAsync();
+        public async Task<FeedHistory> GetByIdAsync(int id)
+           =>await _feedHistoryDAO.GetByIdAsync(id);
 
-        public IQueryable<FeedHistory> GetFeedHistoryByIdAsync(int id)
+        public async Task<List<FeedHistory>> GetTodayFeedHistoriesByAnimalId(int animalId)
+            => await _feedHistoryDAO.GetTodayFeedHistoriesByAnimalId(animalId);
+        public async Task AddFeedHistoryAsync(FeedHistory feedHistory)
         {
-            var feedHistories = _feedHistoryDAO.GetByIdOdataAsync(id);
-            return feedHistories;
-        }
-
-        public async Task AddFeedHistoryAsync(List<FeedHistory> feedHistory)
-        {
-            foreach (FeedHistory history in feedHistory) 
-            {
-                var trainerId = await _trainingDetailDAO.GetCurrentTrainerByAnimalIdAsync(history.AnimalId);
-                if (history.TrainerId != trainerId)
-                    throw new Exception("Khong phan su mien cho an!");
-            }
-            await _feedHistoryDAO.SaveRangeAsync(feedHistory);
+            await _feedHistoryDAO.SaveAsync(feedHistory);
 
         }
         public async Task UpdateFeedHistoryAsync(FeedHistory feedHistory)
@@ -49,13 +37,7 @@ namespace Application.Repositories
                 throw new Exception("Can not found!");
             await _feedHistoryDAO.UpdateAsync(feedHistory);
         }
-
-        public async Task SoftDeleteFeedHistoryAsync(int id)
-        {
-            var result = await _feedHistoryDAO.GetByIdAsync(id);
-            if (result == null)
-                throw new Exception("Can not found!");
-            await _feedHistoryDAO.SoftDeleteAsync(result);
-        }
+        public IQueryable<FeedHistory> GetFeedHistories()
+             => _feedHistoryDAO.GetFeedHistories();
     }
 }

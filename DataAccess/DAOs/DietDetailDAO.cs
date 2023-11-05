@@ -37,5 +37,13 @@ public class DietDetailDAO : BaseDAO<DietDetail>
         }
         return diet;
     }
-
+    public async Task<DietDetail?> GetDietDetailByAnimalIdAsync(int animalId)
+    {
+        DietDetail? dietDetail;
+        using (var context = new AppDBContext(_configuration))
+        {
+            dietDetail = await context.DietDetails.Where(x => x.AnimalId == animalId && x.EndDate == null).FirstOrDefaultAsync();
+        }
+        return dietDetail;
+    }
 }

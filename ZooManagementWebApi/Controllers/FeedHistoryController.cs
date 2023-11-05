@@ -1,6 +1,8 @@
 ﻿using Application.IRepositories;
 using Application.IServices;
+using Application.Repositories;
 using AutoMapper;
+using DataAccess.DAOs;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +12,14 @@ using ZooManagementWebApi.DTOs;
 
 namespace ZooManagementWebApi.Controllers
 {
-    [EnableQuery]
-    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
     public class FeedHistoryController : ControllerBase
     {
         private readonly IFeedHistoryRepository feedHistoryRepository;
         private readonly IMapper mapper;
         private readonly IClaimService claimService;
-        private readonly IDietRepository _dietRepository;
+        private readonly IDietRepository dietRepository;
         public FeedHistoryController(IFeedHistoryRepository feedHistoryRepository, 
                                     IMapper mapper, 
                                     IClaimService claimService,
@@ -26,16 +28,17 @@ namespace ZooManagementWebApi.Controllers
             this.feedHistoryRepository = feedHistoryRepository;
             this.mapper = mapper;
             this.claimService = claimService;
-            _dietRepository = dietRepository;
+            this.dietRepository = dietRepository;
         }
-
         [HttpGet]
-        public ActionResult<IQueryable<FeedHistory>> Get()
+        [Authorize]
+        [EnableQuery]
+        public async Task<ActionResult<IEnumerable<FeedHistory>>> Get()
         {
             IQueryable<FeedHistory> feedHistories;
             try
             {
-                feedHistories = feedHistoryRepository.GetFeedHistoriesAsync();
+                feedHistories = feedHistoryRepository.GetFeedHistories();
             }
             catch (Exception ex)
             {
@@ -43,84 +46,55 @@ namespace ZooManagementWebApi.Controllers
             }
             return Ok(feedHistories);
         }
-        [HttpGet]
-        public ActionResult<SingleResult> Get([FromRoute] int key)
-        {
-            var feedHistory = feedHistoryRepository.GetFeedHistoryByIdAsync(key);
-
-            if (feedHistory == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(new SingleResult<FeedHistory>(feedHistory));
-        }
-
-        [HttpPost]
+        [HttpGet("{key}")]
         [Authorize(Roles = "Trainer")]
-        public async Task<ActionResult<FeedHistory>> Post([FromBody] List<FeedHistoryDto> dto)
+        public async Task<IActionResult> Get([FromRoute] int key)
         {
-            List<FeedHistory> feedHistory;
-            try
+            var feedHistories = await feedHistoryRepository.GetTodayFeedHistoriesByAnimalId(key);
+            if (feedHistories == null || feedHistories.Count() == 0)
             {
-                feedHistory = mapper.Map<List<FeedHistory>>(dto);
-                foreach(FeedHistory history in feedHistory)
-                {   
-                    history.TrainerId = claimService.GetCurrentUserId;
-                    var currentDiet = await _dietRepository.GetCurrentDietOfAnimalAsync(history.AnimalId);
-                    if (currentDiet != null)
+                var diet = await dietRepository.GetCurrentDietOfAnimalAsync(key);
+                if (diet != null)
+                {
+                    TimeSpan startTime = new TimeSpan(7, 0, 0);
+                    TimeSpan endTime = new TimeSpan(19, 0, 0);
+                    int timesPerDay = diet.TimesPerDay;
+                    TimeSpan timeInterval = new TimeSpan((endTime - startTime).Ticks / (timesPerDay-1));
+
+                    for (int i = 0; i < timesPerDay; i++)
                     {
-                        history.DietId = currentDiet.Id;
+                        TimeSpan feedingTime = startTime + timeInterval * i;
+
+                        DateTime feedingDateTime = DateTime.Today.Add(feedingTime);
+
+                        await feedHistoryRepository.AddFeedHistoryAsync(new FeedHistory
+                        {
+                            AnimalId = key,
+                            DietId = diet.Id,
+                            FeedingDate = feedingDateTime,
+                            TrainerId = claimService.GetCurrentUserId
+                        });
                     }
                 }
-                await feedHistoryRepository.AddFeedHistoryAsync(feedHistory);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
+                else throw new Exception("this animal does not have a diet");
+                feedHistories = await feedHistoryRepository.GetTodayFeedHistoriesByAnimalId(key);
             }
 
-            return NoContent();
+            return Ok(feedHistories);
         }
-
-        [HttpPut]
-        public async Task<IActionResult> Put([FromRoute] int key, [FromBody] FeedHistoryDto dto)
+        [HttpPut("{key}")]
+        [Authorize(Roles = "Trainer")]
+        public async Task<IActionResult> Put([FromRoute] int key)
         {
-            try
-            {
-                var feedHistory = mapper.Map<FeedHistory>(dto);
-                feedHistory.Id = key;
-                await feedHistoryRepository.UpdateFeedHistoryAsync(feedHistory);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return NoContent();
-        }
-
-        [HttpDelete]
-        public async Task<IActionResult> Delete([FromRoute] int key)
-        {
-            try
-            {
-                await feedHistoryRepository.SoftDeleteFeedHistoryAsync(key);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return NoContent();
+            var feedHistories = await feedHistoryRepository.GetByIdAsync(key);
+            if (feedHistories == null)
+                throw new Exception("can not found");
+            if (feedHistories.IsDeleted == true)
+                feedHistories.IsDeleted = false;
+            else
+                feedHistories.IsDeleted = true;
+            await feedHistoryRepository.UpdateFeedHistoryAsync(feedHistories);
+            return Ok(feedHistories);
         }
     }
 }

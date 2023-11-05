@@ -15,12 +15,11 @@ public class DietDetailRepository : IDietDetailRepository
 
     public async Task AddDietDetailAsync(DietDetail dietDetail)
     {
-        var tmpdietDetail = (await _dietDetailDao.GetAllAsync())
-                             .FirstOrDefault(x => x.AnimalId == dietDetail.AnimalId 
-                                    && x.DietId == dietDetail.DietId);
-        if (tmpdietDetail != null)
+        var tmp = await _dietDetailDao.GetDietDetailByAnimalIdAsync(dietDetail.AnimalId);
+        if(tmp != null)
         {
-            throw new Exception("Duplicate DietDetail Id (AnimalId, DietId).");
+            tmp.EndDate = DateTime.Now;
+            await _dietDetailDao.UpdateAsync(tmp);
         }
         await _dietDetailDao.SaveAsync(dietDetail);
     }

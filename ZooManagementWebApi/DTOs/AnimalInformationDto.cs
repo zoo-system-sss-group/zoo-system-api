@@ -5,7 +5,9 @@ namespace ZooManagementWebApi.DTOs
 {
     public class AnimalInformationDto
     {
+        [Required(ErrorMessage = "Animal name is required!")]
         public string Name { get; set; } = default!;
+        [Required(ErrorMessage = "Description is required!")]
         public string Description { get; set; } = default!;
         [Range(0, double.MaxValue, ErrorMessage = "Weight must be a non-negative number")]
         public double? Weight { get; set; }
