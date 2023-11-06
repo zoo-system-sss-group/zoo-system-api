@@ -63,28 +63,12 @@ public class TicketsController : ControllerBase
     {
         try
         {
-            if (dto == null)
-            {
-                return BadRequest($"Invalid ticket type!");
-            }
-
             var ticket = _mapper.Map<Ticket>(dto);
             ticket.Id = key;
 
-            // asign the price
-            var typeId = (int)dto.TicketType;
-            var ticketType = _config.TicketTypeInformation.TicketType
-                                .FirstOrDefault(x => x.Id.Equals(typeId.ToString()));
+            // update ticket status (isActive)
+            await _ticketRepo.UpdateTicketAsync(ticket);
 
-            if (ticketType != null)
-            {
-                ticket.Price = double.Parse(ticketType.Price);
-                await _ticketRepo.UpdateTicketAsync(ticket);
-            }
-            else
-            {
-                return BadRequest("Opps! Something wrongs with the ticket type!");
-            }            
         }
         catch (ArgumentException ex)
         {

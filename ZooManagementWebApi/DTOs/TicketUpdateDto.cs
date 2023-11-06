@@ -1,8 +1,10 @@
 ﻿using Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace ZooManagementWebApi.DTOs;
 
 public class TicketUpdateDto
 {
-    public TicketTypeEnum TicketType { get; set; }
+    [Required(ErrorMessage = "Is Active field is required!")]
+    public bool IsActive { get; set; }
 }

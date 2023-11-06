@@ -70,9 +70,8 @@ public class TicketRepository : ITicketRepository
         }
         else
         {
-            ticket.CreationDate = tmpTicket.CreationDate;
-            ticket.OrderId = tmpTicket.OrderId;
-            await _ticketDAO.UpdateAsync(ticket);
+            tmpTicket.IsActive = ticket.IsActive;
+            await _ticketDAO.UpdateAsync(tmpTicket);
         }
     }    
 
